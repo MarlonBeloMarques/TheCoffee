@@ -1,8 +1,15 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 type Props = {
   optionsList: Array<{ id: string; option: string }>;
+  coffeesList: Array<{ id: string; coffeeImage: string }>;
   selectOption: (option: { id: string; option: string }) => void;
   optionSelected: { id: string; option: string };
 };
@@ -11,6 +18,7 @@ const Home: React.FC<Props> = ({
   optionsList,
   selectOption,
   optionSelected,
+  coffeesList,
 }) => {
   return (
     <View>
@@ -29,6 +37,11 @@ const Home: React.FC<Props> = ({
           </TouchableOpacity>
         ))}
       </ScrollView>
+      <FlatList
+        testID="coffees_list_id"
+        data={coffeesList}
+        renderItem={() => <View testID="coffee_image_id"></View>}
+      />
     </View>
   );
 };

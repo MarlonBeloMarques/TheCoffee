@@ -9,6 +9,7 @@ describe('UI: Home', () => {
         optionsList={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
+        coffeesList={[]}
       />,
     );
 
@@ -37,6 +38,7 @@ describe('UI: Home', () => {
         optionsList={optionsList}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
+        coffeesList={[]}
       />,
     );
 
@@ -69,6 +71,7 @@ describe('UI: Home', () => {
         optionsList={optionsList}
         selectOption={selectOption}
         optionSelected={{ id: '1', option: 'coffee' }}
+        coffeesList={[]}
       />,
     );
 
@@ -102,6 +105,7 @@ describe('UI: Home', () => {
         optionsList={optionsList}
         selectOption={() => {}}
         optionSelected={optionSelected}
+        coffeesList={[]}
       />,
     );
 
@@ -110,5 +114,22 @@ describe('UI: Home', () => {
 
     expect(underlineOptionSelected).toBeTruthy();
     expect(underlineOptionOther).not.toBeTruthy();
+  });
+
+  test('should show coffees list component with success', async () => {
+    const { getByTestId } = render(
+      <Home
+        optionsList={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        coffeesList={[{ id: '1', coffeeImage: 'any_coffee_image.png' }]}
+      />,
+    );
+
+    const coffeesList = getByTestId('coffees_list_id');
+    const coffeeImage = getByTestId('coffee_image_id');
+
+    expect(coffeesList).toBeTruthy();
+    expect(coffeeImage).toBeTruthy();
   });
 });
