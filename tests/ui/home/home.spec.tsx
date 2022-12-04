@@ -1,10 +1,12 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import { Home } from '~/presentation/screens';
 
 describe('UI: Home', () => {
   test('should show options list component successfully', () => {
-    const { getByTestId } = render(<Home optionsList={[]} />);
+    const { getByTestId } = render(
+      <Home optionsList={[]} selectOption={() => {}} />,
+    );
 
     const optionsList = getByTestId('options_list_id');
 
@@ -26,7 +28,9 @@ describe('UI: Home', () => {
         option: 'food',
       },
     ];
-    const { getByTestId } = render(<Home optionsList={optionsList} />);
+    const { getByTestId } = render(
+      <Home optionsList={optionsList} selectOption={() => {}} />,
+    );
 
     optionsList.forEach((optionByList) => {
       const option = getByTestId(`option_${optionByList.id}_id`);
@@ -34,5 +38,33 @@ describe('UI: Home', () => {
     });
 
     expect(optionsList).toBeTruthy();
+  });
+
+  test('should press the second option from the list successfully', () => {
+    const selectOption = jest.fn();
+    const optionsList = [
+      {
+        id: '1',
+        option: 'coffee',
+      },
+      {
+        id: '2',
+        option: 'products',
+      },
+      {
+        id: '3',
+        option: 'food',
+      },
+    ];
+    const { getByTestId } = render(
+      <Home optionsList={optionsList} selectOption={selectOption} />,
+    );
+
+    const optionSelected = getByTestId(`option_2_id`);
+
+    fireEvent.press(optionSelected);
+
+    expect(selectOption).toHaveBeenCalledTimes(1);
+    expect(selectOption).toHaveBeenCalledWith(optionsList[1]);
   });
 });
