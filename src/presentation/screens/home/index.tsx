@@ -1,10 +1,22 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
-const Home: React.FC = () => {
+type Props = {
+  optionsList: Array<{ id: string; option: string }>;
+};
+
+const Home: React.FC<Props> = ({ optionsList }) => {
   return (
     <View>
-      <ScrollView testID="options_list_id" />
+      <ScrollView testID="options_list_id">
+        {optionsList.map((optionByList) => (
+          <View key={optionByList.id}>
+            <Text testID={`option_${optionByList.id}_id`}>
+              {optionByList.option}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
