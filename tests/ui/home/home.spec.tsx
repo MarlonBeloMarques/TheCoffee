@@ -10,6 +10,11 @@ describe('UI: Home', () => {
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
         coffeesList={[]}
+        coffeeSelected={{
+          id: '',
+          coffeeName: '',
+          coffeeImage: '',
+        }}
       />,
     );
 
@@ -39,6 +44,11 @@ describe('UI: Home', () => {
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
         coffeesList={[]}
+        coffeeSelected={{
+          id: '',
+          coffeeName: '',
+          coffeeImage: '',
+        }}
       />,
     );
 
@@ -72,6 +82,11 @@ describe('UI: Home', () => {
         selectOption={selectOption}
         optionSelected={{ id: '1', option: 'coffee' }}
         coffeesList={[]}
+        coffeeSelected={{
+          id: '',
+          coffeeName: '',
+          coffeeImage: '',
+        }}
       />,
     );
 
@@ -106,6 +121,11 @@ describe('UI: Home', () => {
         selectOption={() => {}}
         optionSelected={optionSelected}
         coffeesList={[]}
+        coffeeSelected={{
+          id: '',
+          coffeeName: '',
+          coffeeImage: '',
+        }}
       />,
     );
 
@@ -122,7 +142,18 @@ describe('UI: Home', () => {
         optionsList={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={[{ id: '1', coffeeImage: 'any_coffee_image.png' }]}
+        coffeesList={[
+          {
+            id: '1',
+            coffeeName: 'Iced Latte',
+            coffeeImage: 'any_coffee_image.png',
+          },
+        ]}
+        coffeeSelected={{
+          id: '',
+          coffeeName: '',
+          coffeeImage: '',
+        }}
       />,
     );
 
@@ -132,13 +163,24 @@ describe('UI: Home', () => {
   });
 
   test('should show images coffee with success', async () => {
-    const coffeesList = [{ id: '1', coffeeImage: 'any_coffee_image.png' }];
+    const coffeesList = [
+      {
+        id: '1',
+        coffeeName: 'Iced Latte',
+        coffeeImage: 'any_coffee_image.png',
+      },
+    ];
     const { getByTestId } = render(
       <Home
         optionsList={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
         coffeesList={coffeesList}
+        coffeeSelected={{
+          id: '',
+          coffeeName: '',
+          coffeeImage: '',
+        }}
       />,
     );
 
@@ -147,5 +189,28 @@ describe('UI: Home', () => {
       expect(coffee.type).toEqual('Image');
       expect(coffee.props.source).toEqual({ uri: coffeeImage });
     });
+  });
+
+  test('should show name of coffee with success', () => {
+    const coffeesList = [
+      {
+        id: '1',
+        coffeeName: 'Iced Latte',
+        coffeeImage: 'any_coffee_image.png',
+      },
+    ];
+    const { getByTestId } = render(
+      <Home
+        optionsList={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        coffeesList={coffeesList}
+        coffeeSelected={coffeesList[0]}
+      />,
+    );
+
+    const coffeeName = getByTestId('coffee_name_id');
+
+    expect(coffeeName.props.children).toEqual(coffeesList[0].coffeeName);
   });
 });
