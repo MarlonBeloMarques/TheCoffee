@@ -10,10 +10,20 @@ import {
 
 type Props = {
   optionsList: Array<{ id: string; option: string }>;
-  coffeesList: Array<{ id: string; coffeeName: string; coffeeImage: string }>;
+  coffeesList: Array<{
+    id: string;
+    coffeeName: string;
+    coffeePrice: number;
+    coffeeImage: string;
+  }>;
   selectOption: (option: { id: string; option: string }) => void;
   optionSelected: { id: string; option: string };
-  coffeeSelected: { id: string; coffeeName: string; coffeeImage: string };
+  coffeeSelected: {
+    id: string;
+    coffeeName: string;
+    coffeePrice: number;
+    coffeeImage: string;
+  };
 };
 
 const Home: React.FC<Props> = ({
@@ -42,6 +52,9 @@ const Home: React.FC<Props> = ({
       </ScrollView>
       <View>
         <Text testID="coffee_name_id">{coffeeSelected.coffeeName}</Text>
+        <Text testID="coffee_price_id">{`R$ ${coffeeSelected.coffeePrice.toFixed(
+          2,
+        )}`}</Text>
       </View>
       <FlatList
         testID="coffees_list_id"

@@ -14,6 +14,7 @@ describe('UI: Home', () => {
           id: '',
           coffeeName: '',
           coffeeImage: '',
+          coffeePrice: 0,
         }}
       />,
     );
@@ -48,6 +49,7 @@ describe('UI: Home', () => {
           id: '',
           coffeeName: '',
           coffeeImage: '',
+          coffeePrice: 0,
         }}
       />,
     );
@@ -86,6 +88,7 @@ describe('UI: Home', () => {
           id: '',
           coffeeName: '',
           coffeeImage: '',
+          coffeePrice: 0,
         }}
       />,
     );
@@ -125,6 +128,7 @@ describe('UI: Home', () => {
           id: '',
           coffeeName: '',
           coffeeImage: '',
+          coffeePrice: 0,
         }}
       />,
     );
@@ -147,12 +151,14 @@ describe('UI: Home', () => {
             id: '1',
             coffeeName: 'Iced Latte',
             coffeeImage: 'any_coffee_image.png',
+            coffeePrice: 0,
           },
         ]}
         coffeeSelected={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
+          coffeePrice: 0,
         }}
       />,
     );
@@ -168,6 +174,7 @@ describe('UI: Home', () => {
         id: '1',
         coffeeName: 'Iced Latte',
         coffeeImage: 'any_coffee_image.png',
+        coffeePrice: 0,
       },
     ];
     const { getByTestId } = render(
@@ -180,6 +187,7 @@ describe('UI: Home', () => {
           id: '',
           coffeeName: '',
           coffeeImage: '',
+          coffeePrice: 0,
         }}
       />,
     );
@@ -191,11 +199,12 @@ describe('UI: Home', () => {
     });
   });
 
-  test('should show name of coffee with success', () => {
+  test('should show price of coffee in correct pattern', () => {
     const coffeesList = [
       {
         id: '1',
         coffeeName: 'Iced Latte',
+        coffeePrice: 12.0,
         coffeeImage: 'any_coffee_image.png',
       },
     ];
@@ -209,8 +218,10 @@ describe('UI: Home', () => {
       />,
     );
 
-    const coffeeName = getByTestId('coffee_name_id');
+    const coffeePrice = getByTestId('coffee_price_id');
 
-    expect(coffeeName.props.children).toEqual(coffeesList[0].coffeeName);
+    expect(coffeePrice.props.children).toEqual(
+      `R$ ${coffeesList[0].coffeePrice.toFixed(2)}`,
+    );
   });
 });
