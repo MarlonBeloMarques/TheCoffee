@@ -127,9 +127,25 @@ describe('UI: Home', () => {
     );
 
     const coffeesList = getByTestId('coffees_list_id');
-    const coffeeImage = getByTestId('coffee_image_id');
 
     expect(coffeesList).toBeTruthy();
-    expect(coffeeImage).toBeTruthy();
+  });
+
+  test('should show images coffee with success', async () => {
+    const coffeesList = [{ id: '1', coffeeImage: 'any_coffee_image.png' }];
+    const { getByTestId } = render(
+      <Home
+        optionsList={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        coffeesList={coffeesList}
+      />,
+    );
+
+    coffeesList.forEach(({ coffeeImage, id }) => {
+      const coffee = getByTestId(`coffee_image_${id}_id`);
+      expect(coffee.type).toEqual('Image');
+      expect(coffee.props.source).toEqual({ uri: coffeeImage });
+    });
   });
 });

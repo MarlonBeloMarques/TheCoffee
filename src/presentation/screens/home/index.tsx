@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   FlatList,
+  Image,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -40,7 +41,14 @@ const Home: React.FC<Props> = ({
       <FlatList
         testID="coffees_list_id"
         data={coffeesList}
-        renderItem={() => <View testID="coffee_image_id"></View>}
+        renderItem={({ item }) => (
+          <View>
+            <Image
+              testID={`coffee_image_${item.id}_id`}
+              source={{ uri: item.coffeeImage }}
+            ></Image>
+          </View>
+        )}
       />
     </View>
   );
