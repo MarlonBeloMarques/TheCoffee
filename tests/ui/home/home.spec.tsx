@@ -260,4 +260,25 @@ describe('UI: Home', () => {
       `R$ ${coffeesList[0].coffeePrice.toFixed(2)}`,
     );
   });
+
+  test('should not show coffees list if optionList is empty', () => {
+    const { queryByTestId } = render(
+      <Home
+        listOfOptions={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        optionList={[]}
+        selectedOptionItem={{
+          id: '',
+          coffeeName: '',
+          coffeePrice: 0,
+          coffeeImage: '',
+        }}
+      />,
+    );
+
+    const coffeesList = queryByTestId('coffees_list_id');
+
+    expect(coffeesList).not.toBeTruthy();
+  });
 });

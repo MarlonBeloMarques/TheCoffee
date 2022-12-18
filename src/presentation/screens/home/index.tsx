@@ -67,18 +67,20 @@ const Home: React.FC<Props> = ({
           2,
         )}`}</Text>
       </View>
-      <FlatList
-        testID="coffees_list_id"
-        data={optionList}
-        renderItem={({ item }) => (
-          <View>
-            <Image
-              testID={`coffee_image_${item.id}_id`}
-              source={{ uri: item.coffeeImage }}
-            ></Image>
-          </View>
-        )}
-      />
+      {optionList.length !== 0 && (
+        <FlatList
+          testID="coffees_list_id"
+          data={optionList}
+          renderItem={({ item }) => (
+            <View>
+              <Image
+                testID={`coffee_image_${item.id}_id`}
+                source={{ uri: item.coffeeImage }}
+              ></Image>
+            </View>
+          )}
+        />
+      )}
     </View>
   );
 };
