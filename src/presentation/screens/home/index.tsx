@@ -36,6 +36,7 @@ type Props = {
     coffeeImage: string;
     optionId: string;
   }>;
+  tryAgain: () => void;
 };
 
 const Home: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const Home: React.FC<Props> = ({
   optionSelected,
   optionList,
   selectedOptionItem,
+  tryAgain,
 }) => {
   return (
     <View>
@@ -72,7 +74,10 @@ const Home: React.FC<Props> = ({
         <Text testID="message_option_list_empty_id">
           {"looks like we're out of products"}
         </Text>
-        <TouchableWithoutFeedback testID="button_try_again_id">
+        <TouchableWithoutFeedback
+          testID="button_try_again_id"
+          onPress={tryAgain}
+        >
           <Text>{'try again another time'}</Text>
         </TouchableWithoutFeedback>
       </View>

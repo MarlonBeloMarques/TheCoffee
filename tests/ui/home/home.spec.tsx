@@ -16,6 +16,7 @@ describe('UI: Home', () => {
           coffeeImage: '',
           coffeePrice: 0,
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -62,6 +63,7 @@ describe('UI: Home', () => {
           coffeeImage: '',
           coffeePrice: 0,
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -112,6 +114,7 @@ describe('UI: Home', () => {
           coffeeImage: '',
           coffeePrice: 0,
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -163,6 +166,7 @@ describe('UI: Home', () => {
           coffeeImage: '',
           coffeePrice: 0,
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -194,6 +198,7 @@ describe('UI: Home', () => {
           coffeeImage: '',
           coffeePrice: 0,
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -224,6 +229,7 @@ describe('UI: Home', () => {
           coffeeImage: '',
           coffeePrice: 0,
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -251,6 +257,7 @@ describe('UI: Home', () => {
         optionSelected={{ id: '1', option: 'coffee' }}
         optionList={coffeesList}
         selectedOptionItem={coffeesList[0]}
+        tryAgain={() => {}}
       />,
     );
 
@@ -274,6 +281,7 @@ describe('UI: Home', () => {
           coffeePrice: 0,
           coffeeImage: '',
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -295,6 +303,7 @@ describe('UI: Home', () => {
           coffeePrice: 0,
           coffeeImage: '',
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -319,6 +328,7 @@ describe('UI: Home', () => {
           coffeePrice: 0,
           coffeeImage: '',
         }}
+        tryAgain={() => {}}
       />,
     );
 
@@ -326,5 +336,30 @@ describe('UI: Home', () => {
 
     expect(buttonTryAgain).toBeTruthy();
     expect(buttonTryAgain.props.children).toEqual('try again another time');
+  });
+
+  test('should press button try again with success', () => {
+    const tryAgain = jest.fn();
+    const { getByTestId } = render(
+      <Home
+        listOfOptions={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        optionList={[]}
+        selectedOptionItem={{
+          id: '',
+          coffeeName: '',
+          coffeePrice: 0,
+          coffeeImage: '',
+        }}
+        tryAgain={tryAgain}
+      />,
+    );
+
+    const buttonTryAgain = getByTestId('button_try_again_id');
+
+    fireEvent.press(buttonTryAgain);
+
+    expect(tryAgain).toHaveBeenCalledTimes(1);
   });
 });
