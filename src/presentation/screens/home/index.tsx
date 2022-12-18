@@ -67,9 +67,14 @@ const Home: React.FC<Props> = ({
           2,
         )}`}</Text>
       </View>
+      <View>
+        <Text testID="message_option_list_empty_id">
+          {"looks like we're out of products"}
+        </Text>
+      </View>
       {optionList.length !== 0 && (
         <FlatList
-          testID="coffees_list_id"
+          testID="option_list_id"
           data={optionList}
           renderItem={({ item }) => (
             <View>

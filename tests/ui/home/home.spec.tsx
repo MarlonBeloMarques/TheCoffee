@@ -197,7 +197,7 @@ describe('UI: Home', () => {
       />,
     );
 
-    const coffeesList = getByTestId('coffees_list_id');
+    const coffeesList = getByTestId('option_list_id');
 
     expect(coffeesList).toBeTruthy();
   });
@@ -277,8 +277,32 @@ describe('UI: Home', () => {
       />,
     );
 
-    const coffeesList = queryByTestId('coffees_list_id');
+    const coffeesList = queryByTestId('option_list_id');
 
     expect(coffeesList).not.toBeTruthy();
+  });
+
+  test('should show message of option list empty', () => {
+    const { getByTestId } = render(
+      <Home
+        listOfOptions={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        optionList={[]}
+        selectedOptionItem={{
+          id: '',
+          coffeeName: '',
+          coffeePrice: 0,
+          coffeeImage: '',
+        }}
+      />,
+    );
+
+    const messageOptionListEmpty = getByTestId('message_option_list_empty_id');
+
+    expect(messageOptionListEmpty).toBeTruthy();
+    expect(messageOptionListEmpty.props.children).toEqual(
+      "looks like we're out of products",
+    );
   });
 });
