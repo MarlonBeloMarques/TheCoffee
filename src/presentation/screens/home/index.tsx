@@ -5,6 +5,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -71,6 +72,9 @@ const Home: React.FC<Props> = ({
         <Text testID="message_option_list_empty_id">
           {"looks like we're out of products"}
         </Text>
+        <TouchableWithoutFeedback testID="button_try_again_id">
+          <Text>{'try again another time'}</Text>
+        </TouchableWithoutFeedback>
       </View>
       {optionList.length !== 0 && (
         <FlatList

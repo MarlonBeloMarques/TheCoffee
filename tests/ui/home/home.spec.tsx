@@ -305,4 +305,26 @@ describe('UI: Home', () => {
       "looks like we're out of products",
     );
   });
+
+  test('should show button for try again when option list is empty', () => {
+    const { getByTestId } = render(
+      <Home
+        listOfOptions={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        optionList={[]}
+        selectedOptionItem={{
+          id: '',
+          coffeeName: '',
+          coffeePrice: 0,
+          coffeeImage: '',
+        }}
+      />,
+    );
+
+    const buttonTryAgain = getByTestId('button_try_again_id');
+
+    expect(buttonTryAgain).toBeTruthy();
+    expect(buttonTryAgain.props.children).toEqual('try again another time');
+  });
 });
