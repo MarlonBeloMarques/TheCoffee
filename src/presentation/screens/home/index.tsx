@@ -9,34 +9,45 @@ import {
 } from 'react-native';
 
 type Props = {
-  optionsList: Array<{ id: string; option: string }>;
-  coffeesList: Array<{
+  listOfOptions: Array<{
     id: string;
-    coffeeName: string;
-    coffeePrice: number;
-    coffeeImage: string;
+    option: string;
+    list: Array<{
+      id: string;
+      coffeeName: string;
+      coffeePrice: number;
+      coffeeImage: string;
+      optionId: string;
+    }>;
   }>;
   selectOption: (option: { id: string; option: string }) => void;
   optionSelected: { id: string; option: string };
-  coffeeSelected: {
+  selectedOptionItem: {
     id: string;
     coffeeName: string;
     coffeePrice: number;
     coffeeImage: string;
   };
+  optionList: Array<{
+    id: string;
+    coffeeName: string;
+    coffeePrice: number;
+    coffeeImage: string;
+    optionId: string;
+  }>;
 };
 
 const Home: React.FC<Props> = ({
-  optionsList,
+  listOfOptions,
   selectOption,
   optionSelected,
-  coffeesList,
-  coffeeSelected,
+  optionList,
+  selectedOptionItem,
 }) => {
   return (
     <View>
       <ScrollView testID="options_list_id">
-        {optionsList.map((optionByList) => (
+        {listOfOptions.map((optionByList) => (
           <TouchableOpacity
             key={optionByList.id}
             onPress={() => selectOption(optionByList)}
@@ -51,14 +62,14 @@ const Home: React.FC<Props> = ({
         ))}
       </ScrollView>
       <View>
-        <Text testID="coffee_name_id">{coffeeSelected.coffeeName}</Text>
-        <Text testID="coffee_price_id">{`R$ ${coffeeSelected.coffeePrice.toFixed(
+        <Text testID="coffee_name_id">{selectedOptionItem.coffeeName}</Text>
+        <Text testID="coffee_price_id">{`R$ ${selectedOptionItem.coffeePrice.toFixed(
           2,
         )}`}</Text>
       </View>
       <FlatList
         testID="coffees_list_id"
-        data={coffeesList}
+        data={optionList}
         renderItem={({ item }) => (
           <View>
             <Image

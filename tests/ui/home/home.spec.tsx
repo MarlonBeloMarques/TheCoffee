@@ -6,11 +6,11 @@ describe('UI: Home', () => {
   test('should show options list component successfully', () => {
     const { getByTestId } = render(
       <Home
-        optionsList={[]}
+        listOfOptions={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={[]}
-        coffeeSelected={{
+        optionList={[]}
+        selectedOptionItem={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
@@ -29,23 +29,34 @@ describe('UI: Home', () => {
       {
         id: '1',
         option: 'coffee',
+        list: [
+          {
+            id: '1',
+            coffeeName: 'Iced Latte',
+            coffeeImage: 'any_coffee_image.png',
+            coffeePrice: 0,
+            optionId: '1',
+          },
+        ],
       },
       {
         id: '2',
         option: 'products',
+        list: [],
       },
       {
         id: '3',
         option: 'food',
+        list: [],
       },
     ];
     const { getByTestId } = render(
       <Home
-        optionsList={optionsList}
+        listOfOptions={optionsList}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={[]}
-        coffeeSelected={{
+        optionList={[]}
+        selectedOptionItem={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
@@ -68,23 +79,34 @@ describe('UI: Home', () => {
       {
         id: '1',
         option: 'coffee',
+        list: [
+          {
+            id: '1',
+            coffeeName: 'Iced Latte',
+            coffeeImage: 'any_coffee_image.png',
+            coffeePrice: 0,
+            optionId: '1',
+          },
+        ],
       },
       {
         id: '2',
         option: 'products',
+        list: [],
       },
       {
         id: '3',
         option: 'food',
+        list: [],
       },
     ];
     const { getByTestId } = render(
       <Home
-        optionsList={optionsList}
+        listOfOptions={optionsList}
         selectOption={selectOption}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={[]}
-        coffeeSelected={{
+        optionList={[]}
+        selectedOptionItem={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
@@ -108,23 +130,34 @@ describe('UI: Home', () => {
       {
         id: '1',
         option: 'coffee',
+        list: [
+          {
+            id: '1',
+            coffeeName: 'Iced Latte',
+            coffeeImage: 'any_coffee_image.png',
+            coffeePrice: 0,
+            optionId: '1',
+          },
+        ],
       },
       {
         id: '2',
         option: 'products',
+        list: [],
       },
       {
         id: '3',
         option: 'food',
+        list: [],
       },
     ];
     const { getByTestId, queryByTestId } = render(
       <Home
-        optionsList={optionsList}
+        listOfOptions={optionsList}
         selectOption={() => {}}
         optionSelected={optionSelected}
-        coffeesList={[]}
-        coffeeSelected={{
+        optionList={[]}
+        selectedOptionItem={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
@@ -143,18 +176,19 @@ describe('UI: Home', () => {
   test('should show coffees list component with success', async () => {
     const { getByTestId } = render(
       <Home
-        optionsList={[]}
+        listOfOptions={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={[
+        optionList={[
           {
             id: '1',
             coffeeName: 'Iced Latte',
             coffeeImage: 'any_coffee_image.png',
             coffeePrice: 0,
+            optionId: '1',
           },
         ]}
-        coffeeSelected={{
+        selectedOptionItem={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
@@ -175,15 +209,16 @@ describe('UI: Home', () => {
         coffeeName: 'Iced Latte',
         coffeeImage: 'any_coffee_image.png',
         coffeePrice: 0,
+        optionId: '1',
       },
     ];
     const { getByTestId } = render(
       <Home
-        optionsList={[]}
+        listOfOptions={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={coffeesList}
-        coffeeSelected={{
+        optionList={coffeesList}
+        selectedOptionItem={{
           id: '',
           coffeeName: '',
           coffeeImage: '',
@@ -206,15 +241,16 @@ describe('UI: Home', () => {
         coffeeName: 'Iced Latte',
         coffeePrice: 12.0,
         coffeeImage: 'any_coffee_image.png',
+        optionId: '1',
       },
     ];
     const { getByTestId } = render(
       <Home
-        optionsList={[]}
+        listOfOptions={[]}
         selectOption={() => {}}
         optionSelected={{ id: '1', option: 'coffee' }}
-        coffeesList={coffeesList}
-        coffeeSelected={coffeesList[0]}
+        optionList={coffeesList}
+        selectedOptionItem={coffeesList[0]}
       />,
     );
 
