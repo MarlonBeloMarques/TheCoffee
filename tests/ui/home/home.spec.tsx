@@ -362,4 +362,29 @@ describe('UI: Home', () => {
 
     expect(tryAgain).toHaveBeenCalledTimes(1);
   });
+
+  test('should show message and button try again if optionList is empty', () => {
+    const tryAgain = jest.fn();
+    const { getByTestId } = render(
+      <Home
+        listOfOptions={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        optionList={[]}
+        selectedOptionItem={{
+          id: '',
+          coffeeName: '',
+          coffeePrice: 0,
+          coffeeImage: '',
+        }}
+        tryAgain={tryAgain}
+      />,
+    );
+
+    const buttonTryAgain = getByTestId('button_try_again_id');
+    const messageOptionListEmpty = getByTestId('message_option_list_empty_id');
+
+    expect(messageOptionListEmpty).toBeTruthy();
+    expect(buttonTryAgain).toBeTruthy();
+  });
 });

@@ -70,17 +70,19 @@ const Home: React.FC<Props> = ({
           2,
         )}`}</Text>
       </View>
-      <View>
-        <Text testID="message_option_list_empty_id">
-          {"looks like we're out of products"}
-        </Text>
-        <TouchableWithoutFeedback
-          testID="button_try_again_id"
-          onPress={tryAgain}
-        >
-          <Text>{'try again another time'}</Text>
-        </TouchableWithoutFeedback>
-      </View>
+      {optionList.length === 0 && (
+        <View>
+          <Text testID="message_option_list_empty_id">
+            {"looks like we're out of products"}
+          </Text>
+          <TouchableWithoutFeedback
+            testID="button_try_again_id"
+            onPress={tryAgain}
+          >
+            <Text>{'try again another time'}</Text>
+          </TouchableWithoutFeedback>
+        </View>
+      )}
       {optionList.length !== 0 && (
         <FlatList
           testID="option_list_id"
