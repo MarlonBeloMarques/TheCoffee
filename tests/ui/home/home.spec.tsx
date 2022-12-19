@@ -387,4 +387,29 @@ describe('UI: Home', () => {
     expect(messageOptionListEmpty).toBeTruthy();
     expect(buttonTryAgain).toBeTruthy();
   });
+
+  test('should not show name coffee and price if optionList is empty', () => {
+    const tryAgain = jest.fn();
+    const { queryByTestId } = render(
+      <Home
+        listOfOptions={[]}
+        selectOption={() => {}}
+        optionSelected={{ id: '1', option: 'coffee' }}
+        optionList={[]}
+        selectedOptionItem={{
+          id: '',
+          coffeeName: '',
+          coffeePrice: 0,
+          coffeeImage: '',
+        }}
+        tryAgain={tryAgain}
+      />,
+    );
+
+    const coffeeName = queryByTestId('coffee_name_id');
+    const coffeePrice = queryByTestId('coffee_price_id');
+
+    expect(coffeeName).not.toBeTruthy();
+    expect(coffeePrice).not.toBeTruthy();
+  });
 });

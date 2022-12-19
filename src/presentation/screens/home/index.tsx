@@ -95,29 +95,31 @@ const Home: React.FC<Props> = ({
 
   const renderCoffeeDetails = () => {
     return (
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          flex: 0.6,
-        }}
-      >
-        <Text
+      optionList.length !== 0 && (
+        <View
           style={{
-            fontSize: 24,
-            fontWeight: 'bold',
-            lineHeight: 27,
-            marginBottom: 9,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 0.6,
           }}
-          testID="coffee_name_id"
         >
-          {selectedOptionItem.coffeeName}
-        </Text>
-        <Text
-          style={{ fontSize: 20, lineHeight: 23 }}
-          testID="coffee_price_id"
-        >{`R$ ${selectedOptionItem.coffeePrice.toFixed(2)}`}</Text>
-      </View>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: 'bold',
+              lineHeight: 27,
+              marginBottom: 9,
+            }}
+            testID="coffee_name_id"
+          >
+            {selectedOptionItem.coffeeName}
+          </Text>
+          <Text
+            style={{ fontSize: 20, lineHeight: 23 }}
+            testID="coffee_price_id"
+          >{`R$ ${selectedOptionItem.coffeePrice.toFixed(2)}`}</Text>
+        </View>
+      )
     );
   };
 
