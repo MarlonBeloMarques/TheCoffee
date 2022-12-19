@@ -5,6 +5,8 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   testRegex: '\\.spec\\.ts',
+  setupFiles: ['<rootDir>/jest.setup.js'],
+  transformIgnorePatterns: [],
   collectCoverage: true,
   coverageThreshold: {
     global: {

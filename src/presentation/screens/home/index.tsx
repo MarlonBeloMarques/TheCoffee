@@ -3,37 +3,85 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ImageSourcePropType,
   ScrollView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import Animated, {
+  Extrapolate,
+  SharedValue,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 const screenWidth = Dimensions.get('screen').width;
+const screenHeight = Dimensions.get('screen').height;
+const ITEM_HEIGHT = screenHeight / 2;
 
-interface ItemCoffee {
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+const opacityAnimation = (transY: SharedValue<number>, index: number) => {
+  'worklet';
+
+  return interpolate(
+    transY.value,
+    [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
+    [0.6, 1, 0.6],
+    Extrapolate.CLAMP,
+  );
+};
+
+const scaleAnimation = (transY: SharedValue<number>, index: number) => {
+  'worklet';
+
+  return interpolate(
+    transY.value,
+    [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
+    [0.7, 1, 0.7],
+    Extrapolate.CLAMP,
+  );
+};
+
+const bottomAnimation = (transY: SharedValue<number>, index: number) => {
+  'worklet';
+
+  return interpolate(
+    transY.value,
+    [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
+    [-360, 1, -360],
+    Extrapolate.CLAMP,
+  );
+};
+
+type ItemCoffee = {
   id: string;
   coffeeName: string;
   coffeePrice: number;
-  coffeeImage: string;
+  coffeeImage: ImageSourcePropType | string;
   optionId: string;
+};
+
+interface Option {
+  id: string;
+  option: string;
 }
 
+interface ListOfOption {
+  list: Array<ItemCoffee>;
+}
+
+type OptionOfList = Option & ListOfOption;
+
 type Props = {
-  listOfOptions: Array<{
-    id: string;
-    option: string;
-    list: Array<ItemCoffee>;
-  }>;
-  selectOption: (option: { id: string; option: string }) => void;
-  optionSelected: { id: string; option: string };
-  selectedOptionItem: {
-    id: string;
-    coffeeName: string;
-    coffeePrice: number;
-    coffeeImage: string;
-  };
+  listOfOptions: Array<OptionOfList>;
+  selectOption: (option: Option) => void;
+  optionSelected: Option;
+  selectedOptionItem: ItemCoffee;
   optionList: Array<ItemCoffee>;
   tryAgain: () => void;
 };
@@ -46,6 +94,14 @@ const Home: React.FC<Props> = ({
   selectedOptionItem,
   tryAgain,
 }) => {
+  const transY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      transY.value = event.contentOffset.y;
+    },
+  });
+
   const renderListOfOptions = () => {
     return (
       <View style={{ flex: 0.1 }}>
@@ -98,9 +154,10 @@ const Home: React.FC<Props> = ({
       optionList.length !== 0 && (
         <View
           style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            flex: 0.6,
+            position: 'absolute',
+            zIndex: 1,
+            alignSelf: 'center',
+            marginTop: 100,
           }}
         >
           <Text
@@ -109,13 +166,14 @@ const Home: React.FC<Props> = ({
               fontWeight: 'bold',
               lineHeight: 27,
               marginBottom: 9,
+              textAlign: 'center',
             }}
             testID="coffee_name_id"
           >
             {selectedOptionItem.coffeeName}
           </Text>
           <Text
-            style={{ fontSize: 20, lineHeight: 23 }}
+            style={{ fontSize: 20, lineHeight: 23, textAlign: 'center' }}
             testID="coffee_price_id"
           >{`R$ ${selectedOptionItem.coffeePrice.toFixed(2)}`}</Text>
         </View>
@@ -123,9 +181,20 @@ const Home: React.FC<Props> = ({
     );
   };
 
+  const renderItemCoffee = ({ item, index }: { item: any; index: any }) => {
+    return <ItemCoffee index={index} item={item} transY={transY} />;
+  };
+
   const renderCoffeesImages = () => {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View
+        style={{
+          height: '70%',
+          justifyContent: 'center',
+          position: 'absolute',
+          bottom: 0,
+        }}
+      >
         {optionList.length === 0 && (
           <View
             style={{
@@ -157,22 +226,19 @@ const Home: React.FC<Props> = ({
           </View>
         )}
         {optionList.length !== 0 && (
-          <FlatList
+          <AnimatedFlatList
+            onScroll={scrollHandler}
             testID="option_list_id"
             data={optionList}
             showsVerticalScrollIndicator={false}
+            decelerationRate="fast"
             snapToAlignment="center"
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View>
-                <Image
-                  testID={`coffee_image_${item.id}_id`}
-                  source={{ uri: item.coffeeImage }}
-                  resizeMode="contain"
-                  style={{ width: screenWidth, height: 400 }}
-                ></Image>
-              </View>
-            )}
+            centerContent
+            scrollEventThrottle={16}
+            pagingEnabled
+            snapToInterval={ITEM_HEIGHT}
+            keyExtractor={(item, index) => String(index)}
+            renderItem={renderItemCoffee}
           />
         )}
       </View>
@@ -186,6 +252,38 @@ const Home: React.FC<Props> = ({
         {renderCoffeesImages()}
       </View>
     </View>
+  );
+};
+
+const ItemCoffee = ({
+  index,
+  item,
+  transY,
+}: {
+  index: number;
+  item: ItemCoffee;
+  transY: SharedValue<number>;
+}) => {
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacityAnimation(transY, index),
+      bottom: bottomAnimation(transY, index),
+      transform: [
+        {
+          scale: scaleAnimation(transY, index),
+        },
+      ],
+    };
+  });
+  return (
+    <Animated.View style={animatedStyle}>
+      <Image
+        testID={`coffee_image_${item.id}_id`}
+        source={item.coffeeImage as ImageSourcePropType}
+        resizeMode="contain"
+        style={{ width: screenWidth, height: 400 }}
+      ></Image>
+    </Animated.View>
   );
 };
 

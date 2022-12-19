@@ -15,6 +15,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeeImage: '',
           coffeePrice: 0,
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -62,6 +63,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeeImage: '',
           coffeePrice: 0,
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -113,6 +115,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeeImage: '',
           coffeePrice: 0,
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -165,6 +168,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeeImage: '',
           coffeePrice: 0,
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -197,6 +201,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeeImage: '',
           coffeePrice: 0,
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -228,6 +233,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeeImage: '',
           coffeePrice: 0,
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -236,7 +242,7 @@ describe('UI: Home', () => {
     coffeesList.forEach(({ coffeeImage, id }) => {
       const coffee = getByTestId(`coffee_image_${id}_id`);
       expect(coffee.type).toEqual('Image');
-      expect(coffee.props.source).toEqual({ uri: coffeeImage });
+      expect(coffee.props.source).toEqual(coffeeImage);
     });
   });
 
@@ -280,6 +286,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeePrice: 0,
           coffeeImage: '',
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -302,6 +309,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeePrice: 0,
           coffeeImage: '',
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -327,6 +335,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeePrice: 0,
           coffeeImage: '',
+          optionId: '',
         }}
         tryAgain={() => {}}
       />,
@@ -351,6 +360,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeePrice: 0,
           coffeeImage: '',
+          optionId: '',
         }}
         tryAgain={tryAgain}
       />,
@@ -376,6 +386,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeePrice: 0,
           coffeeImage: '',
+          optionId: '',
         }}
         tryAgain={tryAgain}
       />,
@@ -401,6 +412,7 @@ describe('UI: Home', () => {
           coffeeName: '',
           coffeePrice: 0,
           coffeeImage: '',
+          optionId: '',
         }}
         tryAgain={tryAgain}
       />,
