@@ -1,25 +1,17 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { Home } from '~/presentation/screens';
+import {
+  Coffee,
+  Option,
+  OptionOfList,
+} from '../../../src/presentation/screens/home/model';
 
 describe('UI: Home', () => {
   test('should show options list component successfully', () => {
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeeImage: '',
-          coffeePrice: 0,
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+    } = makeSut();
 
     const optionsList = getByTestId('options_list_id');
 
@@ -27,7 +19,7 @@ describe('UI: Home', () => {
   });
 
   test('should show options of list with success', () => {
-    const optionsList = [
+    const listOfOptions = [
       {
         id: '1',
         option: 'coffee',
@@ -52,34 +44,18 @@ describe('UI: Home', () => {
         list: [],
       },
     ];
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={optionsList}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeeImage: '',
-          coffeePrice: 0,
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+    } = makeSut([], {} as Coffee, listOfOptions);
 
-    optionsList.forEach((optionByList) => {
+    listOfOptions.forEach((optionByList) => {
       const option = getByTestId(`option_${optionByList.id}_id`);
       expect(option.props.children).toEqual(optionByList.option);
     });
-
-    expect(optionsList).toBeTruthy();
   });
 
   test('should press the second option from the list successfully', () => {
-    const selectOption = jest.fn();
-    const optionsList = [
+    const listOfOptions = [
       {
         id: '1',
         option: 'coffee',
@@ -104,35 +80,23 @@ describe('UI: Home', () => {
         list: [],
       },
     ];
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={optionsList}
-        selectOption={selectOption}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeeImage: '',
-          coffeePrice: 0,
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+      selectOption,
+    } = makeSut([], {} as Coffee, listOfOptions);
 
     const optionSelected = getByTestId(`option_2_id`);
 
     fireEvent.press(optionSelected);
 
     expect(selectOption).toHaveBeenCalledTimes(1);
-    expect(selectOption).toHaveBeenCalledWith(optionsList[1]);
+    expect(selectOption).toHaveBeenCalledWith(listOfOptions[1]);
   });
 
   test('should show underline of option selected with success', async () => {
     const optionSelected = { id: '2', option: 'products' };
 
-    const optionsList = [
+    const listOfOptions = [
       {
         id: '1',
         option: 'coffee',
@@ -157,23 +121,9 @@ describe('UI: Home', () => {
         list: [],
       },
     ];
-    const { getByTestId, queryByTestId } = render(
-      <Home
-        listOfOptions={optionsList}
-        selectOption={() => {}}
-        optionSelected={optionSelected}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeeImage: '',
-          coffeePrice: 0,
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
-
+    const {
+      sut: { getByTestId, queryByTestId },
+    } = makeSut([], {} as Coffee, listOfOptions, optionSelected);
     const underlineOptionSelected = getByTestId(`underline_option_2_id`);
     const underlineOptionOther = queryByTestId(`underline_option_1_id`);
 
@@ -182,38 +132,7 @@ describe('UI: Home', () => {
   });
 
   test('should show coffees list component with success', async () => {
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[
-          {
-            id: '1',
-            coffeeName: 'Iced Latte',
-            coffeeImage: 'any_coffee_image.png',
-            coffeePrice: 0,
-            optionId: '1',
-          },
-        ]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeeImage: '',
-          coffeePrice: 0,
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
-
-    const coffeesList = getByTestId('option_list_id');
-
-    expect(coffeesList).toBeTruthy();
-  });
-
-  test('should show images coffee with success', async () => {
-    const coffeesList = [
+    const optionList = [
       {
         id: '1',
         coffeeName: 'Iced Latte',
@@ -222,24 +141,30 @@ describe('UI: Home', () => {
         optionId: '1',
       },
     ];
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={coffeesList}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeeImage: '',
-          coffeePrice: 0,
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+    } = makeSut(optionList);
 
-    coffeesList.forEach(({ coffeeImage, id }) => {
+    const coffeesList = getByTestId('option_list_id');
+
+    expect(coffeesList).toBeTruthy();
+  });
+
+  test('should show images coffee with success', async () => {
+    const optionList = [
+      {
+        id: '1',
+        coffeeName: 'Iced Latte',
+        coffeeImage: 'any_coffee_image.png',
+        coffeePrice: 0,
+        optionId: '1',
+      },
+    ];
+    const {
+      sut: { getByTestId },
+    } = makeSut(optionList);
+
+    optionList.forEach(({ coffeeImage, id }) => {
       const coffee = getByTestId(`coffee_image_${id}_id`);
       expect(coffee.type).toEqual('Image');
       expect(coffee.props.source).toEqual(coffeeImage);
@@ -247,7 +172,7 @@ describe('UI: Home', () => {
   });
 
   test('should show price of coffee in correct pattern', () => {
-    const coffeesList = [
+    const optionList = [
       {
         id: '1',
         coffeeName: 'Iced Latte',
@@ -256,64 +181,31 @@ describe('UI: Home', () => {
         optionId: '1',
       },
     ];
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={coffeesList}
-        selectedOptionItem={coffeesList[0]}
-        tryAgain={() => {}}
-      />,
-    );
+
+    const {
+      sut: { getByTestId },
+    } = makeSut(optionList, optionList[0]);
 
     const coffeePrice = getByTestId('coffee_price_id');
 
     expect(coffeePrice.props.children).toEqual(
-      `R$ ${coffeesList[0].coffeePrice.toFixed(2)}`,
+      `R$ ${optionList[0].coffeePrice.toFixed(2)}`,
     );
   });
 
   test('should not show coffees list if optionList is empty', () => {
-    const { queryByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeePrice: 0,
-          coffeeImage: '',
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
-
+    const {
+      sut: { queryByTestId },
+    } = makeSut();
     const coffeesList = queryByTestId('option_list_id');
 
     expect(coffeesList).not.toBeTruthy();
   });
 
   test('should show message of option list empty', () => {
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeePrice: 0,
-          coffeeImage: '',
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+    } = makeSut();
 
     const messageOptionListEmpty = getByTestId('message_option_list_empty_id');
 
@@ -324,22 +216,9 @@ describe('UI: Home', () => {
   });
 
   test('should show button for try again when option list is empty', () => {
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeePrice: 0,
-          coffeeImage: '',
-          optionId: '',
-        }}
-        tryAgain={() => {}}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+    } = makeSut();
 
     const buttonTryAgain = getByTestId('button_try_again_id');
 
@@ -348,23 +227,10 @@ describe('UI: Home', () => {
   });
 
   test('should press button try again with success', () => {
-    const tryAgain = jest.fn();
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeePrice: 0,
-          coffeeImage: '',
-          optionId: '',
-        }}
-        tryAgain={tryAgain}
-      />,
-    );
+    const {
+      tryAgain,
+      sut: { getByTestId },
+    } = makeSut();
 
     const buttonTryAgain = getByTestId('button_try_again_id');
 
@@ -374,23 +240,9 @@ describe('UI: Home', () => {
   });
 
   test('should show message and button try again if optionList is empty', () => {
-    const tryAgain = jest.fn();
-    const { getByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeePrice: 0,
-          coffeeImage: '',
-          optionId: '',
-        }}
-        tryAgain={tryAgain}
-      />,
-    );
+    const {
+      sut: { getByTestId },
+    } = makeSut();
 
     const buttonTryAgain = getByTestId('button_try_again_id');
     const messageOptionListEmpty = getByTestId('message_option_list_empty_id');
@@ -400,23 +252,9 @@ describe('UI: Home', () => {
   });
 
   test('should not show name coffee and price if optionList is empty', () => {
-    const tryAgain = jest.fn();
-    const { queryByTestId } = render(
-      <Home
-        listOfOptions={[]}
-        selectOption={() => {}}
-        optionSelected={{ id: '1', option: 'coffee' }}
-        optionList={[]}
-        selectedOptionItem={{
-          id: '',
-          coffeeName: '',
-          coffeePrice: 0,
-          coffeeImage: '',
-          optionId: '',
-        }}
-        tryAgain={tryAgain}
-      />,
-    );
+    const {
+      sut: { queryByTestId },
+    } = makeSut();
 
     const coffeeName = queryByTestId('coffee_name_id');
     const coffeePrice = queryByTestId('coffee_price_id');
@@ -425,3 +263,32 @@ describe('UI: Home', () => {
     expect(coffeePrice).not.toBeTruthy();
   });
 });
+
+const makeSut = (
+  optionList: Array<Coffee> = [],
+  selectedOptionItem: Coffee = {
+    id: '',
+    coffeeName: '',
+    coffeePrice: 0,
+    coffeeImage: '',
+    optionId: '',
+  },
+  listOfOptions: Array<OptionOfList> = [],
+  optionSelected: Option = { id: '1', option: 'coffee' },
+) => {
+  const tryAgain = jest.fn();
+  const selectOption = jest.fn();
+
+  const sut = render(
+    <Home
+      listOfOptions={listOfOptions}
+      selectOption={selectOption}
+      optionSelected={optionSelected}
+      optionList={optionList}
+      selectedOptionItem={selectedOptionItem}
+      tryAgain={tryAgain}
+    />,
+  );
+
+  return { sut, tryAgain, selectOption };
+};

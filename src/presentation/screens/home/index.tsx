@@ -8,6 +8,7 @@ import {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+import HomeViewModel, { Coffee } from './model';
 import {
   AnimatedView,
   CoffeeDetailsWrapper,
@@ -62,35 +63,7 @@ const bottomAnimation = (transY: SharedValue<number>, index: number) => {
   );
 };
 
-type ItemCoffee = {
-  id: string;
-  coffeeName: string;
-  coffeePrice: number;
-  coffeeImage: ImageSourcePropType | string;
-  optionId: string;
-};
-
-interface Option {
-  id: string;
-  option: string;
-}
-
-interface ListOfOption {
-  list: Array<ItemCoffee>;
-}
-
-type OptionOfList = Option & ListOfOption;
-
-type Props = {
-  listOfOptions: Array<OptionOfList>;
-  selectOption: (option: Option) => void;
-  optionSelected: Option;
-  selectedOptionItem: ItemCoffee;
-  optionList: Array<ItemCoffee>;
-  tryAgain: () => void;
-};
-
-const Home: React.FC<Props> = ({
+const Home: React.FC<HomeViewModel> = ({
   listOfOptions,
   selectOption,
   optionSelected,
@@ -194,7 +167,7 @@ const ItemCoffee = ({
   transY,
 }: {
   index: number;
-  item: ItemCoffee;
+  item: Coffee;
   transY: SharedValue<number>;
 }) => {
   const animatedStyle = useAnimatedStyle(() => {
