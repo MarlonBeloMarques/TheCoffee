@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  useAnimatedScrollHandler,
-  useSharedValue,
-} from 'react-native-reanimated';
+import { useSharedValue } from 'react-native-reanimated';
 import { ItemCoffee } from '~/presentation/components';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 
@@ -32,14 +29,9 @@ const Home: React.FC<HomeViewModel> = ({
   optionList,
   selectedOptionItem,
   tryAgain,
+  scrollHandler,
 }) => {
   const transY = useSharedValue(0);
-
-  const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      transY.value = event.contentOffset.y;
-    },
-  });
 
   const renderListOfOptions = () => {
     return (

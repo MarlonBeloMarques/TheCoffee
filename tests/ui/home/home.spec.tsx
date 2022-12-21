@@ -10,6 +10,7 @@ import getListOfOptionsFake from '../fakers/listOfOptionsFake';
 import getOptionSelectedFake from '../fakers/optionSelectedFake';
 import getOptionListFake from '../fakers/optionListFake';
 import getSelectedOptionItemStub from '../stubs/selectedOptionItemStub';
+import getEventDataStub from '../stubs/eventDataStub';
 
 describe('UI: Home', () => {
   test('should show options list component successfully', () => {
@@ -169,6 +170,25 @@ describe('UI: Home', () => {
     expect(coffeeName).not.toBeTruthy();
     expect(coffeePrice).not.toBeTruthy();
   });
+
+  test('should call scrollHandler when scrolled coffees images list', () => {
+    const scrollHandler = jest.fn();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      scrollHandler,
+    );
+
+    const optionList = getByTestId('option_list_id');
+
+    fireEvent.scroll(optionList, getEventDataStub());
+
+    expect(scrollHandler).toHaveBeenCalled();
+  });
 });
 
 const makeSut = (
@@ -176,6 +196,7 @@ const makeSut = (
   selectedOptionItem: Coffee = getSelectedOptionItemStub(),
   listOfOptions: Array<OptionOfList> = [],
   optionSelected: Option = getOptionSelectedFake(),
+  scrollHandler = () => {},
 ) => {
   const tryAgain = jest.fn();
   const selectOption = jest.fn();
@@ -188,6 +209,7 @@ const makeSut = (
       optionList={optionList}
       selectedOptionItem={selectedOptionItem}
       tryAgain={tryAgain}
+      scrollHandler={scrollHandler}
     />,
   );
 

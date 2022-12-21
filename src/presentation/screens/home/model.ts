@@ -1,4 +1,8 @@
-import { ImageSourcePropType } from 'react-native';
+import {
+  ImageSourcePropType,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
 
 export type Coffee = {
   id: string;
@@ -26,6 +30,9 @@ type HomeViewModel = {
   selectedOptionItem: Coffee;
   optionList: Array<Coffee>;
   tryAgain: () => void;
+  scrollHandler:
+    | ((event: NativeSyntheticEvent<NativeScrollEvent>) => void)
+    | undefined;
 };
 
 export default HomeViewModel;
