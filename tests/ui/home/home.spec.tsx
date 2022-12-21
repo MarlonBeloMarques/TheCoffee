@@ -189,6 +189,19 @@ describe('UI: Home', () => {
 
     expect(scrollHandler).toHaveBeenCalled();
   });
+
+  test('should not call scrollHandler if not scrolled coffees images list', () => {
+    const scrollHandler = jest.fn();
+    makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      scrollHandler,
+    );
+
+    expect(scrollHandler).not.toHaveBeenCalled();
+  });
 });
 
 const makeSut = (
