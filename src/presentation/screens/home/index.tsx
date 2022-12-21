@@ -1,23 +1,14 @@
 import React from 'react';
-import { ImageSourcePropType } from 'react-native';
 import {
-  SharedValue,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {
-  ITEM_HEIGHT,
-  bottomAnimation,
-  opacityAnimation,
-  scaleAnimation,
-} from '~/presentation/helpers/animations';
+import { ItemCoffee } from '~/presentation/components';
+import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 
-import HomeViewModel, { Coffee } from './model';
+import HomeViewModel from './model';
 import {
-  AnimatedView,
   CoffeeDetailsWrapper,
-  CoffeeImage,
   CoffeeName,
   CoffeePrice,
   CoffeesImagesEmptyWrapper,
@@ -129,36 +120,6 @@ const Home: React.FC<HomeViewModel> = ({
         {renderCoffeesImages()}
       </Wrapper>
     </Wrapper>
-  );
-};
-
-const ItemCoffee = ({
-  index,
-  item,
-  transY,
-}: {
-  index: number;
-  item: Coffee;
-  transY: SharedValue<number>;
-}) => {
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacityAnimation(transY, index),
-      bottom: bottomAnimation(transY, index),
-      transform: [
-        {
-          scale: scaleAnimation(transY, index),
-        },
-      ],
-    };
-  });
-  return (
-    <AnimatedView style={animatedStyle}>
-      <CoffeeImage
-        testID={`coffee_image_${item.id}_id`}
-        source={item.coffeeImage as ImageSourcePropType}
-      ></CoffeeImage>
-    </AnimatedView>
   );
 };
 

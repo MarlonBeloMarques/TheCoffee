@@ -93,12 +93,3 @@ export const CoffeesImagesList = styled(AnimatedFlatList).attrs({
 
   pagingEnabled: true,
 })``;
-
-export const AnimatedView = styled(Animated.View)``;
-
-export const CoffeeImage = styled.Image.attrs({
-  resizeMode: 'contain',
-})`
-  width: ${screenWidth}px;
-  height: 400px;
-`;
