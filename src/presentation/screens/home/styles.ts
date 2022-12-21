@@ -1,12 +1,9 @@
-import { Dimensions, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
+import { screenWidth } from '~/presentation/helpers/animations';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
-export const screenHeight = Dimensions.get('screen').height;
-export const ITEM_HEIGHT = screenHeight / 2;
-export const screenWidth = Dimensions.get('screen').width;
 
 export const Wrapper = styled.View``;
 

@@ -1,13 +1,18 @@
 import React from 'react';
 import { ImageSourcePropType } from 'react-native';
 import {
-  Extrapolate,
   SharedValue,
-  interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
+import {
+  ITEM_HEIGHT,
+  bottomAnimation,
+  opacityAnimation,
+  scaleAnimation,
+} from '~/presentation/helpers/animations';
+
 import HomeViewModel, { Coffee } from './model';
 import {
   AnimatedView,
@@ -19,7 +24,6 @@ import {
   CoffeesImagesList,
   CoffeesImagesWrapper,
   EmptyMessageCoffeesImages,
-  ITEM_HEIGHT,
   ListOfOptions,
   Option,
   OptionButton,
@@ -29,39 +33,6 @@ import {
   UnderlineOfOption,
   Wrapper,
 } from './styles';
-
-const opacityAnimation = (transY: SharedValue<number>, index: number) => {
-  'worklet';
-
-  return interpolate(
-    transY.value,
-    [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
-    [0.6, 1, 0.6],
-    Extrapolate.CLAMP,
-  );
-};
-
-const scaleAnimation = (transY: SharedValue<number>, index: number) => {
-  'worklet';
-
-  return interpolate(
-    transY.value,
-    [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
-    [0.7, 1, 0.7],
-    Extrapolate.CLAMP,
-  );
-};
-
-const bottomAnimation = (transY: SharedValue<number>, index: number) => {
-  'worklet';
-
-  return interpolate(
-    transY.value,
-    [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
-    [-360, 1, -360],
-    Extrapolate.CLAMP,
-  );
-};
 
 const Home: React.FC<HomeViewModel> = ({
   listOfOptions,
