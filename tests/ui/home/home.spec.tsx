@@ -6,6 +6,10 @@ import {
   Option,
   OptionOfList,
 } from '../../../src/presentation/screens/home/model';
+import getListOfOptionsFake from '../fakers/listOfOptionsFake';
+import getOptionSelectedFake from '../fakers/optionSelectedFake';
+import getOptionListFake from '../fakers/optionListFake';
+import getSelectedOptionItemStub from '../stubs/selectedOptionItemStub';
 
 describe('UI: Home', () => {
   test('should show options list component successfully', () => {
@@ -19,31 +23,7 @@ describe('UI: Home', () => {
   });
 
   test('should show options of list with success', () => {
-    const listOfOptions = [
-      {
-        id: '1',
-        option: 'coffee',
-        list: [
-          {
-            id: '1',
-            coffeeName: 'Iced Latte',
-            coffeeImage: 'any_coffee_image.png',
-            coffeePrice: 0,
-            optionId: '1',
-          },
-        ],
-      },
-      {
-        id: '2',
-        option: 'products',
-        list: [],
-      },
-      {
-        id: '3',
-        option: 'food',
-        list: [],
-      },
-    ];
+    const listOfOptions = getListOfOptionsFake();
     const {
       sut: { getByTestId },
     } = makeSut([], {} as Coffee, listOfOptions);
@@ -55,31 +35,7 @@ describe('UI: Home', () => {
   });
 
   test('should press the second option from the list successfully', () => {
-    const listOfOptions = [
-      {
-        id: '1',
-        option: 'coffee',
-        list: [
-          {
-            id: '1',
-            coffeeName: 'Iced Latte',
-            coffeeImage: 'any_coffee_image.png',
-            coffeePrice: 0,
-            optionId: '1',
-          },
-        ],
-      },
-      {
-        id: '2',
-        option: 'products',
-        list: [],
-      },
-      {
-        id: '3',
-        option: 'food',
-        list: [],
-      },
-    ];
+    const listOfOptions = getListOfOptionsFake();
     const {
       sut: { getByTestId },
       selectOption,
@@ -94,33 +50,9 @@ describe('UI: Home', () => {
   });
 
   test('should show underline of option selected with success', async () => {
-    const optionSelected = { id: '2', option: 'products' };
+    const optionSelected = getOptionSelectedFake('2');
+    const listOfOptions = getListOfOptionsFake();
 
-    const listOfOptions = [
-      {
-        id: '1',
-        option: 'coffee',
-        list: [
-          {
-            id: '1',
-            coffeeName: 'Iced Latte',
-            coffeeImage: 'any_coffee_image.png',
-            coffeePrice: 0,
-            optionId: '1',
-          },
-        ],
-      },
-      {
-        id: '2',
-        option: 'products',
-        list: [],
-      },
-      {
-        id: '3',
-        option: 'food',
-        list: [],
-      },
-    ];
     const {
       sut: { getByTestId, queryByTestId },
     } = makeSut([], {} as Coffee, listOfOptions, optionSelected);
@@ -132,15 +64,7 @@ describe('UI: Home', () => {
   });
 
   test('should show coffees list component with success', async () => {
-    const optionList = [
-      {
-        id: '1',
-        coffeeName: 'Iced Latte',
-        coffeeImage: 'any_coffee_image.png',
-        coffeePrice: 0,
-        optionId: '1',
-      },
-    ];
+    const optionList = getOptionListFake();
     const {
       sut: { getByTestId },
     } = makeSut(optionList);
@@ -151,15 +75,7 @@ describe('UI: Home', () => {
   });
 
   test('should show images coffee with success', async () => {
-    const optionList = [
-      {
-        id: '1',
-        coffeeName: 'Iced Latte',
-        coffeeImage: 'any_coffee_image.png',
-        coffeePrice: 0,
-        optionId: '1',
-      },
-    ];
+    const optionList = getOptionListFake();
     const {
       sut: { getByTestId },
     } = makeSut(optionList);
@@ -172,16 +88,7 @@ describe('UI: Home', () => {
   });
 
   test('should show price of coffee in correct pattern', () => {
-    const optionList = [
-      {
-        id: '1',
-        coffeeName: 'Iced Latte',
-        coffeePrice: 12.0,
-        coffeeImage: 'any_coffee_image.png',
-        optionId: '1',
-      },
-    ];
-
+    const optionList = getOptionListFake();
     const {
       sut: { getByTestId },
     } = makeSut(optionList, optionList[0]);
@@ -266,15 +173,9 @@ describe('UI: Home', () => {
 
 const makeSut = (
   optionList: Array<Coffee> = [],
-  selectedOptionItem: Coffee = {
-    id: '',
-    coffeeName: '',
-    coffeePrice: 0,
-    coffeeImage: '',
-    optionId: '',
-  },
+  selectedOptionItem: Coffee = getSelectedOptionItemStub(),
   listOfOptions: Array<OptionOfList> = [],
-  optionSelected: Option = { id: '1', option: 'coffee' },
+  optionSelected: Option = getOptionSelectedFake(),
 ) => {
   const tryAgain = jest.fn();
   const selectOption = jest.fn();
