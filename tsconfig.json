@@ -28,6 +28,9 @@
       "~/presentation/components": [
         "src/presentation/components"
       ],
+      "~/domain/useCases": [
+        "src/domain/useCases"
+      ],
     }, /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
