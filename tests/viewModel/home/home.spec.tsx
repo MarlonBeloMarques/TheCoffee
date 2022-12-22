@@ -1,5 +1,6 @@
-import { renderHook } from '@testing-library/react-native';
+import { renderHook, waitFor } from '@testing-library/react-native';
 import { GetListOfOptions } from '~/domain/useCases';
+import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 import Option from '../../../src/domain/models/Option';
 import useViewModel from '../../../src/presentation/screens/home/viewModel';
 
@@ -11,10 +12,40 @@ describe('ViewModel: Home', () => {
 
     expect(getSpy).toHaveBeenCalledTimes(1);
   });
+
+  test('should be the same as the get response than the list of options', async () => {
+    const listOfOptions = getListOfOptionsFake();
+    jest
+      .spyOn(LocalGetListOfOptions.prototype, 'get')
+      .mockResolvedValueOnce(listOfOptions);
+
+    const getListOfOptions = new LocalGetListOfOptions();
+    const { result } = renderHook(() => useViewModel(getListOfOptions));
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOfOptions);
+    });
+  });
 });
 
 class LocalGetListOfOptions implements GetListOfOptions {
   get(): Promise<Option[]> {
-    return [] as unknown as Promise<Array<Option>>;
+    return Promise.resolve([
+      {
+        id: '1',
+        option: 'Coffee',
+        list: [],
+      },
+      {
+        id: '2',
+        option: 'Product',
+        list: [],
+      },
+      {
+        id: '3',
+        option: 'Food',
+        list: [],
+      },
+    ]);
   }
 }

@@ -1,17 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GetListOfOptions } from '~/domain/useCases';
-import HomeViewModel from './model';
+import HomeViewModel, { OptionOfList } from './model';
 
 const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
+  const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
+
   useEffect(() => {
     requestListOfOptions();
   }, []);
 
   const requestListOfOptions = async () => {
-    await getListOfOptions.get();
+    const response = await getListOfOptions.get();
+    setListOfOptions(response);
   };
   return {
-    listOfOptions: [],
+    listOfOptions,
     optionList: [],
     optionSelected: { id: '', option: '' },
     scrollHandler: () => {},
