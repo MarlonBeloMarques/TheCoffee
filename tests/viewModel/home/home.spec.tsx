@@ -42,6 +42,25 @@ describe('ViewModel: Home', () => {
       expect(result.current.optionList).toEqual(listOfOptions[0].list);
     });
   });
+
+  test('should update optionSelected when call selectOption', async () => {
+    const listOfOptions = getListOfOptionsFake();
+    jest
+      .spyOn(LocalGetListOfOptions.prototype, 'get')
+      .mockResolvedValueOnce(listOfOptions);
+
+    const getListOfOptions = new LocalGetListOfOptions();
+    const { result } = renderHook(() => useViewModel(getListOfOptions));
+
+    result.current.selectOption(listOfOptions[0]);
+
+    await waitFor(() => {
+      expect(result.current.optionSelected).toEqual({
+        id: listOfOptions[0].id,
+        option: listOfOptions[0].option,
+      });
+    });
+  });
 });
 
 class LocalGetListOfOptions implements GetListOfOptions {

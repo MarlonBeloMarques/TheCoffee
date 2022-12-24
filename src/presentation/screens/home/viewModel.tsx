@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { GetListOfOptions } from '~/domain/useCases';
-import HomeViewModel, { Coffee, OptionOfList } from './model';
+import HomeViewModel, { Coffee, Option, OptionOfList } from './model';
 
 const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
   const [optionList, setOptionList] = useState<Array<Coffee>>([]);
+  const [optionSelected, setOptionSelected] = useState<Option>({} as Option);
 
   useEffect(() => {
     requestListOfOptions();
@@ -16,13 +17,14 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   };
 
   const selectOption = (option: OptionOfList) => {
+    setOptionSelected({ id: option.id, option: option.option });
     setOptionList(option.list);
   };
 
   return {
     listOfOptions,
     optionList,
-    optionSelected: { id: '', option: '' },
+    optionSelected,
     scrollHandler: () => {},
     selectedOptionItem: {
       coffeeImage: '',
