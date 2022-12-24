@@ -3,6 +3,7 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
 } from 'react-native';
+import { SharedValue } from 'react-native-reanimated';
 
 export type Coffee = {
   id: string;
@@ -24,15 +25,14 @@ interface ListOfOption {
 export type OptionOfList = Option & ListOfOption;
 
 type HomeViewModel = {
+  transY?: SharedValue<number>;
   listOfOptions: Array<OptionOfList>;
   selectOption: (option: OptionOfList) => void;
   optionSelected: Option;
   selectedOptionItem: Coffee;
   optionList: Array<Coffee>;
   tryAgain: () => void;
-  scrollHandler:
-    | ((event: NativeSyntheticEvent<NativeScrollEvent>) => void)
-    | undefined;
+  scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 };
 
 export default HomeViewModel;

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { useSharedValue } from 'react-native-reanimated';
 import { GetListOfOptions } from '~/domain/useCases';
 import HomeViewModel, { Coffee, Option, OptionOfList } from './model';
 
@@ -9,6 +11,8 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     id: '',
     option: '',
   });
+
+  const transY = useSharedValue(0);
 
   useEffect(() => {
     requestStart();
@@ -35,11 +39,16 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     setOptionList(option.list);
   };
 
+  const scrollHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    transY.value = event.nativeEvent.contentOffset.y;
+  };
+
   return {
+    transY,
     listOfOptions,
     optionList,
     optionSelected,
-    scrollHandler: () => {},
+    scrollHandler,
     selectedOptionItem: {
       coffeeImage: '',
       coffeeName: '',

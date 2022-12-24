@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSharedValue } from 'react-native-reanimated';
 import { ItemCoffee } from '~/presentation/components';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 
@@ -30,9 +29,8 @@ const Home: React.FC<HomeViewModel> = ({
   selectedOptionItem,
   tryAgain,
   scrollHandler,
+  transY,
 }) => {
-  const transY = useSharedValue(0);
-
   const renderListOfOptions = () => {
     return (
       <Wrapper style={{ flex: 0.1 }}>
@@ -75,7 +73,7 @@ const Home: React.FC<HomeViewModel> = ({
   };
 
   const renderItemCoffee = ({ item, index }: { item: any; index: any }) => {
-    return <ItemCoffee index={index} item={item} transY={transY} />;
+    return <ItemCoffee index={index} item={item} transY={transY!} />;
   };
 
   const renderCoffeesImages = () => {
