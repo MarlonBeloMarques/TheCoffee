@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { GetListOfOptions } from '~/domain/useCases';
-import HomeViewModel, { OptionOfList } from './model';
+import HomeViewModel, { Coffee, OptionOfList } from './model';
 
 const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
+  const [optionList, setOptionList] = useState<Array<Coffee>>([]);
 
   useEffect(() => {
     requestListOfOptions();
@@ -13,9 +14,14 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     const response = await getListOfOptions.get();
     setListOfOptions(response);
   };
+
+  const selectOption = (option: OptionOfList) => {
+    setOptionList(option.list);
+  };
+
   return {
     listOfOptions,
-    optionList: [],
+    optionList,
     optionSelected: { id: '', option: '' },
     scrollHandler: () => {},
     selectedOptionItem: {
@@ -25,7 +31,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
       id: '',
       optionId: '',
     },
-    selectOption: () => {},
+    selectOption,
     tryAgain: () => {},
   };
 };

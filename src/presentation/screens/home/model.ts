@@ -25,7 +25,7 @@ export type OptionOfList = Option & ListOfOption;
 
 type HomeViewModel = {
   listOfOptions: Array<OptionOfList>;
-  selectOption: (option: Option) => void;
+  selectOption: (option: OptionOfList) => void;
   optionSelected: Option;
   selectedOptionItem: Coffee;
   optionList: Array<Coffee>;
