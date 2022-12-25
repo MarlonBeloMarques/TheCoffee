@@ -43,6 +43,10 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     transY.value = event.nativeEvent.contentOffset.y;
   };
 
+  const tryAgain = () => {
+    requestStart();
+  };
+
   return {
     transY,
     listOfOptions,
@@ -57,7 +61,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
       optionId: '',
     },
     selectOption,
-    tryAgain: () => {},
+    tryAgain,
   };
 };
 

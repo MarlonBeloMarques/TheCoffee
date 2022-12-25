@@ -5,6 +5,10 @@ import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 import Option from '../../../src/domain/models/Option';
 import useViewModel from '../../../src/presentation/screens/home/viewModel';
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('ViewModel: Home', () => {
   test('should call get of GetListOfOptions when initialize', () => {
     const getSpy = jest.spyOn(LocalGetListOfOptions.prototype, 'get');
@@ -95,6 +99,22 @@ describe('ViewModel: Home', () => {
 
     await waitFor(() => {
       expect(result.current.transY).toEqual({ value: 100 });
+    });
+  });
+
+  test('should call get of GetListOfOptions when call tryAgain', async () => {
+    const listOfOptions = getListOfOptionsFake();
+    const getSpy = jest
+      .spyOn(LocalGetListOfOptions.prototype, 'get')
+      .mockRejectedValueOnce(listOfOptions);
+
+    const getListOfOptions = new LocalGetListOfOptions();
+    const { result } = renderHook(() => useViewModel(getListOfOptions));
+
+    result.current.tryAgain();
+
+    await waitFor(() => {
+      expect(getSpy).toHaveBeenCalledTimes(2);
     });
   });
 });
