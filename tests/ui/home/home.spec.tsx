@@ -11,6 +11,7 @@ import getOptionSelectedFake from '../fakers/optionSelectedFake';
 import getOptionListFake from '../fakers/optionListFake';
 import getSelectedOptionItemStub from '../stubs/selectedOptionItemStub';
 import getEventDataStub from '../stubs/eventDataStub';
+import { getTransYStub } from '../helpers/testFactories';
 
 describe('UI: Home', () => {
   test('should show options list component successfully', () => {
@@ -223,6 +224,7 @@ const makeSut = (
       selectedOptionItem={selectedOptionItem}
       tryAgain={tryAgain}
       scrollHandler={scrollHandler}
+      transY={getTransYStub()}
     />,
   );
 

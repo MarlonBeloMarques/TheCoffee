@@ -1,8 +1,7 @@
 import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { renderHook, waitFor } from '@testing-library/react-native';
-import { GetListOfOptions } from '~/domain/useCases';
+import { LocalGetListOfOptions } from '~/data/useCases';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
-import Option from '../../../src/domain/models/Option';
 import useViewModel from '../../../src/presentation/screens/home/viewModel';
 
 afterEach(() => {
@@ -118,25 +117,3 @@ describe('ViewModel: Home', () => {
     });
   });
 });
-
-class LocalGetListOfOptions implements GetListOfOptions {
-  get(): Promise<Option[]> {
-    return Promise.resolve([
-      {
-        id: '1',
-        option: 'Coffee',
-        list: [],
-      },
-      {
-        id: '2',
-        option: 'Product',
-        list: [],
-      },
-      {
-        id: '3',
-        option: 'Food',
-        list: [],
-      },
-    ]);
-  }
-}

@@ -73,7 +73,7 @@ const Home: React.FC<HomeViewModel> = ({
   };
 
   const renderItemCoffee = ({ item, index }: { item: any; index: any }) => {
-    return <ItemCoffee index={index} item={item} transY={transY!} />;
+    return <ItemCoffee index={index} item={item} transY={transY} />;
   };
 
   const renderCoffeesImages = () => {

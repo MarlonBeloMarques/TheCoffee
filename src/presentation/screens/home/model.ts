@@ -25,7 +25,7 @@ interface ListOfOption {
 export type OptionOfList = Option & ListOfOption;
 
 type HomeViewModel = {
-  transY?: SharedValue<number>;
+  transY: SharedValue<number>;
   listOfOptions: Array<OptionOfList>;
   selectOption: (option: OptionOfList) => void;
   optionSelected: Option;
