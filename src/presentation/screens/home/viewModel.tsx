@@ -40,6 +40,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   };
 
   const scrollHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    'worklet';
     transY.value = event.nativeEvent.contentOffset.y;
   };
 
