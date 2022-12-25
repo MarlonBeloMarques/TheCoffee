@@ -10,21 +10,16 @@ afterEach(() => {
 
 describe('ViewModel: Home', () => {
   test('should call get of GetListOfOptions when initialize', () => {
-    const getSpy = jest.spyOn(LocalGetListOfOptions.prototype, 'get');
-    const getListOfOptions = new LocalGetListOfOptions();
-    renderHook(() => useViewModel(getListOfOptions));
+    const { getSpy } = makeSut();
 
     expect(getSpy).toHaveBeenCalledTimes(1);
   });
 
   test('should be the same as the get response than the list of options', async () => {
     const listOfOptions = getListOfOptionsFake();
-    jest
-      .spyOn(LocalGetListOfOptions.prototype, 'get')
-      .mockResolvedValueOnce(listOfOptions);
-
-    const getListOfOptions = new LocalGetListOfOptions();
-    const { result } = renderHook(() => useViewModel(getListOfOptions));
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
 
     await waitFor(() => {
       expect(result.current.listOfOptions).toEqual(listOfOptions);
@@ -33,12 +28,9 @@ describe('ViewModel: Home', () => {
 
   test('should update optionList with the same value as the listOfOptions list', async () => {
     const listOfOptions = getListOfOptionsFake();
-    jest
-      .spyOn(LocalGetListOfOptions.prototype, 'get')
-      .mockResolvedValueOnce(listOfOptions);
-
-    const getListOfOptions = new LocalGetListOfOptions();
-    const { result } = renderHook(() => useViewModel(getListOfOptions));
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
 
     result.current.selectOption(listOfOptions[0]);
 
@@ -49,13 +41,9 @@ describe('ViewModel: Home', () => {
 
   test('should update optionSelected when call selectOption', async () => {
     const listOfOptions = getListOfOptionsFake();
-    jest
-      .spyOn(LocalGetListOfOptions.prototype, 'get')
-      .mockResolvedValueOnce(listOfOptions);
-
-    const getListOfOptions = new LocalGetListOfOptions();
-    const { result } = renderHook(() => useViewModel(getListOfOptions));
-
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
     result.current.selectOption(listOfOptions[0]);
 
     await waitFor(() => {
@@ -68,12 +56,9 @@ describe('ViewModel: Home', () => {
 
   test('should to equal optionSelected and first option of listOfOptions', async () => {
     const listOfOptions = getListOfOptionsFake();
-    jest
-      .spyOn(LocalGetListOfOptions.prototype, 'get')
-      .mockResolvedValueOnce(listOfOptions);
-
-    const getListOfOptions = new LocalGetListOfOptions();
-    const { result } = renderHook(() => useViewModel(getListOfOptions));
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
 
     await waitFor(() => {
       expect(result.current.optionSelected).toEqual({
@@ -84,13 +69,11 @@ describe('ViewModel: Home', () => {
   });
 
   test('should update value of transY when call scrollHandler', async () => {
-    const listOfOptions = getListOfOptionsFake();
-    jest
-      .spyOn(LocalGetListOfOptions.prototype, 'get')
-      .mockResolvedValueOnce(listOfOptions);
+    const {
+      sut: { result },
+    } = makeSut();
 
-    const getListOfOptions = new LocalGetListOfOptions();
-    const { result } = renderHook(() => useViewModel(getListOfOptions));
+    result.current.tryAgain();
 
     result.current.scrollHandler({
       nativeEvent: { contentOffset: { y: 100 } },
@@ -102,13 +85,10 @@ describe('ViewModel: Home', () => {
   });
 
   test('should call get of GetListOfOptions when call tryAgain', async () => {
-    const listOfOptions = getListOfOptionsFake();
-    const getSpy = jest
-      .spyOn(LocalGetListOfOptions.prototype, 'get')
-      .mockRejectedValueOnce(listOfOptions);
-
-    const getListOfOptions = new LocalGetListOfOptions();
-    const { result } = renderHook(() => useViewModel(getListOfOptions));
+    const {
+      sut: { result },
+      getSpy,
+    } = makeSut();
 
     result.current.tryAgain();
 
@@ -117,3 +97,14 @@ describe('ViewModel: Home', () => {
     });
   });
 });
+
+const makeSut = (listOfOptions = getListOfOptionsFake()) => {
+  const getSpy = jest
+    .spyOn(LocalGetListOfOptions.prototype, 'get')
+    .mockResolvedValueOnce(listOfOptions);
+
+  const getListOfOptions = new LocalGetListOfOptions();
+  const sut = renderHook(() => useViewModel(getListOfOptions));
+
+  return { sut, getSpy };
+};
