@@ -1,11 +1,13 @@
 import React from 'react';
-import { StatusBar, Text, View } from 'react-native';
+import { StatusBar, View } from 'react-native';
+import { HomeFactory } from './src/main/factories/presentation';
 
 const App = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1 }}>
       <StatusBar barStyle={'dark-content'} />
-      <Text>{'The Coffee'}</Text>
+      <View style={{ height: 57 }} />
+      <HomeFactory />
     </View>
   );
 };
