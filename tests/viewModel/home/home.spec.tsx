@@ -96,6 +96,15 @@ describe('ViewModel: Home', () => {
       expect(getSpy).toHaveBeenCalledTimes(2);
     });
   });
+
+  test('should update optionList when initialize', async () => {
+    const listOptions = getListOfOptionsFake();
+    const { sut } = makeSut(getListOfOptionsFake());
+
+    await waitFor(() => {
+      expect(sut.result.current.optionList).toEqual(listOptions[0].list);
+    });
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {

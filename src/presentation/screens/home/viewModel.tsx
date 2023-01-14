@@ -20,7 +20,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
 
   const requestStart = async () => {
     const response = await requestListOfOptions();
-    setFirstOption({ id: response[0].id, option: response[0].option });
+    setFirstOption(response[0]);
   };
 
   const requestListOfOptions = async () => {
@@ -30,8 +30,8 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     return response;
   };
 
-  const setFirstOption = (firstOption: Option) => {
-    setOptionSelected(firstOption);
+  const setFirstOption = (firstOption: OptionOfList) => {
+    selectOption(firstOption);
   };
 
   const selectOption = (option: OptionOfList) => {
