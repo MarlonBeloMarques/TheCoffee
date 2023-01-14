@@ -33,7 +33,7 @@ type HomeViewModel = {
   optionList: Array<Coffee>;
   tryAgain: () => void;
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  setCoffeeImageViewed: (coffeeImageViewed: OptionOfList) => void;
+  setCoffeeImageViewed: (coffeeImageViewed: Coffee) => void;
 };
 
 export default HomeViewModel;

@@ -105,6 +105,19 @@ describe('ViewModel: Home', () => {
       expect(sut.result.current.optionList).toEqual(listOptions[0].list);
     });
   });
+
+  test('should update selectedOptionItem when called setCoffeeImageViewed', async () => {
+    const listOptions = getListOfOptionsFake();
+    const { sut } = makeSut(getListOfOptionsFake());
+
+    sut.result.current.setCoffeeImageViewed(listOptions[0].list[0]);
+
+    await waitFor(() => {
+      expect(sut.result.current.selectedOptionItem).toEqual(
+        listOptions[0].list[0],
+      );
+    });
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {

@@ -11,6 +11,13 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     id: '',
     option: '',
   });
+  const [selectedOptionItem, setSelectedOptionItem] = useState<Coffee>({
+    coffeeImage: '',
+    coffeeName: '',
+    coffeePrice: 0,
+    id: '',
+    optionId: '',
+  });
 
   const transY = useSharedValue(0);
 
@@ -48,22 +55,20 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     requestStart();
   };
 
+  const updateSelectedOptionItem = (coffeeImageViewed: Coffee) => {
+    setSelectedOptionItem(coffeeImageViewed);
+  };
+
   return {
     transY,
     listOfOptions,
     optionList,
     optionSelected,
     scrollHandler,
-    selectedOptionItem: {
-      coffeeImage: '',
-      coffeeName: '',
-      coffeePrice: 0,
-      id: '',
-      optionId: '',
-    },
+    selectedOptionItem,
     selectOption,
     tryAgain,
-    setCoffeeImageViewed: () => {},
+    setCoffeeImageViewed: updateSelectedOptionItem,
   };
 };
 
