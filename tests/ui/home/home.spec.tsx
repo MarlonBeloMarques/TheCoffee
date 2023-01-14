@@ -225,6 +225,7 @@ const makeSut = (
       tryAgain={tryAgain}
       scrollHandler={scrollHandler}
       transY={getTransYStub()}
+      setCoffeeImageViewed={() => {}}
     />,
   );
 
