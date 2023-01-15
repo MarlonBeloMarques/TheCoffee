@@ -1,5 +1,16 @@
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
-import { renderHook, waitFor } from '@testing-library/react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ViewToken,
+} from 'react-native';
+import HomeViewModel, {
+  OptionOfList,
+} from 'src/presentation/screens/home/model';
+import {
+  RenderHookResult,
+  renderHook,
+  waitFor,
+} from '@testing-library/react-native';
 import { LocalGetListOfOptions } from '~/data/useCases';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 import useViewModel from '../../../src/presentation/screens/home/viewModel';
@@ -106,11 +117,11 @@ describe('ViewModel: Home', () => {
     });
   });
 
-  test('should update selectedOptionItem when called setCoffeeImageViewed', async () => {
+  test('should update selectedOptionItem when called onViewableItemsChanged of viewabilityConfigCallbackPairs', async () => {
     const listOptions = getListOfOptionsFake();
     const { sut } = makeSut(getListOfOptionsFake());
 
-    sut.result.current.setCoffeeImageViewed(listOptions[0].list[0]);
+    onViewableItemsChanged(sut, listOptions);
 
     await waitFor(() => {
       expect(sut.result.current.selectedOptionItem).toEqual(
@@ -129,4 +140,31 @@ const makeSut = (listOfOptions = getListOfOptionsFake()) => {
   const sut = renderHook(() => useViewModel(getListOfOptions));
 
   return { sut, getSpy };
+};
+
+const onViewableItemsChanged = (
+  sut: RenderHookResult<HomeViewModel, unknown>,
+  listOptions: Array<OptionOfList>,
+) => {
+  if (
+    sut.result.current.viewabilityConfigCallbackPairs.current[0]
+      .onViewableItemsChanged
+  ) {
+    sut.result.current.viewabilityConfigCallbackPairs.current[0].onViewableItemsChanged(
+      {
+        changed: [
+          {
+            item: {
+              coffeeImage: listOptions[0].list[0].coffeeImage,
+              coffeeName: listOptions[0].list[0].coffeeName,
+              coffeePrice: listOptions[0].list[0].coffeePrice,
+              id: listOptions[0].list[0].id,
+              optionId: listOptions[0].list[0].optionId,
+            },
+          },
+        ] as ViewToken[],
+        viewableItems: [],
+      },
+    );
+  }
 };

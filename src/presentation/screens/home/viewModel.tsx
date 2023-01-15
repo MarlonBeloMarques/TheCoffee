@@ -1,8 +1,19 @@
-import { useEffect, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ViewToken,
+  ViewabilityConfigCallbackPairs,
+} from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import { GetListOfOptions } from '~/domain/useCases';
+import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 import HomeViewModel, { Coffee, Option, OptionOfList } from './model';
+
+const viewabilityConfig = {
+  waitForInteraction: true,
+  viewAreaCoveragePercentThreshold: ITEM_HEIGHT,
+};
 
 const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
@@ -20,6 +31,28 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   });
 
   const transY = useSharedValue(0);
+
+  const onViewableItemsChanged = useCallback(
+    (info: { changed: ViewToken[] }): void => {
+      const changed = info.changed;
+      updateSelectedOptionItem({
+        coffeeImage: changed[0].item.coffeeImage,
+        coffeeName: changed[0].item.coffeeName,
+        coffeePrice: changed[0].item.coffeePrice,
+        id: changed[0].item.id,
+        optionId: changed[0].item.optionId,
+      });
+    },
+    [],
+  );
+
+  const viewabilityConfigCallbackPairs = useRef<ViewabilityConfigCallbackPairs>(
+    [{ viewabilityConfig, onViewableItemsChanged }],
+  );
+
+  const updateSelectedOptionItem = (coffeeImageViewed: Coffee) => {
+    setSelectedOptionItem(coffeeImageViewed);
+  };
 
   useEffect(() => {
     requestStart();
@@ -55,10 +88,6 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     requestStart();
   };
 
-  const updateSelectedOptionItem = (coffeeImageViewed: Coffee) => {
-    setSelectedOptionItem(coffeeImageViewed);
-  };
-
   return {
     transY,
     listOfOptions,
@@ -68,7 +97,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     selectedOptionItem,
     selectOption,
     tryAgain,
-    setCoffeeImageViewed: updateSelectedOptionItem,
+    viewabilityConfigCallbackPairs,
   };
 };
 
