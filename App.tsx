@@ -1,15 +1,9 @@
 import React from 'react';
-import { StatusBar, View } from 'react-native';
-import { HomeFactory } from './src/main/factories/presentation';
+import Main from '~/main';
+import { Routes } from '~/main/navigation';
 
 const App = () => {
-  return (
-    <View style={{ flex: 1 }}>
-      <StatusBar barStyle={'dark-content'} />
-      <View style={{ height: 57 }} />
-      <HomeFactory />
-    </View>
-  );
+  return <Main initialRouteName={Routes.HOME} />;
 };
 
 export default App;

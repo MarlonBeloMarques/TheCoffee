@@ -16,6 +16,12 @@
     "moduleResolution": "node", /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": ".", /* Base directory to resolve non-absolute module names. */
     "paths": {
+      "~/main": [
+        "src/main"
+      ],
+      "~/main/navigation": [
+        "src/main/navigation"
+      ],
       "~/presentation/screens": [
         "src/presentation/screens"
       ],
