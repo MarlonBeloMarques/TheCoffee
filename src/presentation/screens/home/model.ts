@@ -2,6 +2,7 @@ import {
   ImageSourcePropType,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  ViewabilityConfigCallbackPairs,
 } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 
@@ -33,7 +34,7 @@ type HomeViewModel = {
   optionList: Array<Coffee>;
   tryAgain: () => void;
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  setCoffeeImageViewed: (coffeeImageViewed: Coffee) => void;
+  viewabilityConfigCallbackPairs: React.MutableRefObject<ViewabilityConfigCallbackPairs>;
 };
 
 export default HomeViewModel;

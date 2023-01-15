@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { ViewabilityConfigCallbackPair } from 'react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { Home } from '~/presentation/screens';
 import {
   Coffee,
@@ -203,6 +204,32 @@ describe('UI: Home', () => {
 
     expect(scrollHandler).not.toHaveBeenCalled();
   });
+
+  test('should set viewabilityConfigCallbackPairs of CoffeesImagesList with the same value received by param', async () => {
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+    );
+
+    const coffeesImagesList = getByTestId('option_list_id');
+
+    await waitFor(() => {
+      expect(
+        coffeesImagesList.props.viewabilityConfigCallbackPairs[0]
+          .viewabilityConfig,
+      ).toEqual(
+        viewabilityConfigCallbackPairsStub.current[0].viewabilityConfig,
+      );
+    });
+  });
 });
 
 const makeSut = (
@@ -211,6 +238,11 @@ const makeSut = (
   listOfOptions: Array<OptionOfList> = [],
   optionSelected: Option = getOptionSelectedFake(),
   scrollHandler = () => {},
+  viewabilityConfigCallbackPairs = {
+    current: [
+      { onViewableItemsChanged: {}, viewabilityConfig: {} },
+    ] as Array<ViewabilityConfigCallbackPair>,
+  },
 ) => {
   const tryAgain = jest.fn();
   const selectOption = jest.fn();
@@ -225,9 +257,25 @@ const makeSut = (
       tryAgain={tryAgain}
       scrollHandler={scrollHandler}
       transY={getTransYStub()}
-      setCoffeeImageViewed={() => {}}
+      viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
     />,
   );
 
   return { sut, tryAgain, selectOption };
+};
+
+const getViewabilityConfigCallbackPairsStub = () => {
+  return {
+    current: [
+      {
+        onViewableItemsChanged: () => {},
+        viewabilityConfig: {
+          itemVisiblePercentThreshold: 1,
+          minimumViewTime: 1,
+          viewAreaCoveragePercentThreshold: 1,
+          waitForInteraction: true,
+        },
+      },
+    ] as Array<ViewabilityConfigCallbackPair>,
+  };
 };

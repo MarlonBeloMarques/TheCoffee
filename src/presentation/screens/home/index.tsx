@@ -30,7 +30,7 @@ const Home: React.FC<HomeViewModel> = ({
   tryAgain,
   scrollHandler,
   transY,
-  setCoffeeImageViewed,
+  viewabilityConfigCallbackPairs,
 }) => {
   const renderListOfOptions = () => {
     return (
@@ -92,13 +92,9 @@ const Home: React.FC<HomeViewModel> = ({
         )}
         {optionList.length !== 0 && (
           <CoffeesImagesList
-            onViewableItemsChanged={({ changed }) => {
-              setCoffeeImageViewed({
-                id: changed[0].item.id,
-                list: changed[0].item.list,
-                option: changed[0].item.option,
-              });
-            }}
+            viewabilityConfigCallbackPairs={
+              viewabilityConfigCallbackPairs.current
+            }
             onScroll={scrollHandler}
             testID="option_list_id"
             data={optionList}
