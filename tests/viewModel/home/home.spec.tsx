@@ -129,6 +129,17 @@ describe('ViewModel: Home', () => {
       );
     });
   });
+
+  test('should update selectedOptionItem when initialize', async () => {
+    const listOptions = getListOfOptionsFake();
+    const { sut } = makeSut(getListOfOptionsFake());
+
+    await waitFor(() => {
+      expect(sut.result.current.selectedOptionItem).toEqual(
+        listOptions[0].list[0],
+      );
+    });
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {

@@ -77,6 +77,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   const selectOption = (option: OptionOfList) => {
     setOptionSelected({ id: option.id, option: option.option });
     setOptionList(option.list);
+    updateSelectedOptionItem(option.list[0]);
   };
 
   const scrollHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
