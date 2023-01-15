@@ -32,6 +32,13 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
 
   const transY = useSharedValue(0);
 
+  const updateSelectedOptionItem = useCallback(
+    (coffeeImageViewed: Coffee) => {
+      setSelectedOptionItem(coffeeImageViewed);
+    },
+    [setSelectedOptionItem],
+  );
+
   const onViewableItemsChanged = useCallback(
     (info: { changed: ViewToken[] }): void => {
       const changed = info.changed;
@@ -43,16 +50,12 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
         optionId: changed[0].item.optionId,
       });
     },
-    [],
+    [updateSelectedOptionItem],
   );
 
   const viewabilityConfigCallbackPairs = useRef<ViewabilityConfigCallbackPairs>(
     [{ viewabilityConfig, onViewableItemsChanged }],
   );
-
-  const updateSelectedOptionItem = (coffeeImageViewed: Coffee) => {
-    setSelectedOptionItem(coffeeImageViewed);
-  };
 
   useEffect(() => {
     requestStart();
