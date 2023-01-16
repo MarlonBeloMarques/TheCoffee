@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { HomeFactory } from '../factories/presentation';
 import { Routes } from './routes';
@@ -23,7 +24,18 @@ const StackNavigation: React.FC<StackNavigationParams> = ({
         headerShadowVisible: false,
       }}
     >
-      <Stack.Screen name={Routes.HOME}>
+      <Stack.Screen
+        name={Routes.HOME}
+        options={{
+          headerLeft: () => (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+                the coffee.
+              </Text>
+            </View>
+          ),
+        }}
+      >
         {(props) => <HomeFactory {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
