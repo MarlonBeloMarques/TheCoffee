@@ -3,6 +3,7 @@ import {
   NavigationContainer,
   NavigationContainerRef,
 } from '@react-navigation/native';
+import { DefaultThemes } from '../helpers';
 import StackNavigation from './stack';
 
 type Props = {
@@ -15,20 +16,7 @@ const Navigation: React.FC<Props> = ({
   initialRouteName,
 }) => {
   return (
-    <NavigationContainer
-      ref={setNavigationTop}
-      theme={{
-        dark: false,
-        colors: {
-          primary: '#FFFFFF',
-          background: '#FFFFFF',
-          card: '#FFFFFF',
-          text: '#000000',
-          border: '#FFFFFF',
-          notification: '#FFFFFF',
-        },
-      }}
-    >
+    <NavigationContainer ref={setNavigationTop} theme={DefaultThemes}>
       <StackNavigation initialRouteName={initialRouteName} />
     </NavigationContainer>
   );

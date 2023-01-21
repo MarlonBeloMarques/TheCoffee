@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { colors } from '~/presentation/themes';
 import { HomeFactory } from '../factories/presentation';
 import { Routes } from './routes';
 
@@ -19,7 +20,7 @@ const StackNavigation: React.FC<StackNavigationParams> = ({
       screenOptions={{
         headerTransparent: false,
         headerBackTitleVisible: false,
-        headerTintColor: '#000000',
+        headerTintColor: colors.text,
         title: '',
         headerShadowVisible: false,
       }}

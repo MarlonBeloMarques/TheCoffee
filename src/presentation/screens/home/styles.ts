@@ -2,6 +2,7 @@ import { FlatList } from 'react-native';
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 import { screenWidth } from '~/presentation/helpers/animations';
+import { colors } from '~/presentation/themes';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -52,7 +53,7 @@ export const UnderlineOfOption = styled.View`
   position: absolute;
   width: 100%;
   height: 2px;
-  background-color: #000000;
+  background-color: ${colors.text};
 `;
 
 export const CoffeeName = styled.Text`

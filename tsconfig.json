@@ -25,6 +25,9 @@
       "~/presentation/screens": [
         "src/presentation/screens"
       ],
+      "~/presentation/themes": [
+        "src/presentation/themes"
+      ],
       "~/presentation/assets/images": [
         "src/presentation/assets/images"
       ],
