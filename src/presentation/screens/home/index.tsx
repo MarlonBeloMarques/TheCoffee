@@ -1,5 +1,4 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { ItemCoffee } from '~/presentation/components';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 
@@ -12,6 +11,7 @@ import {
   CoffeesImagesList,
   CoffeesImagesWrapper,
   EmptyMessageCoffeesImages,
+  IconCoffeeEmpty,
   ListOfOptions,
   Option,
   OptionButton,
@@ -78,20 +78,25 @@ const Home: React.FC<HomeViewModel> = ({
     return <ItemCoffee index={index} item={item} transY={transY} />;
   };
 
+  const renderMessageIfCoffeesImagesIsEmpty = () => {
+    if (optionList.length === 0) {
+      return (
+        <CoffeesImagesEmptyWrapper>
+          <IconCoffeeEmpty testID="icon_option_list_empty_id" />
+          <EmptyMessageCoffeesImages testID="message_option_list_empty_id">
+            {"looks like we're out of products"}
+          </EmptyMessageCoffeesImages>
+          <TryAgainButton testID="button_try_again_id" onPress={tryAgain}>
+            <TryAgainMessage>{'try again another time'}</TryAgainMessage>
+          </TryAgainButton>
+        </CoffeesImagesEmptyWrapper>
+      );
+    }
+  };
+
   const renderCoffeesImages = () => {
     return (
       <CoffeesImagesWrapper>
-        {optionList.length === 0 && (
-          <CoffeesImagesEmptyWrapper>
-            <Icon testID="icon_option_list_empty_id" name="coffee" size={96} />
-            <EmptyMessageCoffeesImages testID="message_option_list_empty_id">
-              {"looks like we're out of products"}
-            </EmptyMessageCoffeesImages>
-            <TryAgainButton testID="button_try_again_id" onPress={tryAgain}>
-              <TryAgainMessage>{'try again another time'}</TryAgainMessage>
-            </TryAgainButton>
-          </CoffeesImagesEmptyWrapper>
-        )}
         {optionList.length !== 0 && (
           <CoffeesImagesList
             viewabilityConfigCallbackPairs={
@@ -114,6 +119,7 @@ const Home: React.FC<HomeViewModel> = ({
       <Wrapper style={{ flex: 0.9 }}>
         {renderCoffeeDetails()}
         {renderCoffeesImages()}
+        {renderMessageIfCoffeesImagesIsEmpty()}
       </Wrapper>
     </Wrapper>
   );

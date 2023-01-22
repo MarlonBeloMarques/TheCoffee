@@ -1,6 +1,7 @@
 import { FlatList } from 'react-native';
 import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { screenWidth } from '~/presentation/helpers/animations';
 import { colors } from '~/presentation/themes';
 
@@ -15,6 +16,7 @@ export const OptionWrapper = styled.View`
 `;
 
 export const CoffeesImagesEmptyWrapper = styled.View`
+  height: 100%;
   justify-content: center;
   align-items: center;
   margin: 0 60px 0 60px;
@@ -86,6 +88,13 @@ export const ListOfOptions = styled.ScrollView.attrs({
 `;
 
 export const OptionButton = styled.TouchableOpacity``;
+
+export const IconCoffeeEmpty = styled(Icon).attrs({
+  name: 'coffee',
+  size: 96,
+})`
+  margin-bottom: 24px;
+`;
 
 export const CoffeesImagesList = styled(AnimatedFlatList).attrs({
   showsVerticalScrollIndicator: false,
