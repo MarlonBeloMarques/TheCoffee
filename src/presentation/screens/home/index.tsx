@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { ItemCoffee } from '~/presentation/components';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 
@@ -82,6 +83,7 @@ const Home: React.FC<HomeViewModel> = ({
       <CoffeesImagesWrapper>
         {optionList.length === 0 && (
           <CoffeesImagesEmptyWrapper>
+            <Icon testID="icon_option_list_empty_id" name="coffee" size={96} />
             <EmptyMessageCoffeesImages testID="message_option_list_empty_id">
               {"looks like we're out of products"}
             </EmptyMessageCoffeesImages>

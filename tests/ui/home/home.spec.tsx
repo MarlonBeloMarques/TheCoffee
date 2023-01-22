@@ -125,6 +125,16 @@ describe('UI: Home', () => {
     );
   });
 
+  test('should show icon of option list empty', () => {
+    const {
+      sut: { getByTestId },
+    } = makeSut();
+
+    const iconOptionListEmpty = getByTestId('icon_option_list_empty_id');
+
+    expect(iconOptionListEmpty).toBeTruthy();
+  });
+
   test('should show button for try again when option list is empty', () => {
     const {
       sut: { getByTestId },
