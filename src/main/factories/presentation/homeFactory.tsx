@@ -35,6 +35,7 @@ const HomeFactory: React.FC<Props> = () => {
       transY={viewModel.transY}
       tryAgain={viewModel.tryAgain}
       viewabilityConfigCallbackPairs={viewModel.viewabilityConfigCallbackPairs}
+      setSelectedOption={viewModel.setSelectedOption}
     />
   );
 };
