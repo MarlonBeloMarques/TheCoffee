@@ -240,6 +240,29 @@ describe('UI: Home', () => {
       );
     });
   });
+
+  test('should call setOptionOfList when press the coffee image', async () => {
+    const setOptionOfList = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setOptionOfList,
+    );
+
+    const coffeeImage = getByTestId('coffee_image_1_id');
+
+    fireEvent.press(coffeeImage);
+
+    expect(setOptionOfList).toHaveBeenCalledTimes(1);
+  });
 });
 
 const makeSut = (
@@ -253,6 +276,7 @@ const makeSut = (
       { onViewableItemsChanged: {}, viewabilityConfig: {} },
     ] as Array<ViewabilityConfigCallbackPair>,
   },
+  setOptionOfList = () => {},
 ) => {
   const tryAgain = jest.fn();
   const selectOption = jest.fn();
@@ -268,6 +292,7 @@ const makeSut = (
       scrollHandler={scrollHandler}
       transY={getTransYStub()}
       viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
+      setOptionOfList={setOptionOfList}
     />,
   );
 

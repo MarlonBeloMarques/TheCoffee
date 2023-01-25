@@ -31,6 +31,7 @@ const Home: React.FC<HomeViewModel> = ({
   tryAgain,
   scrollHandler,
   transY,
+  setOptionOfList,
   viewabilityConfigCallbackPairs,
 }) => {
   const renderListOfOptions = () => {
@@ -75,7 +76,14 @@ const Home: React.FC<HomeViewModel> = ({
   };
 
   const renderItemCoffee = ({ item, index }: { item: any; index: any }) => {
-    return <ItemCoffee index={index} item={item} transY={transY} />;
+    return (
+      <ItemCoffee
+        index={index}
+        item={item}
+        transY={transY}
+        onPress={setOptionOfList}
+      />
+    );
   };
 
   const renderMessageIfCoffeesImagesIsEmpty = () => {

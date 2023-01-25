@@ -34,6 +34,7 @@ type HomeViewModel = {
   optionList: Array<Coffee>;
   tryAgain: () => void;
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  setOptionOfList: (option: Coffee) => void;
   viewabilityConfigCallbackPairs: React.MutableRefObject<ViewabilityConfigCallbackPairs>;
 };
 

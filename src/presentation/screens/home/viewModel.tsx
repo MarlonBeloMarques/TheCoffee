@@ -102,6 +102,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     selectOption,
     tryAgain,
     viewabilityConfigCallbackPairs,
+    setOptionOfList: () => {},
   };
 };
 

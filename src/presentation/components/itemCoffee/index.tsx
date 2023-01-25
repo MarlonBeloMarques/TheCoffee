@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageSourcePropType } from 'react-native';
+import { ImageSourcePropType, TouchableOpacity } from 'react-native';
 import { SharedValue, useAnimatedStyle } from 'react-native-reanimated';
 import {
   bottomAnimation,
@@ -13,9 +13,10 @@ type Props = {
   index: number;
   item: Coffee;
   transY: SharedValue<number>;
+  onPress: (option: Coffee) => void;
 };
 
-const ItemCoffee: React.FC<Props> = ({ index, item, transY }) => {
+const ItemCoffee: React.FC<Props> = ({ index, item, transY, onPress }) => {
   const animatedStyle = useAnimatedStyle(() => {
     return {
       opacity: opacityAnimation(transY, index),
@@ -29,10 +30,12 @@ const ItemCoffee: React.FC<Props> = ({ index, item, transY }) => {
   });
   return (
     <AnimatedView style={animatedStyle}>
-      <CoffeeImage
-        testID={`coffee_image_${item.id}_id`}
-        source={item.coffeeImage as ImageSourcePropType}
-      ></CoffeeImage>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)}>
+        <CoffeeImage
+          testID={`coffee_image_${item.id}_id`}
+          source={item.coffeeImage as ImageSourcePropType}
+        />
+      </TouchableOpacity>
     </AnimatedView>
   );
 };
