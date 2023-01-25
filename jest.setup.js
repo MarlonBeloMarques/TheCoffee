@@ -4,4 +4,7 @@ jest.mock('react-native-reanimated', () =>
 );
 
 jest.mock('react-native-vector-icons/FontAwesome', () => 'Icon');
+jest.mock('react-native-video', ()=> 'ReactNativeVideo')
+
+
 
