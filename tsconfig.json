@@ -31,6 +31,9 @@
       "~/presentation/assets/images": [
         "src/presentation/assets/images"
       ],
+      "~/presentation/assets/videos": [
+        "src/presentation/assets/videos"
+      ],
       "~/presentation/helpers/animations": [
         "src/presentation/helpers/animations"
       ],

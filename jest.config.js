@@ -7,7 +7,6 @@ module.exports = {
   testRegex: '\\.spec\\.ts',
   setupFiles: ['<rootDir>/jest.setup.js'],
   transformIgnorePatterns: [],
-  collectCoverage: true,
   coverageThreshold: {
     global: {
       branches: 90,
