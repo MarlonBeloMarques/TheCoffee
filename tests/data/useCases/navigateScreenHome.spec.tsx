@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { RouteParams } from '~/domain/models';
-import { Navigate } from '~/domain/useCases';
+import { NavigateScreenHome } from '~/data/useCases';
 import { Navigation, Routes } from '../../../src/main/navigation';
+import NavigateScreen from '../../../src/data/navigate/navigateScreen';
 
 describe('Data: NavigateScreenHome', () => {
   test('should call navigateToHome passing the params correctly to navigate of NavigateScreen', () => {
@@ -25,18 +25,6 @@ describe('Data: NavigateScreenHome', () => {
     expect(navigateScreen.params).toEqual({ any: 'any_value' });
   });
 });
-
-class NavigateScreenHome implements Navigate {
-  constructor(readonly navigateScreen: NavigateScreen) {}
-
-  navigateToHome(params?: RouteParams | undefined): void {
-    this.navigateScreen.navigate(Routes.HOME, params);
-  }
-}
-
-interface NavigateScreen {
-  navigate(routeName: string, params?: GenericObject | undefined): void;
-}
 
 export class NavigateScreenSpy implements NavigateScreen {
   navigationRef: any;
