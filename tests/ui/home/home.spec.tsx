@@ -263,6 +263,30 @@ describe('UI: Home', () => {
 
     expect(setOptionOfList).toHaveBeenCalledTimes(1);
   });
+
+  test('should call setOptionOfList with correct param when press the coffee image', async () => {
+    const setOptionOfList = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setOptionOfList,
+    );
+
+    const coffeeImage = getByTestId('coffee_image_1_id');
+
+    fireEvent.press(coffeeImage);
+
+    expect(setOptionOfList).toHaveBeenCalledTimes(1);
+    expect(setOptionOfList).toHaveBeenCalledWith(getOptionListFake()[0]);
+  });
 });
 
 const makeSut = (
