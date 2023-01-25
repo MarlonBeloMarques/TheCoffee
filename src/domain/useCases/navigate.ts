@@ -1,5 +1,5 @@
 import { RouteParams } from '../models';
 
-export interface Navigate {
-  navigateToMyPlans(params?: RouteParams): void;
+export default interface Navigate {
+  navigateToHome(params?: RouteParams): void;
 }
