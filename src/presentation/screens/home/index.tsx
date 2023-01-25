@@ -31,7 +31,7 @@ const Home: React.FC<HomeViewModel> = ({
   tryAgain,
   scrollHandler,
   transY,
-  setOptionOfList,
+  setSelectedOption,
   viewabilityConfigCallbackPairs,
 }) => {
   const renderListOfOptions = () => {
@@ -81,7 +81,7 @@ const Home: React.FC<HomeViewModel> = ({
         index={index}
         item={item}
         transY={transY}
-        onPress={setOptionOfList}
+        onPress={setSelectedOption}
       />
     );
   };

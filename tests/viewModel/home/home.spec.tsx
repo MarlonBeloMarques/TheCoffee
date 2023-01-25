@@ -140,6 +140,18 @@ describe('ViewModel: Home', () => {
       );
     });
   });
+
+  test('should update selectedOptionItem when call setSelectedOption', async () => {
+    const listOptions = getListOfOptionsFake();
+    const { sut } = makeSut(getListOfOptionsFake());
+
+    await waitFor(() => {
+      sut.result.current.setSelectedOption(listOptions[0].list[1]);
+      expect(sut.result.current.selectedOptionItem).toEqual(
+        listOptions[0].list[1],
+      );
+    });
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {

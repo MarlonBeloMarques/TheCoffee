@@ -241,8 +241,8 @@ describe('UI: Home', () => {
     });
   });
 
-  test('should call setOptionOfList when press the coffee image', async () => {
-    const setOptionOfList = jest.fn();
+  test('should call setSelectedOption when press the coffee image', async () => {
+    const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
       getViewabilityConfigCallbackPairsStub();
     const {
@@ -254,18 +254,18 @@ describe('UI: Home', () => {
       getOptionSelectedFake(),
       () => {},
       viewabilityConfigCallbackPairsStub,
-      setOptionOfList,
+      setSelectedOption,
     );
 
     const coffeeImage = getByTestId('coffee_image_1_id');
 
     fireEvent.press(coffeeImage);
 
-    expect(setOptionOfList).toHaveBeenCalledTimes(1);
+    expect(setSelectedOption).toHaveBeenCalledTimes(1);
   });
 
-  test('should call setOptionOfList with correct param when press the coffee image', async () => {
-    const setOptionOfList = jest.fn();
+  test('should call setSelectedOption with correct param when press the coffee image', async () => {
+    const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
       getViewabilityConfigCallbackPairsStub();
     const {
@@ -277,15 +277,15 @@ describe('UI: Home', () => {
       getOptionSelectedFake(),
       () => {},
       viewabilityConfigCallbackPairsStub,
-      setOptionOfList,
+      setSelectedOption,
     );
 
     const coffeeImage = getByTestId('coffee_image_1_id');
 
     fireEvent.press(coffeeImage);
 
-    expect(setOptionOfList).toHaveBeenCalledTimes(1);
-    expect(setOptionOfList).toHaveBeenCalledWith(getOptionListFake()[0]);
+    expect(setSelectedOption).toHaveBeenCalledTimes(1);
+    expect(setSelectedOption).toHaveBeenCalledWith(getOptionListFake()[0]);
   });
 });
 
@@ -300,7 +300,7 @@ const makeSut = (
       { onViewableItemsChanged: {}, viewabilityConfig: {} },
     ] as Array<ViewabilityConfigCallbackPair>,
   },
-  setOptionOfList = () => {},
+  setSelectedOption = () => {},
 ) => {
   const tryAgain = jest.fn();
   const selectOption = jest.fn();
@@ -316,7 +316,7 @@ const makeSut = (
       scrollHandler={scrollHandler}
       transY={getTransYStub()}
       viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
-      setOptionOfList={setOptionOfList}
+      setSelectedOption={setSelectedOption}
     />,
   );
 

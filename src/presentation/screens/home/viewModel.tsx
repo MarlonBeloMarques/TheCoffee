@@ -92,6 +92,10 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     requestStart();
   };
 
+  const setSelectedOption = (option: Coffee) => {
+    setSelectedOptionItem(option);
+  };
+
   return {
     transY,
     listOfOptions,
@@ -102,7 +106,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     selectOption,
     tryAgain,
     viewabilityConfigCallbackPairs,
-    setOptionOfList: () => {},
+    setSelectedOption,
   };
 };
 
