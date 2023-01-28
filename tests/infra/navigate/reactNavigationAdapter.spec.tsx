@@ -14,8 +14,11 @@ describe('Infra: ReactNavigationAdapter', () => {
 
     await waitFor(() => {
       expect(navigateSpy).toHaveBeenCalledTimes(1);
-      expect(navigateSpy).toHaveBeenCalledWith(Routes.HOME, {
-        any: 'any_params',
+      expect(navigateSpy).toHaveBeenCalledWith({
+        name: Routes.HOME,
+        params: {
+          any: 'any_params',
+        },
       });
     });
   });
@@ -28,7 +31,7 @@ const makeSut = () => {
   render(
     <Navigation
       setNavigationTop={(navigationRef) => (navigation = navigationRef)}
-      initialRouteName={Routes.WELCOME}
+      initialRouteName={Routes.HOME}
     />,
   );
 
