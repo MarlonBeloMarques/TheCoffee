@@ -1,10 +1,12 @@
 import React from 'react';
-import {
-  CommonActions,
-  NavigationContainerRef,
-} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import { render, waitFor } from '@testing-library/react-native';
-import { Navigation, Routes } from '~/main/navigation';
+import {
+  Navigation,
+  Routes,
+  navigator,
+  setTopLevelNavigator,
+} from '~/main/navigation';
 import { ReactNavigationAdapter } from '~/infra';
 
 describe('Infra: ReactNavigationAdapter', () => {
@@ -25,17 +27,16 @@ describe('Infra: ReactNavigationAdapter', () => {
 });
 
 const makeSut = () => {
-  let navigation = {} as NavigationContainerRef<any>;
   const navigateSpy = jest.spyOn(CommonActions, 'navigate');
 
   render(
     <Navigation
-      setNavigationTop={(navigationRef) => (navigation = navigationRef)}
+      setNavigationTop={(navigationRef) => setTopLevelNavigator(navigationRef)}
       initialRouteName={Routes.HOME}
     />,
   );
 
-  const sut = new ReactNavigationAdapter(navigation);
+  const sut = new ReactNavigationAdapter();
 
-  return { sut, navigateSpy };
+  return { sut, navigateSpy, navigator };
 };
