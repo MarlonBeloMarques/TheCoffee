@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Navigate } from '~/domain/useCases';
 
 const useViewModel = (navigate: Navigate) => {
+  const navigateToHome = useCallback(() => {
+    navigate.navigateToHome();
+  }, [navigate]);
+
   useEffect(() => {
     setTimeout(() => {
       navigateToHome();
     }, 5000);
-  }, []);
-
-  const navigateToHome = () => {
-    navigate.navigateToHome();
-  };
+  }, [navigateToHome]);
 };
 
 export default useViewModel;

@@ -2,8 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from '~/presentation/themes';
-import { Welcome } from '~/presentation/screens';
-import { HomeFactory } from '../factories/presentation';
+import { HomeFactory, WelcomeFactory } from '../factories/presentation';
 import { Routes } from './routes';
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -26,11 +25,9 @@ const StackNavigation: React.FC<StackNavigationParams> = ({
         headerShadowVisible: false,
       }}
     >
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name={Routes.WELCOME}
-        component={Welcome}
-      ></Stack.Screen>
+      <Stack.Screen options={{ headerShown: false }} name={Routes.WELCOME}>
+        {(props) => <WelcomeFactory {...props} />}
+      </Stack.Screen>
       <Stack.Screen
         name={Routes.HOME}
         options={{
