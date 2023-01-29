@@ -1,8 +1,12 @@
 import React from 'react';
+import { View } from 'react-native';
 import { render } from '@testing-library/react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigateScreenHome } from '~/data/useCases';
 import { Navigation, Routes } from '../../../src/main/navigation';
 import NavigateScreen from '../../../src/data/navigate/navigateScreen';
+
+const Stack = createNativeStackNavigator<StackParams>();
 
 describe('Data: NavigateScreenHome', () => {
   test('should call navigateToHome passing the params correctly to navigate of NavigateScreen', () => {
@@ -12,6 +16,16 @@ describe('Data: NavigateScreenHome', () => {
       <Navigation
         setNavigationTop={(navigationRef) => (navigation = navigationRef)}
         initialRouteName={Routes.HOME}
+        screensStack={
+          <>
+            <Stack.Screen name={Routes.WELCOME}>
+              {() => <View></View>}
+            </Stack.Screen>
+            <Stack.Screen name={Routes.HOME}>
+              {() => <View></View>}
+            </Stack.Screen>
+          </>
+        }
       />,
     );
 

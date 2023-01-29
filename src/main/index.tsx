@@ -3,6 +3,7 @@ import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { Navigation, setTopLevelNavigator } from './navigation';
+import { getScreensStack } from './navigation/stack';
 
 type Props = {
   initialRouteName: keyof StackParams;
@@ -17,6 +18,7 @@ const Main: React.FC<Props> = ({ initialRouteName }) => {
           setTopLevelNavigator(navigationRef)
         }
         initialRouteName={initialRouteName}
+        screensStack={getScreensStack()}
       />
     </WrapperScreen>
   );

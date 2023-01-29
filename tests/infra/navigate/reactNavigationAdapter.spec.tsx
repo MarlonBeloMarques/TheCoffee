@@ -1,6 +1,8 @@
 import React from 'react';
+import { View } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { render, waitFor } from '@testing-library/react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   Navigation,
   Routes,
@@ -9,12 +11,14 @@ import {
 } from '~/main/navigation';
 import { ReactNavigationAdapter } from '~/infra';
 
+const Stack = createNativeStackNavigator<StackParams>();
+
 describe('Infra: ReactNavigationAdapter', () => {
   test('should call dispatch navigate action of React Navigation when call navigate', async () => {
     const { sut, navigateSpy } = makeSut();
-    sut.navigate(Routes.HOME, { any: 'any_params' });
 
     await waitFor(() => {
+      sut.navigate(Routes.HOME, { any: 'any_params' });
       expect(navigateSpy).toHaveBeenCalledTimes(1);
       expect(navigateSpy).toHaveBeenCalledWith({
         name: Routes.HOME,
@@ -32,7 +36,15 @@ const makeSut = () => {
   render(
     <Navigation
       setNavigationTop={(navigationRef) => setTopLevelNavigator(navigationRef)}
-      initialRouteName={Routes.HOME}
+      initialRouteName={Routes.WELCOME}
+      screensStack={
+        <>
+          <Stack.Screen name={Routes.WELCOME}>
+            {() => <View></View>}
+          </Stack.Screen>
+          <Stack.Screen name={Routes.HOME}>{() => <View></View>}</Stack.Screen>
+        </>
+      }
     />,
   );
 
