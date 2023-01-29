@@ -6,6 +6,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:promise/recommended',
+    'plugin:react-hooks/recommended',
   ],
   env: {
     browser: true,
@@ -24,7 +25,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'jsx-a11y', 'promise', 'import'],
   ignorePatterns: ['node_modules/', 'e2e', '__mocks__'],
   rules: {
-    'react/jsx-filename-extension': ['error', {extensions: ['.jsx', '.tsx']}],
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
     'react/prop-types': 0,
     'react/display-name': 0,
     '@typescript-eslint/no-unused-vars': ['error'],
@@ -59,7 +60,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: ['react'],
       },
     ],
-    'sort-imports': ['error', {ignoreDeclarationSort: true}],
+    'sort-imports': ['error', { ignoreDeclarationSort: true }],
     'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
