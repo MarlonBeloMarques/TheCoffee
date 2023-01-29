@@ -9,7 +9,7 @@ const useViewModel = (navigate: Navigate) => {
   useEffect(() => {
     setTimeout(() => {
       navigateToHome();
-    }, 5000);
+    }, 3000);
   }, [navigateToHome]);
 };
 
