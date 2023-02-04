@@ -34,8 +34,6 @@ export const TryAgainMessage = styled.Text`
   line-height: 18px;
 `;
 
-export const TryAgainButton = styled.TouchableWithoutFeedback``;
-
 export const CoffeesImagesWrapper = styled.View`
   height: 70%;
   justify-content: center;

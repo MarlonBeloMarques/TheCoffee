@@ -33,7 +33,6 @@ const HomeFactory: React.FC<Props> = () => {
       selectOption={viewModel.selectOption}
       selectedOptionItem={viewModel.selectedOptionItem}
       transY={viewModel.transY}
-      tryAgain={viewModel.tryAgain}
       viewabilityConfigCallbackPairs={viewModel.viewabilityConfigCallbackPairs}
       setSelectedOption={viewModel.setSelectedOption}
     />

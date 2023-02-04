@@ -86,27 +86,12 @@ describe('ViewModel: Home', () => {
       sut: { result },
     } = makeSut();
 
-    result.current.tryAgain();
-
     result.current.scrollHandler({
       nativeEvent: { contentOffset: { y: 100 } },
     } as NativeSyntheticEvent<NativeScrollEvent>);
 
     await waitFor(() => {
       expect(result.current.transY).toEqual({ value: 100 });
-    });
-  });
-
-  test('should call get of GetListOfOptions when call tryAgain', async () => {
-    const {
-      sut: { result },
-      getSpy,
-    } = makeSut();
-
-    result.current.tryAgain();
-
-    await waitFor(() => {
-      expect(getSpy).toHaveBeenCalledTimes(2);
     });
   });
 

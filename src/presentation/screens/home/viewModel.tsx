@@ -93,10 +93,6 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     transY.value = event.nativeEvent.contentOffset.y;
   };
 
-  const tryAgain = () => {
-    requestStart();
-  };
-
   const setSelectedOption = (option: Coffee) => {
     setSelectedOptionItem(option);
   };
@@ -109,7 +105,6 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     scrollHandler,
     selectedOptionItem,
     selectOption,
-    tryAgain,
     viewabilityConfigCallbackPairs,
     setSelectedOption,
   };

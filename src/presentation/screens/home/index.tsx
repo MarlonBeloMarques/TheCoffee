@@ -16,7 +16,6 @@ import {
   Option,
   OptionButton,
   OptionWrapper,
-  TryAgainButton,
   TryAgainMessage,
   UnderlineOfOption,
   Wrapper,
@@ -28,7 +27,6 @@ const Home: React.FC<HomeViewModel> = ({
   optionSelected,
   optionList,
   selectedOptionItem,
-  tryAgain,
   scrollHandler,
   transY,
   setSelectedOption,
@@ -94,9 +92,7 @@ const Home: React.FC<HomeViewModel> = ({
           <EmptyMessageCoffeesImages testID="message_option_list_empty_id">
             {optionSelected.emptyMessage}
           </EmptyMessageCoffeesImages>
-          <TryAgainButton testID="button_try_again_id" onPress={tryAgain}>
-            <TryAgainMessage>{'try again another time'}</TryAgainMessage>
-          </TryAgainButton>
+          <TryAgainMessage>{'try again another time'}</TryAgainMessage>
         </CoffeesImagesEmptyWrapper>
       );
     }

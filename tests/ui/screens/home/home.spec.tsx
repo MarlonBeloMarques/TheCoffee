@@ -135,40 +135,26 @@ describe('UI: Home', () => {
     expect(iconOptionListEmpty).toBeTruthy();
   });
 
-  test('should show button for try again when option list is empty', () => {
+  test('should show message try again if optionList is empty', () => {
     const {
       sut: { getByTestId },
     } = makeSut();
 
-    const buttonTryAgain = getByTestId('button_try_again_id');
-
-    expect(buttonTryAgain).toBeTruthy();
-    expect(buttonTryAgain.props.children).toEqual('try again another time');
-  });
-
-  test('should press button try again with success', () => {
-    const {
-      tryAgain,
-      sut: { getByTestId },
-    } = makeSut();
-
-    const buttonTryAgain = getByTestId('button_try_again_id');
-
-    fireEvent.press(buttonTryAgain);
-
-    expect(tryAgain).toHaveBeenCalledTimes(1);
-  });
-
-  test('should show message and button try again if optionList is empty', () => {
-    const {
-      sut: { getByTestId },
-    } = makeSut();
-
-    const buttonTryAgain = getByTestId('button_try_again_id');
     const messageOptionListEmpty = getByTestId('message_option_list_empty_id');
 
     expect(messageOptionListEmpty).toBeTruthy();
-    expect(buttonTryAgain).toBeTruthy();
+  });
+
+  test('should not show name coffee and price if optionList is empty', () => {
+    const {
+      sut: { queryByTestId },
+    } = makeSut();
+
+    const coffeeName = queryByTestId('coffee_name_id');
+    const coffeePrice = queryByTestId('coffee_price_id');
+
+    expect(coffeeName).not.toBeTruthy();
+    expect(coffeePrice).not.toBeTruthy();
   });
 
   test('should not show name coffee and price if optionList is empty', () => {
@@ -302,7 +288,6 @@ const makeSut = (
   },
   setSelectedOption = () => {},
 ) => {
-  const tryAgain = jest.fn();
   const selectOption = jest.fn();
 
   const sut = render(
@@ -312,7 +297,6 @@ const makeSut = (
       optionSelected={optionSelected}
       optionList={optionList}
       selectedOptionItem={selectedOptionItem}
-      tryAgain={tryAgain}
       scrollHandler={scrollHandler}
       transY={getTransYStub()}
       viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
@@ -320,7 +304,7 @@ const makeSut = (
     />,
   );
 
-  return { sut, tryAgain, selectOption };
+  return { sut, selectOption };
 };
 
 const getViewabilityConfigCallbackPairsStub = () => {
