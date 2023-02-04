@@ -2,6 +2,7 @@ type Option = {
   id: string;
   option: string;
   list: Array<Coffee>;
+  emptyMessage: string;
 };
 
 type Coffee = {

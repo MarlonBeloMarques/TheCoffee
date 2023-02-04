@@ -92,7 +92,7 @@ const Home: React.FC<HomeViewModel> = ({
         <CoffeesImagesEmptyWrapper>
           <IconCoffeeEmpty testID="icon_option_list_empty_id" />
           <EmptyMessageCoffeesImages testID="message_option_list_empty_id">
-            {"looks like we're out of products"}
+            {optionSelected.emptyMessage}
           </EmptyMessageCoffeesImages>
           <TryAgainButton testID="button_try_again_id" onPress={tryAgain}>
             <TryAgainMessage>{'try again another time'}</TryAgainMessage>

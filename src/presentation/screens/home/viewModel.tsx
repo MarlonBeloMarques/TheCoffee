@@ -21,6 +21,7 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   const [optionSelected, setOptionSelected] = useState<Option>({
     id: '',
     option: '',
+    emptyMessage: '',
   });
   const [selectedOptionItem, setSelectedOptionItem] = useState<Coffee>({
     coffeeImage: '',
@@ -78,7 +79,11 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   };
 
   const selectOption = (option: OptionOfList) => {
-    setOptionSelected({ id: option.id, option: option.option });
+    setOptionSelected({
+      id: option.id,
+      option: option.option,
+      emptyMessage: option.emptyMessage,
+    });
     setOptionList(option.list);
     updateSelectedOptionItem(option.list[0]);
   };

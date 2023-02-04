@@ -61,6 +61,7 @@ describe('ViewModel: Home', () => {
       expect(result.current.optionSelected).toEqual({
         id: listOfOptions[0].id,
         option: listOfOptions[0].option,
+        emptyMessage: listOfOptions[0].emptyMessage,
       });
     });
   });
@@ -75,6 +76,7 @@ describe('ViewModel: Home', () => {
       expect(result.current.optionSelected).toEqual({
         id: listOfOptions[0].id,
         option: listOfOptions[0].option,
+        emptyMessage: listOfOptions[0].emptyMessage,
       });
     });
   });

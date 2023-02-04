@@ -17,6 +17,7 @@ export type Coffee = {
 export interface Option {
   id: string;
   option: string;
+  emptyMessage: string;
 }
 
 interface ListOfOption {

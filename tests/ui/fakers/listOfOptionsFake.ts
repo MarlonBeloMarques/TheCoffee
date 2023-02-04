@@ -19,16 +19,19 @@ const getListOfOptionsFake = () => {
           optionId: '1',
         },
       ],
+      emptyMessage: "looks like we're out of coffee",
     },
     {
       id: '2',
       option: 'products',
       list: [],
+      emptyMessage: "looks like we're out of products",
     },
     {
       id: '3',
       option: 'food',
       list: [],
+      emptyMessage: "looks like we're out of food",
     },
   ];
 };

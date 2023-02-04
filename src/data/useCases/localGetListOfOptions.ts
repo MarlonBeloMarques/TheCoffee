@@ -14,7 +14,7 @@ export default class LocalGetListOfOptions implements GetListOfOptions {
   }
 }
 
-export const makeListOfOptions = () => {
+export const makeListOfOptions = (): Option[] => {
   return [
     {
       id: '1',
@@ -56,16 +56,19 @@ export const makeListOfOptions = () => {
           optionId: '1',
         },
       ],
+      emptyMessage: `looks like we're out of coffee`,
     },
     {
       id: '2',
       option: 'Product',
       list: [],
+      emptyMessage: `looks like we're out of product`,
     },
     {
       id: '3',
       option: 'Food',
       list: [],
+      emptyMessage: `looks like we're out of food`,
     },
   ];
 };
