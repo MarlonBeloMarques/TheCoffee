@@ -12,3 +12,4 @@ export { navigator, setTopLevelNavigator };
 
 export { Routes } from './routes';
 export { default as Navigation } from './navigation';
+export { default as getScreensStack } from './stack/getScreensStack';
