@@ -23,7 +23,7 @@ const Welcome: React.FC = () => {
         testID="video_id"
         source={WelcomeVideo}
         resizeMode="cover"
-        audioOnly={false}
+        muted
         style={{
           position: 'absolute',
           top: 0,
