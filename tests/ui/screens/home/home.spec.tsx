@@ -250,6 +250,67 @@ describe('UI: Home', () => {
     expect(setSelectedOption).toHaveBeenCalledTimes(1);
   });
 
+  test('should update marginBottom style of ItemCoffee if is last list position', async () => {
+    const optionList = getOptionListFake();
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      optionList,
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const anyCoffeeImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
+    const lastCoffeeImageWrapper = getByTestId(
+      `coffee_image_wrapper_${optionList.length - 1}_id`,
+    );
+
+    expect(anyCoffeeImageWrapper.props.style).toEqual({
+      marginBottom: 0,
+      marginTop: 0,
+    });
+    expect(lastCoffeeImageWrapper.props.style).toEqual({
+      marginBottom: 26,
+      marginTop: 0,
+    });
+  });
+
+  test('should update marginTop style of ItemCoffee if is first list position', async () => {
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const anyCoffeeImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
+    const firstCoffeeImageWrapper = getByTestId(`coffee_image_wrapper_${0}_id`);
+
+    expect(anyCoffeeImageWrapper.props.style).toEqual({
+      marginBottom: 0,
+      marginTop: 0,
+    });
+    expect(firstCoffeeImageWrapper.props.style).toEqual({
+      marginBottom: 0,
+      marginTop: 26,
+    });
+  });
+
   test('should call setSelectedOption with correct param when press the coffee image', async () => {
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =

@@ -41,6 +41,7 @@ export const CoffeesImagesWrapper = styled.View`
   bottom: 0;
   left: 0;
   right: 0;
+  padding-bottom: 16px;
 `;
 
 export const Option = styled.Text`
@@ -100,6 +101,5 @@ export const CoffeesImagesList = styled(AnimatedFlatList).attrs({
   snapToAlignment: 'center',
   centerContent: true,
   scrollEventThrottle: 16,
-
   pagingEnabled: true,
 })``;

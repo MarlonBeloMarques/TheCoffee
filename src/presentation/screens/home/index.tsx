@@ -1,6 +1,6 @@
 import React from 'react';
-import { ItemCoffee } from '~/presentation/components';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
+import { ItemCoffeeDecorator } from '../../../presentation/decorators';
 
 import HomeViewModel from './model';
 import {
@@ -75,11 +75,12 @@ const Home: React.FC<HomeViewModel> = ({
 
   const renderItemCoffee = ({ item, index }: { item: any; index: any }) => {
     return (
-      <ItemCoffee
+      <ItemCoffeeDecorator
         index={index}
         item={item}
+        optionList={optionList}
+        setSelectedOption={setSelectedOption}
         transY={transY}
-        onPress={setSelectedOption}
       />
     );
   };

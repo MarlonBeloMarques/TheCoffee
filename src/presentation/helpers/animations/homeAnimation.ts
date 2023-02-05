@@ -3,7 +3,7 @@ import { Extrapolate, SharedValue, interpolate } from 'react-native-reanimated';
 
 export const screenHeight = Dimensions.get('screen').height;
 export const screenWidth = Dimensions.get('screen').width;
-export const ITEM_HEIGHT = screenHeight / 2;
+export const ITEM_HEIGHT = screenHeight / 2.1;
 
 export const opacityAnimation = (
   transY: SharedValue<number>,
@@ -36,7 +36,7 @@ export const bottomAnimation = (transY: SharedValue<number>, index: number) => {
   return interpolate(
     transY.value,
     [(index - 1) * ITEM_HEIGHT, index * ITEM_HEIGHT, (index + 1) * ITEM_HEIGHT],
-    [-360, 1, -360],
+    [-360, 0, -360],
     Extrapolate.CLAMP,
   );
 };
