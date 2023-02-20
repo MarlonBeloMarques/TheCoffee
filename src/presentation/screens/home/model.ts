@@ -27,6 +27,16 @@ interface ListOfOption {
 export type OptionOfList = Option & ListOfOption;
 
 type HomeViewModel = {
+  listOfOptions: Array<OptionOfList>;
+  selectOption: (option: OptionOfList) => void;
+  optionSelected: Option;
+  selectedOptionItem: Coffee;
+  optionList: Array<Coffee>;
+  setSelectedOption: (option: Coffee) => void;
+  updateSelectedOptionItem: (coffeeImageViewed: Coffee) => void;
+};
+
+export type HomeView = {
   transY: SharedValue<number>;
   listOfOptions: Array<OptionOfList>;
   selectOption: (option: OptionOfList) => void;

@@ -6,7 +6,7 @@ import { LocalGetListOfOptions } from '~/data/useCases';
 import { Routes } from '~/main/navigation';
 import { Home } from '~/presentation/screens';
 import useHomeViewModel from '../../../presentation/screens/home/useHomeViewModel';
-import useGetListOfOptionsContext from '../../../presentation/screens/home/useGetListOfOptions';
+import useHomeController from '../../../presentation/screens/home/useHomeController';
 
 type Props = {
   route: RouteProp<StackParams, Routes>;
@@ -15,12 +15,12 @@ type Props = {
 
 const HomeFactory: React.FC<Props> = () => {
   const localGetListOfOptions = new LocalGetListOfOptions();
-  const { listOfOptions } = useGetListOfOptionsContext(localGetListOfOptions);
-  const viewModel = useHomeViewModel(listOfOptions);
+  const viewModel = useHomeViewModel(localGetListOfOptions);
+  const homeController = useHomeController(viewModel);
 
   const scrollHandlerDecorator = useAnimatedScrollHandler({
     onScroll: (event) => {
-      viewModel.scrollHandler({
+      homeController.scrollHandler({
         nativeEvent: event,
       } as NativeSyntheticEvent<NativeScrollEvent>);
     },
@@ -28,15 +28,17 @@ const HomeFactory: React.FC<Props> = () => {
 
   return (
     <Home
-      listOfOptions={viewModel.listOfOptions}
-      optionList={viewModel.optionList}
-      optionSelected={viewModel.optionSelected}
+      listOfOptions={homeController.listOfOptions}
+      optionList={homeController.optionList}
+      optionSelected={homeController.optionSelected}
       scrollHandler={scrollHandlerDecorator}
-      selectOption={viewModel.selectOption}
-      selectedOptionItem={viewModel.selectedOptionItem}
-      transY={viewModel.transY}
-      viewabilityConfigCallbackPairs={viewModel.viewabilityConfigCallbackPairs}
-      setSelectedOption={viewModel.setSelectedOption}
+      selectOption={homeController.selectOption}
+      selectedOptionItem={homeController.selectedOptionItem}
+      transY={homeController.transY}
+      viewabilityConfigCallbackPairs={
+        homeController.viewabilityConfigCallbackPairs
+      }
+      setSelectedOption={homeController.setSelectedOption}
     />
   );
 };

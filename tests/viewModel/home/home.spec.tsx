@@ -1,16 +1,5 @@
-import {
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ViewToken,
-} from 'react-native';
-import HomeViewModel, {
-  OptionOfList,
-} from 'src/presentation/screens/home/model';
-import {
-  RenderHookResult,
-  renderHook,
-  waitFor,
-} from '@testing-library/react-native';
+import { renderHook, waitFor } from '@testing-library/react-native';
+import { LocalGetListOfOptions } from '~/data/useCases';
 import useHomeViewModel from '../../../src/presentation/screens/home/useHomeViewModel';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 
@@ -36,9 +25,12 @@ describe('ViewModel: Home', () => {
       sut: { result },
     } = makeSut(listOfOptions);
 
-    result.current.selectOption(listOfOptions[0]);
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOfOptions);
+    });
 
     await waitFor(() => {
+      result.current.selectOption(listOfOptions[0]);
       expect(result.current.optionList).toEqual(listOfOptions[0].list);
     });
   });
@@ -48,9 +40,9 @@ describe('ViewModel: Home', () => {
     const {
       sut: { result },
     } = makeSut(listOfOptions);
-    result.current.selectOption(listOfOptions[0]);
 
     await waitFor(() => {
+      result.current.selectOption(listOfOptions[0]);
       expect(result.current.optionSelected).toEqual({
         id: listOfOptions[0].id,
         option: listOfOptions[0].option,
@@ -74,50 +66,12 @@ describe('ViewModel: Home', () => {
     });
   });
 
-  test('should update value of transY when call scrollHandler', async () => {
-    const {
-      sut: { result },
-    } = makeSut();
-
-    result.current.scrollHandler({
-      nativeEvent: { contentOffset: { y: 100 } },
-    } as NativeSyntheticEvent<NativeScrollEvent>);
-
-    await waitFor(() => {
-      expect(result.current.transY).toEqual({ value: 100 });
-    });
-  });
-
   test('should update optionList when initialize', async () => {
     const listOptions = getListOfOptionsFake();
     const { sut } = makeSut(getListOfOptionsFake());
 
     await waitFor(() => {
       expect(sut.result.current.optionList).toEqual(listOptions[0].list);
-    });
-  });
-
-  test('should update selectedOptionItem when called onViewableItemsChanged of viewabilityConfigCallbackPairs', async () => {
-    const listOptions = getListOfOptionsFake();
-    const { sut } = makeSut(getListOfOptionsFake());
-
-    onViewableItemsChanged(sut, listOptions);
-
-    await waitFor(() => {
-      expect(sut.result.current.selectedOptionItem).toEqual(
-        listOptions[0].list[0],
-      );
-    });
-  });
-
-  test('should update selectedOptionItem when initialize', async () => {
-    const listOptions = getListOfOptionsFake();
-    const { sut } = makeSut(getListOfOptionsFake());
-
-    await waitFor(() => {
-      expect(sut.result.current.selectedOptionItem).toEqual(
-        listOptions[0].list[0],
-      );
     });
   });
 
@@ -134,10 +88,16 @@ describe('ViewModel: Home', () => {
   });
 
   test('should not update optionSelected if firstOption is undefined', async () => {
-    const { sut } = makeSut([]);
+    const {
+      sut: { result },
+    } = makeSut([]);
 
     await waitFor(() => {
-      expect(sut.result.current.optionSelected).toEqual({
+      expect(result.current.listOfOptions).toEqual([]);
+    });
+
+    await waitFor(() => {
+      expect(result.current.optionSelected).toEqual({
         id: '',
         option: '',
         emptyMessage: '',
@@ -147,34 +107,13 @@ describe('ViewModel: Home', () => {
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {
-  const sut = renderHook(() => useHomeViewModel(listOfOptions));
+  jest
+    .spyOn(LocalGetListOfOptions.prototype, 'get')
+    .mockResolvedValue(listOfOptions);
+
+  const getListOfOptions = new LocalGetListOfOptions();
+
+  const sut = renderHook(() => useHomeViewModel(getListOfOptions));
 
   return { sut };
-};
-
-const onViewableItemsChanged = (
-  sut: RenderHookResult<HomeViewModel, unknown>,
-  listOptions: Array<OptionOfList>,
-) => {
-  if (
-    sut.result.current.viewabilityConfigCallbackPairs.current[0]
-      .onViewableItemsChanged
-  ) {
-    sut.result.current.viewabilityConfigCallbackPairs.current[0].onViewableItemsChanged(
-      {
-        changed: [
-          {
-            item: {
-              coffeeImage: listOptions[0].list[0].coffeeImage,
-              coffeeName: listOptions[0].list[0].coffeeName,
-              coffeePrice: listOptions[0].list[0].coffeePrice,
-              id: listOptions[0].list[0].id,
-              optionId: listOptions[0].list[0].optionId,
-            },
-          },
-        ] as ViewToken[],
-        viewableItems: [],
-      },
-    );
-  }
 };

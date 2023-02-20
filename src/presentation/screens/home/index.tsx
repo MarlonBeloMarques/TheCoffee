@@ -2,7 +2,7 @@ import React from 'react';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 import { ItemCoffeeDecorator } from '../../../presentation/decorators';
 
-import HomeViewModel from './model';
+import { HomeView } from './model';
 import {
   CoffeeDetailsWrapper,
   CoffeeName,
@@ -21,7 +21,7 @@ import {
   Wrapper,
 } from './styles';
 
-const Home: React.FC<HomeViewModel> = ({
+const Home: React.FC<HomeView> = ({
   listOfOptions,
   selectOption,
   optionSelected,
