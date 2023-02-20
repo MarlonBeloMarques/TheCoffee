@@ -11,21 +11,14 @@ import {
   renderHook,
   waitFor,
 } from '@testing-library/react-native';
-import { LocalGetListOfOptions } from '~/data/useCases';
+import useHomeViewModel from '../../../src/presentation/screens/home/useHomeViewModel';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
-import useViewModel from '../../../src/presentation/screens/home/viewModel';
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
 describe('ViewModel: Home', () => {
-  test('should call get of GetListOfOptions when initialize', () => {
-    const { getSpy } = makeSut();
-
-    expect(getSpy).toHaveBeenCalledTimes(1);
-  });
-
   test('should be the same as the get response than the list of options', async () => {
     const listOfOptions = getListOfOptionsFake();
     const {
@@ -139,17 +132,24 @@ describe('ViewModel: Home', () => {
       );
     });
   });
+
+  test('should not update optionSelected if firstOption is undefined', async () => {
+    const { sut } = makeSut([]);
+
+    await waitFor(() => {
+      expect(sut.result.current.optionSelected).toEqual({
+        id: '',
+        option: '',
+        emptyMessage: '',
+      });
+    });
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {
-  const getSpy = jest
-    .spyOn(LocalGetListOfOptions.prototype, 'get')
-    .mockResolvedValueOnce(listOfOptions);
+  const sut = renderHook(() => useHomeViewModel(listOfOptions));
 
-  const getListOfOptions = new LocalGetListOfOptions();
-  const sut = renderHook(() => useViewModel(getListOfOptions));
-
-  return { sut, getSpy };
+  return { sut };
 };
 
 const onViewableItemsChanged = (

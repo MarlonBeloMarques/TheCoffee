@@ -6,7 +6,6 @@ import {
   ViewabilityConfigCallbackPairs,
 } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
-import { GetListOfOptions } from '~/domain/useCases';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 import HomeViewModel, { Coffee, Option, OptionOfList } from './model';
 
@@ -15,8 +14,9 @@ const viewabilityConfig = {
   viewAreaCoveragePercentThreshold: ITEM_HEIGHT,
 };
 
-const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
-  const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
+const useHomeViewModel = (
+  listOfOptions: Array<OptionOfList>,
+): HomeViewModel => {
   const [optionList, setOptionList] = useState<Array<Coffee>>([]);
   const [optionSelected, setOptionSelected] = useState<Option>({
     id: '',
@@ -58,35 +58,35 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
     [{ viewabilityConfig, onViewableItemsChanged }],
   );
 
+  const selectOption = useCallback(
+    (option: OptionOfList) => {
+      if (option) {
+        setOptionSelected({
+          id: option.id,
+          option: option.option,
+          emptyMessage: option.emptyMessage,
+        });
+        setOptionList(option.list);
+        updateSelectedOptionItem(option.list[0]);
+      }
+    },
+    [updateSelectedOptionItem],
+  );
+
+  const setFirstOption = useCallback(
+    (firstOption: OptionOfList) => {
+      selectOption(firstOption);
+    },
+    [selectOption],
+  );
+
+  const requestStart = useCallback(() => {
+    setFirstOption(listOfOptions[0]);
+  }, [listOfOptions, setFirstOption]);
+
   useEffect(() => {
     requestStart();
-  }, []);
-
-  const requestStart = async () => {
-    const response = await requestListOfOptions();
-    setFirstOption(response[0]);
-  };
-
-  const requestListOfOptions = async () => {
-    const response = await getListOfOptions.get();
-    setListOfOptions(response);
-
-    return response;
-  };
-
-  const setFirstOption = (firstOption: OptionOfList) => {
-    selectOption(firstOption);
-  };
-
-  const selectOption = (option: OptionOfList) => {
-    setOptionSelected({
-      id: option.id,
-      option: option.option,
-      emptyMessage: option.emptyMessage,
-    });
-    setOptionList(option.list);
-    updateSelectedOptionItem(option.list[0]);
-  };
+  }, [requestStart]);
 
   const scrollHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     'worklet';
@@ -110,4 +110,4 @@ const useViewModel = (getListOfOptions: GetListOfOptions): HomeViewModel => {
   };
 };
 
-export default useViewModel;
+export default useHomeViewModel;

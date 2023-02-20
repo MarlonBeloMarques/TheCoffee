@@ -5,7 +5,8 @@ import { RouteProp } from '@react-navigation/native';
 import { LocalGetListOfOptions } from '~/data/useCases';
 import { Routes } from '~/main/navigation';
 import { Home } from '~/presentation/screens';
-import useViewModel from '../../../presentation/screens/home/viewModel';
+import useHomeViewModel from '../../../presentation/screens/home/useHomeViewModel';
+import useGetListOfOptionsContext from '../../../presentation/screens/home/useGetListOfOptions';
 
 type Props = {
   route: RouteProp<StackParams, Routes>;
@@ -14,7 +15,8 @@ type Props = {
 
 const HomeFactory: React.FC<Props> = () => {
   const localGetListOfOptions = new LocalGetListOfOptions();
-  const viewModel = useViewModel(localGetListOfOptions);
+  const { listOfOptions } = useGetListOfOptionsContext(localGetListOfOptions);
+  const viewModel = useHomeViewModel(listOfOptions);
 
   const scrollHandlerDecorator = useAnimatedScrollHandler({
     onScroll: (event) => {
