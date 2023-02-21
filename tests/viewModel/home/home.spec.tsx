@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native';
 import { LocalGetListOfOptions } from '~/data/useCases';
-import useHomeViewModel from '../../../src/presentation/screens/home/useHomeViewModel';
+import useHomeViewModel from '../../../src/presentation/viewModels/useHomeViewModel';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 
 afterEach(() => {
@@ -102,6 +102,22 @@ describe('ViewModel: Home', () => {
         option: '',
         emptyMessage: '',
       });
+    });
+  });
+
+  test('should update selectedOptionItem when call updateSelectedOptionItem ', async () => {
+    const listOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+    } = makeSut(listOptions);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      result.current.updateSelectedOptionItem(listOptions[0].list[0]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
     });
   });
 });

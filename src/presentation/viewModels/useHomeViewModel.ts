@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { GetListOfOptions } from '~/domain/useCases';
-import HomeViewModel, { Coffee, Option, OptionOfList } from './model';
+import HomeViewModel, {
+  Coffee,
+  Option,
+  OptionOfList,
+} from '../screens/home/model';
 
 const useHomeViewModel = (
   getListOfOptions: GetListOfOptions,
