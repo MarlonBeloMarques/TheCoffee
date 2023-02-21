@@ -75,6 +75,21 @@ describe('ViewModel: Home', () => {
     });
   });
 
+  test('should update selectedOptionItem when initialize', async () => {
+    const listOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+    } = makeSut(listOptions);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
+    });
+  });
+
   test('should update selectedOptionItem when call setSelectedOption', async () => {
     const listOptions = getListOfOptionsFake();
     const { sut } = makeSut(getListOfOptionsFake());

@@ -32,6 +32,7 @@ const useHomeViewModel = (
     const response = await requestListOfOptions();
     setListOfOptions(response);
     setFirstOption(response[0]);
+    updateSelectedOptionItem(response[0].list[0]);
   };
 
   const requestListOfOptions = async () => {

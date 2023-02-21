@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 import { LocalGetListOfOptions } from '~/data/useCases';
 import { Routes } from '~/main/navigation';
 import { Home } from '~/presentation/screens';
-import useHomeViewModel from '../../../presentation/viewModels/useHomeViewModel';
+import { useHomeViewModel } from '~/presentation/viewModels';
 import useHomeController from '../../../presentation/screens/home/useHomeController';
 
 type Props = {
