@@ -1,8 +1,8 @@
 import React from 'react';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
 import { ItemCoffeeDecorator } from '../../../presentation/decorators';
+import HomeView from './model';
 
-import { HomeView } from './model';
 import {
   CoffeeDetailsWrapper,
   CoffeeName,

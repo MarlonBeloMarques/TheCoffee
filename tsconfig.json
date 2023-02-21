@@ -28,6 +28,9 @@
       "~/presentation/viewModels": [
         "src/presentation/viewModels"
       ],
+      "~/presentation/viewModels/model": [
+        "src/presentation/viewModels/model"
+      ],
       "~/presentation/themes": [
         "src/presentation/themes"
       ],

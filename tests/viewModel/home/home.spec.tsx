@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native';
 import { LocalGetListOfOptions } from '~/data/useCases';
-import useHomeViewModel from '../../../src/presentation/viewModels/useHomeViewModel';
+import { useHomeViewModel } from '~/presentation/viewModels';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 
 afterEach(() => {

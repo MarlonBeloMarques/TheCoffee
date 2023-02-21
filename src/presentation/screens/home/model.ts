@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 
-export type Coffee = {
+type Coffee = {
   id: string;
   coffeeName: string;
   coffeePrice: number;
@@ -14,7 +14,7 @@ export type Coffee = {
   optionId: string;
 };
 
-export interface Option {
+interface Option {
   id: string;
   option: string;
   emptyMessage: string;
@@ -24,19 +24,9 @@ interface ListOfOption {
   list: Array<Coffee>;
 }
 
-export type OptionOfList = Option & ListOfOption;
+type OptionOfList = Option & ListOfOption;
 
-type HomeViewModel = {
-  listOfOptions: Array<OptionOfList>;
-  selectOption: (option: OptionOfList) => void;
-  optionSelected: Option;
-  selectedOptionItem: Coffee;
-  optionList: Array<Coffee>;
-  setSelectedOption: (option: Coffee) => void;
-  updateSelectedOptionItem: (coffeeImageViewed: Coffee) => void;
-};
-
-export type HomeView = {
+type HomeView = {
   transY: SharedValue<number>;
   listOfOptions: Array<OptionOfList>;
   selectOption: (option: OptionOfList) => void;
@@ -48,4 +38,4 @@ export type HomeView = {
   viewabilityConfigCallbackPairs: React.MutableRefObject<ViewabilityConfigCallbackPairs>;
 };
 
-export default HomeViewModel;
+export default HomeView;

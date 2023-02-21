@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
-import HomeViewModel, { HomeView } from './model';
+import { HomeViewModel } from '~/presentation/viewModels/model';
+import HomeView from './model';
 
 const viewabilityConfig = {
   waitForInteraction: true,
