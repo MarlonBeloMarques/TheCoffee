@@ -1,4 +1,4 @@
-import { Coffee } from '../../../src/presentation/screens/home/model';
+import { Coffee } from '../../../src/presentation/viewModels/model/homeViewModel';
 
 const getSelectedOptionItemStub = (): Coffee => {
   return {
