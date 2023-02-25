@@ -5,7 +5,7 @@ const getSelectedOptionItemStub = (): Coffee => {
     id: '',
     coffeeName: '',
     coffeePrice: 0,
-    coffeeImage: '',
+    coffeeImage: 'any_coffee_image.png',
     optionId: '',
   };
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 import { ItemCoffee } from '~/presentation/components';
-import { Coffee } from '../../../presentation/screens/home/model';
+import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
 type Props = {
   item: Coffee;

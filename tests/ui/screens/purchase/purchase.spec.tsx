@@ -19,4 +19,12 @@ describe('UI: Purchase', () => {
       `R$ ${coffee.coffeePrice.toFixed(2)}`,
     );
   });
+
+  test('should show image of coffee with success', () => {
+    const coffee = getSelectedOptionItemStub();
+    const { getByTestId } = render(<Purchase coffeeSelected={coffee} />);
+    const coffeeImage = getByTestId('coffee_image_id');
+    expect(coffeeImage.type).toEqual('Image');
+    expect(coffeeImage.props.source).toEqual(coffee.coffeeImage);
+  });
 });

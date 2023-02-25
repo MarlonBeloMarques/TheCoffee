@@ -6,7 +6,7 @@ import {
   opacityAnimation,
   scaleAnimation,
 } from '~/presentation/helpers/animations';
-import { Coffee } from '../../screens/home/model';
+import { Coffee } from '../../viewModels/model/homeViewModel';
 import { AnimatedView, CoffeeImage } from './styles';
 
 type Props = {
