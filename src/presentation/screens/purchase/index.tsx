@@ -11,6 +11,9 @@ const Purchase: React.FC<PurchaseProps> = ({ coffeeSelected }) => {
     <View>
       <View>
         <Text testID="coffee_name_id">{coffeeSelected.coffeeName}</Text>
+        <Text testID="coffee_price_id">{`R$ ${coffeeSelected.coffeePrice.toFixed(
+          2,
+        )}`}</Text>
       </View>
     </View>
   );

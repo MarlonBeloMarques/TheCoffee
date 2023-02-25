@@ -6,7 +6,7 @@ import {
   Coffee,
   Option,
   OptionOfList,
-} from '../../../../src/presentation/screens/home/model';
+} from '../../../../src/presentation/viewModels/model/homeViewModel';
 import getListOfOptionsFake from '../../fakers/listOfOptionsFake';
 import getOptionSelectedFake from '../../fakers/optionSelectedFake';
 import getOptionListFake from '../../fakers/optionListFake';
