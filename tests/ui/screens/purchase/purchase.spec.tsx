@@ -76,6 +76,18 @@ describe('UI: Purchase', () => {
     const iconCreditCard = getByTestId('payment_icon_credit_card_id');
     expect(iconCreditCard).toBeTruthy();
   });
+
+  test('should show confirm purchase button with correct description', () => {
+    const coffee = getSelectedOptionItemStub();
+    const paymentDetail = getPaymentDetailStub();
+    const { getByTestId } = render(
+      <Purchase coffeeSelected={coffee} paymentDetail={paymentDetail} />,
+    );
+    const confirmPurchaseButton = getByTestId('confirm_purchase_button_id');
+    expect(confirmPurchaseButton).toBeTruthy();
+    const descriptionButton = confirmPurchaseButton.props.children[0];
+    expect(descriptionButton.props.children).toEqual('Confirm purchase');
+  });
 });
 
 const getPaymentDetailStub = () => {

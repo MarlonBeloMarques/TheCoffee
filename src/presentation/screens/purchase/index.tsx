@@ -1,5 +1,11 @@
 import React from 'react';
-import { Image, ImageSourcePropType, Text, View } from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
@@ -39,6 +45,9 @@ const Purchase: React.FC<PurchaseProps> = ({
           <Icon testID="payment_icon_credit_card_id" name="credit_card" />
         </View>
       </View>
+      <TouchableOpacity testID="confirm_purchase_button_id">
+        <Text>{'Confirm purchase'}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
