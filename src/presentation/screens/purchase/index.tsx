@@ -16,11 +16,13 @@ type PurchaseProps = {
       number: string;
     };
   };
+  confirmPurchase: () => void;
 };
 
 const Purchase: React.FC<PurchaseProps> = ({
   coffeeSelected,
   paymentDetail,
+  confirmPurchase,
 }) => {
   return (
     <View>
@@ -45,7 +47,10 @@ const Purchase: React.FC<PurchaseProps> = ({
           <Icon testID="payment_icon_credit_card_id" name="credit_card" />
         </View>
       </View>
-      <TouchableOpacity testID="confirm_purchase_button_id">
+      <TouchableOpacity
+        testID="confirm_purchase_button_id"
+        onPress={confirmPurchase}
+      >
         <Text>{'Confirm purchase'}</Text>
       </TouchableOpacity>
     </View>

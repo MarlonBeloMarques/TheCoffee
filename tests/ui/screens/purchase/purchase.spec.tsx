@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import getSelectedOptionItemStub from '../../../ui/stubs/selectedOptionItemStub';
 import Purchase from '../../../../src/presentation/screens/purchase';
 
@@ -10,6 +10,7 @@ describe('UI: Purchase', () => {
       <Purchase
         coffeeSelected={coffee}
         paymentDetail={getPaymentDetailStub()}
+        confirmPurchase={() => {}}
       />,
     );
     const coffeeName = getByTestId('coffee_name_id');
@@ -22,6 +23,7 @@ describe('UI: Purchase', () => {
       <Purchase
         coffeeSelected={coffee}
         paymentDetail={getPaymentDetailStub()}
+        confirmPurchase={() => {}}
       />,
     );
     const coffeePrice = getByTestId('coffee_price_id');
@@ -36,6 +38,7 @@ describe('UI: Purchase', () => {
       <Purchase
         coffeeSelected={coffee}
         paymentDetail={getPaymentDetailStub()}
+        confirmPurchase={() => {}}
       />,
     );
     const coffeeImage = getByTestId('coffee_image_id');
@@ -49,6 +52,7 @@ describe('UI: Purchase', () => {
       <Purchase
         coffeeSelected={coffee}
         paymentDetail={getPaymentDetailStub()}
+        confirmPurchase={() => {}}
       />,
     );
     const paymentDescription = getByTestId('payment_description_id');
@@ -59,7 +63,11 @@ describe('UI: Purchase', () => {
     const coffee = getSelectedOptionItemStub();
     const paymentDetail = getPaymentDetailStub();
     const { getByTestId } = render(
-      <Purchase coffeeSelected={coffee} paymentDetail={paymentDetail} />,
+      <Purchase
+        coffeeSelected={coffee}
+        paymentDetail={paymentDetail}
+        confirmPurchase={() => {}}
+      />,
     );
     const numberCreditCard = getByTestId('payment_number_credit_card_id');
     expect(numberCreditCard.props.children).toEqual(
@@ -71,7 +79,11 @@ describe('UI: Purchase', () => {
     const coffee = getSelectedOptionItemStub();
     const paymentDetail = getPaymentDetailStub();
     const { getByTestId } = render(
-      <Purchase coffeeSelected={coffee} paymentDetail={paymentDetail} />,
+      <Purchase
+        coffeeSelected={coffee}
+        paymentDetail={paymentDetail}
+        confirmPurchase={() => {}}
+      />,
     );
     const iconCreditCard = getByTestId('payment_icon_credit_card_id');
     expect(iconCreditCard).toBeTruthy();
@@ -81,12 +93,34 @@ describe('UI: Purchase', () => {
     const coffee = getSelectedOptionItemStub();
     const paymentDetail = getPaymentDetailStub();
     const { getByTestId } = render(
-      <Purchase coffeeSelected={coffee} paymentDetail={paymentDetail} />,
+      <Purchase
+        coffeeSelected={coffee}
+        paymentDetail={paymentDetail}
+        confirmPurchase={() => {}}
+      />,
     );
     const confirmPurchaseButton = getByTestId('confirm_purchase_button_id');
     expect(confirmPurchaseButton).toBeTruthy();
     const descriptionButton = confirmPurchaseButton.props.children[0];
     expect(descriptionButton.props.children).toEqual('Confirm purchase');
+  });
+
+  test('should call confirmPurchase when press the button', () => {
+    const confirmPurchase = jest.fn();
+    const coffee = getSelectedOptionItemStub();
+    const paymentDetail = getPaymentDetailStub();
+    const { getByTestId } = render(
+      <Purchase
+        coffeeSelected={coffee}
+        paymentDetail={paymentDetail}
+        confirmPurchase={confirmPurchase}
+      />,
+    );
+    const confirmPurchaseButton = getByTestId('confirm_purchase_button_id');
+
+    fireEvent.press(confirmPurchaseButton);
+
+    expect(confirmPurchase).toHaveBeenCalledTimes(1);
   });
 });
 
