@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, ImageSourcePropType, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
 type PurchaseProps = {
@@ -35,6 +36,7 @@ const Purchase: React.FC<PurchaseProps> = ({
           <Text testID="payment_number_credit_card_id">
             {paymentDetail.creditCard.number}
           </Text>
+          <Icon testID="payment_icon_credit_card_id" name="credit_card" />
         </View>
       </View>
     </View>

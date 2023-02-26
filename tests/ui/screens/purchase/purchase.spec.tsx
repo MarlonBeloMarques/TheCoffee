@@ -66,6 +66,16 @@ describe('UI: Purchase', () => {
       paymentDetail.creditCard.number,
     );
   });
+
+  test('should show payment icon credit card with success', () => {
+    const coffee = getSelectedOptionItemStub();
+    const paymentDetail = getPaymentDetailStub();
+    const { getByTestId } = render(
+      <Purchase coffeeSelected={coffee} paymentDetail={paymentDetail} />,
+    );
+    const iconCreditCard = getByTestId('payment_icon_credit_card_id');
+    expect(iconCreditCard).toBeTruthy();
+  });
 });
 
 const getPaymentDetailStub = () => {
