@@ -4,9 +4,17 @@ import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
 type PurchaseProps = {
   coffeeSelected: Coffee;
+  paymentDetail: {
+    creditCard: {
+      number: string;
+    };
+  };
 };
 
-const Purchase: React.FC<PurchaseProps> = ({ coffeeSelected }) => {
+const Purchase: React.FC<PurchaseProps> = ({
+  coffeeSelected,
+  paymentDetail,
+}) => {
   return (
     <View>
       <View>
@@ -23,6 +31,11 @@ const Purchase: React.FC<PurchaseProps> = ({ coffeeSelected }) => {
       </View>
       <View>
         <Text testID="payment_description_id">{'Pay with credit card:'}</Text>
+        <View>
+          <Text testID="payment_number_credit_card_id">
+            {paymentDetail.creditCard.number}
+          </Text>
+        </View>
       </View>
     </View>
   );
