@@ -21,6 +21,9 @@ const Purchase: React.FC<PurchaseProps> = ({ coffeeSelected }) => {
           source={coffeeSelected.coffeeImage as ImageSourcePropType}
         />
       </View>
+      <View>
+        <Text testID="payment_description_id">{'Pay with credit card:'}</Text>
+      </View>
     </View>
   );
 };

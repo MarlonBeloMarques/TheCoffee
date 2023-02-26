@@ -27,4 +27,11 @@ describe('UI: Purchase', () => {
     expect(coffeeImage.type).toEqual('Image');
     expect(coffeeImage.props.source).toEqual(coffee.coffeeImage);
   });
+
+  test('should show payment description with success', () => {
+    const coffee = getSelectedOptionItemStub();
+    const { getByTestId } = render(<Purchase coffeeSelected={coffee} />);
+    const paymentDescription = getByTestId('payment_description_id');
+    expect(paymentDescription.props.children).toEqual('Pay with credit card:');
+  });
 });
