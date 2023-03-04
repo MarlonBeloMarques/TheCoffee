@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 import { PurchaseProps } from '.';
 
@@ -10,7 +11,13 @@ const usePurchaseController = ({ coffeeSelected }: Props): PurchaseProps => {
     return JSON.parse(coffeeSelected);
   };
 
-  return { coffeeSelected: getCoffee() };
+  const confirmPurchase = () => {
+    Alert.alert('Successful Purchase', '', [
+      { text: 'Confirm', onPress: () => {} },
+    ]);
+  };
+
+  return { coffeeSelected: getCoffee(), confirmPurchase };
 };
 
 export default usePurchaseController;
