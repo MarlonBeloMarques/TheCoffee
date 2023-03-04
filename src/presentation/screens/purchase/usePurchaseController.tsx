@@ -4,9 +4,13 @@ import { PurchaseProps } from '.';
 
 type Props = {
   coffeeSelected: string;
+  paymentDetail: { creditCard: { number: string } };
 };
 
-const usePurchaseController = ({ coffeeSelected }: Props): PurchaseProps => {
+const usePurchaseController = ({
+  coffeeSelected,
+  paymentDetail,
+}: Props): PurchaseProps => {
   const getCoffee = (): Coffee => {
     return JSON.parse(coffeeSelected);
   };
@@ -17,7 +21,7 @@ const usePurchaseController = ({ coffeeSelected }: Props): PurchaseProps => {
     ]);
   };
 
-  return { coffeeSelected: getCoffee(), confirmPurchase };
+  return { coffeeSelected: getCoffee(), confirmPurchase, paymentDetail };
 };
 
 export default usePurchaseController;

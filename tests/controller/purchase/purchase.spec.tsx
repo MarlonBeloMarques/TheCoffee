@@ -8,6 +8,7 @@ describe('Controller: Purchase', () => {
     const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
     const sut = usePurchaseController({
       coffeeSelected: coffeeSelectedOfTypeString,
+      paymentDetail: getPaymentDetailStub(),
     });
 
     const coffee = sut.coffeeSelected;
@@ -21,10 +22,32 @@ describe('Controller: Purchase', () => {
     const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
     const sut = usePurchaseController({
       coffeeSelected: coffeeSelectedOfTypeString,
+      paymentDetail: getPaymentDetailStub(),
     });
 
     sut.confirmPurchase();
 
     expect(Alert.alert).toHaveBeenCalled();
   });
+
+  test('should get the same payment detail received by param', () => {
+    const coffeeSelected = getSelectedOptionItemStub();
+    const paymentDetailStub = getPaymentDetailStub();
+    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
+    const sut = usePurchaseController({
+      coffeeSelected: coffeeSelectedOfTypeString,
+      paymentDetail: paymentDetailStub,
+    });
+
+    const paymentDetail = sut.paymentDetail;
+    expect(paymentDetail).toEqual(paymentDetailStub);
+  });
 });
+
+const getPaymentDetailStub = () => {
+  return {
+    creditCard: {
+      number: '**5012',
+    },
+  };
+};
