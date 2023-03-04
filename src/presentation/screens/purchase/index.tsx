@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
-type PurchaseProps = {
+export type PurchaseProps = {
   coffeeSelected: Coffee;
   paymentDetail: {
     creditCard: {

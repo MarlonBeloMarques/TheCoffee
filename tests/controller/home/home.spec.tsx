@@ -15,9 +15,9 @@ import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 import useHomeController from '../../../src/presentation/screens/home/usehomeController';
 import {
   Coffee,
-  HomeView,
   OptionOfList,
-} from '../../../src/presentation/screens/home/model';
+} from '../../../src/presentation/viewModels/model/homeViewModel';
+import HomeView from '../../../src/presentation/screens/home/model';
 
 describe('Controller: Home', () => {
   test('should update value of transY when call scrollHandler', async () => {

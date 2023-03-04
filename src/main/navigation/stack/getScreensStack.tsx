@@ -1,6 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { HomeFactory, WelcomeFactory } from '../../factories/presentation';
+import {
+  HomeFactory,
+  PurchaseFactory,
+  WelcomeFactory,
+} from '../../factories/presentation';
 import { Routes } from '../routes';
 import { Stack } from './stackNavigation';
 
@@ -24,6 +28,9 @@ const getScreensStack = () => {
         }}
       >
         {(props) => <HomeFactory {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name={Routes.PURCHASE}>
+        {(props) => <PurchaseFactory {...props} />}
       </Stack.Screen>
     </>
   );

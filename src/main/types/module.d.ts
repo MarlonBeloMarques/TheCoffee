@@ -8,6 +8,7 @@ declare global {
     interface RootParamList {
       HOME: string;
       WELCOME: string;
+      PURCHASE: string;
     }
   }
 }
