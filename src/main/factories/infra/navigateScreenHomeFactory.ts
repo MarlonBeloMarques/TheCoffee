@@ -1,9 +1,9 @@
 import { NavigateScreenHome } from '~/data/useCases';
 import { ReactNavigationAdapter } from '~/infra';
 
-const navigateScreenFactory = () => {
+const navigateScreenHomeFactory = () => {
   const navigate = new ReactNavigationAdapter();
   return new NavigateScreenHome(navigate);
 };
 
-export default navigateScreenFactory;
+export default navigateScreenHomeFactory;

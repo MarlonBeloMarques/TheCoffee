@@ -3,6 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { Routes } from '~/main/navigation';
 import { Purchase } from '~/presentation/screens';
 import usePurchaseController from '../../../presentation/screens/purchase/usePurchaseController';
+import navigateScreenHomeFactory from '../infra/navigateScreenHomeFactory';
 
 type Props = {
   route: RouteProp<StackParams, Routes>;
@@ -13,6 +14,7 @@ const PurchaseFactory: React.FC<Props> = ({ route }) => {
   const purchaseController = usePurchaseController({
     coffeeSelected: route.params!.coffeeSelected,
     paymentDetail: { creditCard: { number: '**5012' } },
+    navigateToHome: navigateScreenHomeFactory(),
   });
   return <Purchase {...purchaseController} />;
 };

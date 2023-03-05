@@ -7,6 +7,7 @@ import { Routes } from '~/main/navigation';
 import { Home } from '~/presentation/screens';
 import { useHomeViewModel } from '~/presentation/viewModels';
 import useHomeController from '../../../presentation/screens/home/useHomeController';
+import navigateScreenPurchaseFactory from '../infra/navigateScreenPurchaseFactory';
 
 type Props = {
   route: RouteProp<StackParams, Routes>;
@@ -15,7 +16,10 @@ type Props = {
 
 const HomeFactory: React.FC<Props> = () => {
   const localGetListOfOptions = new LocalGetListOfOptions();
-  const viewModel = useHomeViewModel(localGetListOfOptions);
+  const viewModel = useHomeViewModel(
+    localGetListOfOptions,
+    navigateScreenPurchaseFactory(),
+  );
   const homeController = useHomeController(viewModel);
 
   const scrollHandlerDecorator = useAnimatedScrollHandler({
