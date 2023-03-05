@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native';
 import { Navigate } from '~/domain/useCases';
-import useViewModel from '../../../src/presentation/screens/welcome/useWelcomeController';
+import useWelcomeController from '../../../src/presentation/screens/welcome/useWelcomeController';
 
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');
@@ -8,7 +8,7 @@ jest.spyOn(global, 'setTimeout');
 describe('Controller: Welcome', () => {
   test('should call navigateToHome of Navigate when pass 3 sec', () => {
     const navigateScreen = new NavigateSpy();
-    renderHook(() => useViewModel(navigateScreen));
+    renderHook(() => useWelcomeController(navigateScreen));
 
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 3000);
 
