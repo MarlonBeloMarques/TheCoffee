@@ -57,14 +57,14 @@ const useHomeViewModel = (
 
   const setSelectedOption = (option: Coffee) => {
     setSelectedOptionItem(option);
+    navigateToPurchase.navigate(option);
   };
 
   const updateSelectedOptionItem = useCallback(
     (coffeeImageViewed: Coffee) => {
       setSelectedOptionItem(coffeeImageViewed);
-      navigateToPurchase.navigate(coffeeImageViewed);
     },
-    [setSelectedOptionItem, navigateToPurchase],
+    [setSelectedOptionItem],
   );
 
   return {

@@ -138,7 +138,7 @@ describe('ViewModel: Home', () => {
     });
   });
 
-  test('should navigate to purchase when call updateSelectedOptionItem', async () => {
+  test('should navigate to purchase when call setSelectedOption', async () => {
     const listOptions = getListOfOptionsFake();
     const {
       sut: { result },
@@ -150,14 +150,14 @@ describe('ViewModel: Home', () => {
     });
 
     await waitFor(() => {
-      result.current.updateSelectedOptionItem(listOptions[0].list[0]);
-      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
+      result.current.setSelectedOption(listOptions[0].list[1]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[1]);
     });
 
     expect(navigate.navigateToPurchaseCalled).toEqual(true);
   });
 
-  test('should navigate to purchase with correct param when call updateSelectedOptionItem', async () => {
+  test('should navigate to purchase with correct param when call setSelectedOption', async () => {
     const listOptions = getListOfOptionsFake();
     const {
       sut: { result },
@@ -169,12 +169,12 @@ describe('ViewModel: Home', () => {
     });
 
     await waitFor(() => {
-      result.current.updateSelectedOptionItem(listOptions[0].list[0]);
-      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
+      result.current.setSelectedOption(listOptions[0].list[1]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[1]);
     });
 
     expect(navigate.navigateToPurchaseCalled).toEqual(true);
-    expect(navigate.navigateToPurchaseParams).toEqual(listOptions[0].list[0]);
+    expect(navigate.navigateToPurchaseParams).toEqual(listOptions[0].list[1]);
   });
 });
 
