@@ -1,5 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native';
 import { LocalGetListOfOptions } from '~/data/useCases';
+import { RouteParams } from '~/domain/models';
 import { Navigate } from '~/domain/useCases';
 import { useHomeViewModel } from '~/presentation/viewModels';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
@@ -155,6 +156,26 @@ describe('ViewModel: Home', () => {
 
     expect(navigate.navigateToPurchaseCalled).toEqual(true);
   });
+
+  test('should navigate to purchase with correct param when call updateSelectedOptionItem', async () => {
+    const listOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+      navigate,
+    } = makeSut(listOptions);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      result.current.updateSelectedOptionItem(listOptions[0].list[0]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
+    });
+
+    expect(navigate.navigateToPurchaseCalled).toEqual(true);
+    expect(navigate.navigateToPurchaseParams).toEqual(listOptions[0].list[0]);
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {
@@ -172,10 +193,12 @@ const makeSut = (listOfOptions = getListOfOptionsFake()) => {
 
 class NavigateSpy implements Navigate {
   navigateToPurchaseCalled = false;
+  navigateToPurchaseParams: RouteParams | undefined;
 
   navigateToHome(): void {}
 
-  navigateToPurchase(): void {
+  navigateToPurchase(params?: RouteParams): void {
     this.navigateToPurchaseCalled = true;
+    this.navigateToPurchaseParams = params;
   }
 }
