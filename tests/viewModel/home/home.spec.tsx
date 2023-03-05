@@ -1,5 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native';
 import { LocalGetListOfOptions } from '~/data/useCases';
+import { Navigate } from '~/domain/useCases';
 import { useHomeViewModel } from '~/presentation/viewModels';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 
@@ -135,16 +136,46 @@ describe('ViewModel: Home', () => {
       expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
     });
   });
+
+  test('should navigate to purchase when call updateSelectedOptionItem', async () => {
+    const listOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+      navigate,
+    } = makeSut(listOptions);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      result.current.updateSelectedOptionItem(listOptions[0].list[0]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
+    });
+
+    expect(navigate.navigateToPurchaseCalled).toEqual(true);
+  });
 });
 
 const makeSut = (listOfOptions = getListOfOptionsFake()) => {
+  const navigate = new NavigateSpy();
   jest
     .spyOn(LocalGetListOfOptions.prototype, 'get')
     .mockResolvedValue(listOfOptions);
 
   const getListOfOptions = new LocalGetListOfOptions();
 
-  const sut = renderHook(() => useHomeViewModel(getListOfOptions));
+  const sut = renderHook(() => useHomeViewModel(getListOfOptions, navigate));
 
-  return { sut };
+  return { sut, navigate };
 };
+
+class NavigateSpy implements Navigate {
+  navigateToPurchaseCalled = false;
+
+  navigateToHome(): void {}
+
+  navigateToPurchase(): void {
+    this.navigateToPurchaseCalled = true;
+  }
+}

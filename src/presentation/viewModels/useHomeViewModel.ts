@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { GetListOfOptions } from '~/domain/useCases';
+import { GetListOfOptions, Navigate } from '~/domain/useCases';
 import { HomeViewModel } from './model';
 import { Coffee, Option, OptionOfList } from './model/homeViewModel';
 
 const useHomeViewModel = (
   getListOfOptions: GetListOfOptions,
+  navigate: Navigate,
 ): HomeViewModel => {
   const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
   const [optionList, setOptionList] = useState<Array<Coffee>>([]);
@@ -61,8 +62,9 @@ const useHomeViewModel = (
   const updateSelectedOptionItem = useCallback(
     (coffeeImageViewed: Coffee) => {
       setSelectedOptionItem(coffeeImageViewed);
+      navigate.navigateToPurchase();
     },
-    [setSelectedOptionItem],
+    [setSelectedOptionItem, navigate],
   );
 
   return {
