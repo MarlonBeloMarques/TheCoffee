@@ -57,7 +57,7 @@ const useHomeViewModel = (
 
   const setSelectedOption = (option: Coffee) => {
     setSelectedOptionItem(option);
-    navigateToPurchase.navigate(option);
+    navigateToPurchase.navigate({ coffeeSelected: JSON.stringify(option) });
   };
 
   const updateSelectedOptionItem = useCallback(
