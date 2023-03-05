@@ -1,16 +1,16 @@
 import { useCallback, useEffect } from 'react';
-import { Navigate } from '~/domain/useCases';
+import { NavigateToHome } from '~/domain/useCases';
 
-const useWelcomeController = (navigate: Navigate) => {
-  const navigateToHome = useCallback(() => {
-    navigate.navigateToHome();
-  }, [navigate]);
+const useWelcomeController = (navigateToHome: NavigateToHome) => {
+  const navigate = useCallback(() => {
+    navigateToHome.navigate();
+  }, [navigateToHome]);
 
   useEffect(() => {
     setTimeout(() => {
-      navigateToHome();
+      navigate();
     }, 3000);
-  }, [navigateToHome]);
+  }, [navigate]);
 };
 
 export default useWelcomeController;

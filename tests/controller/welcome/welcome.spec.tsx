@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-native';
-import { Navigate } from '~/domain/useCases';
+import { NavigateToHome } from '~/domain/useCases';
 import useWelcomeController from '../../../src/presentation/screens/welcome/useWelcomeController';
 
 jest.useFakeTimers();
@@ -17,10 +17,10 @@ describe('Controller: Welcome', () => {
   });
 });
 
-class NavigateSpy implements Navigate {
+class NavigateSpy implements NavigateToHome {
   navigateToHomeCalled = false;
 
-  navigateToHome(): void {
+  navigate(): void {
     this.navigateToHomeCalled = true;
   }
 }

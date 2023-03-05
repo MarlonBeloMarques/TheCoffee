@@ -9,10 +9,10 @@ import { NavigateScreenSpy } from '../spies/navigateScreenSpy';
 const Stack = createNativeStackNavigator<StackParams>();
 
 describe('Data: NavigateScreenPurchase', () => {
-  test('should call navigateToPurchase passing the params correctly to navigate of NavigateScreen', () => {
+  test('should call navigate passing the params correctly to navigate of NavigateScreen', () => {
     const { sut, navigateScreen } = makeSut();
 
-    sut.navigateToPurchase({ any: 'any_value' });
+    sut.navigate({ any: 'any_value' });
 
     expect(navigateScreen.routeName).toEqual(Routes.PURCHASE);
     expect(navigateScreen.params).toEqual({ any: 'any_value' });

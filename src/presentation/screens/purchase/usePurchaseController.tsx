@@ -1,18 +1,18 @@
 import { Alert } from 'react-native';
-import { Navigate } from '~/domain/useCases';
+import { NavigateToHome } from '~/domain/useCases';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 import { PurchaseProps } from '.';
 
 type Props = {
   coffeeSelected: string;
   paymentDetail: { creditCard: { number: string } };
-  navigate: Navigate;
+  navigateToHome: NavigateToHome;
 };
 
 const usePurchaseController = ({
   coffeeSelected,
   paymentDetail,
-  navigate,
+  navigateToHome,
 }: Props): PurchaseProps => {
   const getCoffee = (): Coffee => {
     return JSON.parse(coffeeSelected);
@@ -25,7 +25,7 @@ const usePurchaseController = ({
         onPress: () => {},
       },
     ]);
-    navigate.navigateToHome();
+    navigateToHome.navigate();
   };
 
   return { coffeeSelected: getCoffee(), confirmPurchase, paymentDetail };

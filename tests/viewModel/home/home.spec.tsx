@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react-native';
 import { LocalGetListOfOptions } from '~/data/useCases';
 import { RouteParams } from '~/domain/models';
-import { Navigate } from '~/domain/useCases';
+import { NavigateToPurchase } from '~/domain/useCases';
 import { useHomeViewModel } from '~/presentation/viewModels';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 
@@ -191,13 +191,11 @@ const makeSut = (listOfOptions = getListOfOptionsFake()) => {
   return { sut, navigate };
 };
 
-class NavigateSpy implements Navigate {
+class NavigateSpy implements NavigateToPurchase {
   navigateToPurchaseCalled = false;
   navigateToPurchaseParams: RouteParams | undefined;
 
-  navigateToHome(): void {}
-
-  navigateToPurchase(params?: RouteParams): void {
+  navigate(params?: RouteParams): void {
     this.navigateToPurchaseCalled = true;
     this.navigateToPurchaseParams = params;
   }

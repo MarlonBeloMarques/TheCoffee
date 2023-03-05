@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { Navigate } from '~/domain/useCases';
+import { NavigateToHome } from '~/domain/useCases';
 import getSelectedOptionItemStub from '../../ui/stubs/selectedOptionItemStub';
 import usePurchaseController from '../../../src/presentation/screens/purchase/usePurchaseController';
 
@@ -12,7 +12,7 @@ describe('Controller: Purchase', () => {
     const sut = usePurchaseController({
       coffeeSelected: coffeeSelectedOfTypeString,
       paymentDetail: getPaymentDetailStub(),
-      navigate: navigateScreen,
+      navigateToHome: navigateScreen,
     });
 
     const coffee = sut.coffeeSelected;
@@ -28,7 +28,7 @@ describe('Controller: Purchase', () => {
     const sut = usePurchaseController({
       coffeeSelected: coffeeSelectedOfTypeString,
       paymentDetail: getPaymentDetailStub(),
-      navigate: navigateScreen,
+      navigateToHome: navigateScreen,
     });
 
     sut.confirmPurchase();
@@ -44,7 +44,7 @@ describe('Controller: Purchase', () => {
     const sut = usePurchaseController({
       coffeeSelected: coffeeSelectedOfTypeString,
       paymentDetail: getPaymentDetailStub(),
-      navigate: navigateScreen,
+      navigateToHome: navigateScreen,
     });
 
     sut.confirmPurchase();
@@ -61,7 +61,7 @@ describe('Controller: Purchase', () => {
     const sut = usePurchaseController({
       coffeeSelected: coffeeSelectedOfTypeString,
       paymentDetail: paymentDetailStub,
-      navigate: navigateScreen,
+      navigateToHome: navigateScreen,
     });
 
     const paymentDetail = sut.paymentDetail;
@@ -77,10 +77,10 @@ const getPaymentDetailStub = () => {
   };
 };
 
-class NavigateSpy implements Navigate {
+class NavigateSpy implements NavigateToHome {
   navigateToHomeCalled = false;
 
-  navigateToHome(): void {
+  navigate(): void {
     this.navigateToHomeCalled = true;
   }
 }
