@@ -29,7 +29,19 @@ const getScreensStack = () => {
       >
         {(props) => <HomeFactory {...props} />}
       </Stack.Screen>
-      <Stack.Screen name={Routes.PURCHASE}>
+      <Stack.Screen
+        options={{
+          animation: 'fade',
+          headerRight: () => (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+                the coffee.
+              </Text>
+            </View>
+          ),
+        }}
+        name={Routes.PURCHASE}
+      >
         {(props) => <PurchaseFactory {...props} />}
       </Stack.Screen>
     </>

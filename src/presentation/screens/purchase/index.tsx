@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { colors } from '~/presentation/themes';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
 export type PurchaseProps = {
@@ -25,33 +26,60 @@ const Purchase: React.FC<PurchaseProps> = ({
   confirmPurchase,
 }) => {
   return (
-    <View>
+    <View style={{ marginHorizontal: 16, marginTop: 16, flex: 1 }}>
       <View>
-        <Text testID="coffee_name_id">{coffeeSelected.coffeeName}</Text>
-        <Text testID="coffee_price_id">{`R$ ${coffeeSelected.coffeePrice.toFixed(
-          2,
-        )}`}</Text>
+        <Text
+          style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 9 }}
+          testID="coffee_name_id"
+        >
+          {coffeeSelected.coffeeName}
+        </Text>
+        <Text
+          style={{ fontSize: 20 }}
+          testID="coffee_price_id"
+        >{`R$ ${coffeeSelected.coffeePrice.toFixed(2)}`}</Text>
       </View>
-      <View>
+      <View style={{ flex: 0.8 }}>
         <Image
           testID="coffee_image_id"
           source={coffeeSelected.coffeeImage as ImageSourcePropType}
         />
       </View>
-      <View>
-        <Text testID="payment_description_id">{'Pay with credit card:'}</Text>
-        <View>
-          <Text testID="payment_number_credit_card_id">
-            {paymentDetail.creditCard.number}
+      <View style={{ flexDirection: 'row', marginBottom: 30 }}>
+        <Text
+          style={{ fontSize: 16, fontWeight: 'bold' }}
+          testID="payment_description_id"
+        >
+          {'Pay with credit card: '}
+        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text
+            style={{ fontSize: 16, fontWeight: 'bold' }}
+            testID="payment_number_credit_card_id"
+          >
+            {paymentDetail.creditCard.number + '  '}
           </Text>
-          <Icon testID="payment_icon_credit_card_id" name="credit_card" />
+          <Icon
+            testID="payment_icon_credit_card_id"
+            name="credit-card"
+            size={16}
+          />
         </View>
       </View>
       <TouchableOpacity
+        style={{
+          height: 53,
+          backgroundColor: colors.primary,
+          borderRadius: 16,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
         testID="confirm_purchase_button_id"
         onPress={confirmPurchase}
       >
-        <Text>{'Confirm purchase'}</Text>
+        <Text style={{ color: colors.secondary, fontWeight: 'bold' }}>
+          {'Confirm purchase'}
+        </Text>
       </TouchableOpacity>
     </View>
   );
