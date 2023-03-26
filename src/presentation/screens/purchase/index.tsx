@@ -41,8 +41,13 @@ const Purchase: React.FC<PurchaseProps> = ({
       </View>
       <View style={{ flex: 0.8 }}>
         <Image
+          resizeMode="contain"
           testID="coffee_image_id"
           source={coffeeSelected.coffeeImage as ImageSourcePropType}
+          style={{
+            width: 340,
+            height: 460,
+          }}
         />
       </View>
       <View style={{ flexDirection: 'row', marginBottom: 30 }}>
