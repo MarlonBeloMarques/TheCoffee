@@ -42,7 +42,7 @@ describe('UI: Purchase', () => {
     } = makeSut();
     const paymentDescription = getByTestId('payment_description_id');
 
-    expect(paymentDescription.props.children).toEqual('Pay with credit card:');
+    expect(paymentDescription.props.children).toEqual('Pay with credit card: ');
   });
 
   test('should show payment number credit card with success', () => {
@@ -53,7 +53,7 @@ describe('UI: Purchase', () => {
     const numberCreditCard = getByTestId('payment_number_credit_card_id');
 
     expect(numberCreditCard.props.children).toEqual(
-      paymentDetail.creditCard.number,
+      `${paymentDetail.creditCard.number}  `,
     );
   });
 

@@ -8,19 +8,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '~/presentation/themes';
-import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
+import PurchaseView from './model';
 
-export type PurchaseProps = {
-  coffeeSelected: Coffee;
-  paymentDetail: {
-    creditCard: {
-      number: string;
-    };
-  };
-  confirmPurchase: () => void;
-};
-
-const Purchase: React.FC<PurchaseProps> = ({
+const Purchase: React.FC<PurchaseView> = ({
   coffeeSelected,
   paymentDetail,
   confirmPurchase,
