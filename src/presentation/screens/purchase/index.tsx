@@ -1,14 +1,20 @@
 import React from 'react';
-import {
-  Image,
-  ImageSourcePropType,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { colors } from '~/presentation/themes';
+import { ImageSourcePropType } from 'react-native';
 import PurchaseView from './model';
+import {
+  CoffeeImage,
+  CoffeeName,
+  CoffeePrice,
+  ConfirmPurchaseButton,
+  ConfirmPurchaseButtonDescription,
+  CreditCardIcon,
+  CreditCardNumber,
+  CreditCardWrapper,
+  PaymentDescription,
+  PaymentWrapper,
+  Wrapper,
+  WrapperScreen,
+} from './styles';
 
 const Purchase: React.FC<PurchaseView> = ({
   coffeeSelected,
@@ -16,67 +22,41 @@ const Purchase: React.FC<PurchaseView> = ({
   confirmPurchase,
 }) => {
   return (
-    <View style={{ marginHorizontal: 16, marginTop: 16, flex: 1 }}>
-      <View>
-        <Text
-          style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 9 }}
-          testID="coffee_name_id"
-        >
+    <WrapperScreen>
+      <Wrapper>
+        <CoffeeName testID="coffee_name_id">
           {coffeeSelected.coffeeName}
-        </Text>
-        <Text
-          style={{ fontSize: 20 }}
-          testID="coffee_price_id"
-        >{`R$ ${coffeeSelected.coffeePrice.toFixed(2)}`}</Text>
-      </View>
-      <View style={{ flex: 0.8 }}>
-        <Image
-          resizeMode="contain"
+        </CoffeeName>
+        <CoffeePrice testID="coffee_price_id">{`R$ ${coffeeSelected.coffeePrice.toFixed(
+          2,
+        )}`}</CoffeePrice>
+      </Wrapper>
+      <Wrapper style={{ flex: 0.8 }}>
+        <CoffeeImage
           testID="coffee_image_id"
           source={coffeeSelected.coffeeImage as ImageSourcePropType}
-          style={{
-            width: 340,
-            height: 460,
-          }}
         />
-      </View>
-      <View style={{ flexDirection: 'row', marginBottom: 30 }}>
-        <Text
-          style={{ fontSize: 16, fontWeight: 'bold' }}
-          testID="payment_description_id"
-        >
+      </Wrapper>
+      <PaymentWrapper>
+        <PaymentDescription testID="payment_description_id">
           {'Pay with credit card: '}
-        </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text
-            style={{ fontSize: 16, fontWeight: 'bold' }}
-            testID="payment_number_credit_card_id"
-          >
+        </PaymentDescription>
+        <CreditCardWrapper>
+          <CreditCardNumber testID="payment_number_credit_card_id">
             {paymentDetail.creditCard.number + '  '}
-          </Text>
-          <Icon
-            testID="payment_icon_credit_card_id"
-            name="credit-card"
-            size={16}
-          />
-        </View>
-      </View>
-      <TouchableOpacity
-        style={{
-          height: 53,
-          backgroundColor: colors.primary,
-          borderRadius: 16,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+          </CreditCardNumber>
+          <CreditCardIcon testID="payment_icon_credit_card_id" />
+        </CreditCardWrapper>
+      </PaymentWrapper>
+      <ConfirmPurchaseButton
         testID="confirm_purchase_button_id"
         onPress={confirmPurchase}
       >
-        <Text style={{ color: colors.secondary, fontWeight: 'bold' }}>
+        <ConfirmPurchaseButtonDescription>
           {'Confirm purchase'}
-        </Text>
-      </TouchableOpacity>
-    </View>
+        </ConfirmPurchaseButtonDescription>
+      </ConfirmPurchaseButton>
+    </WrapperScreen>
   );
 };
 
