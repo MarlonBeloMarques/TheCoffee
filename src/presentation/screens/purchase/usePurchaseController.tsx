@@ -22,7 +22,9 @@ const usePurchaseController = ({
     Alert.alert('Successful Purchase', '', [
       {
         text: 'Confirm',
-        onPress: () => {},
+        onPress: () => {
+          console.log('confirm purchase clicked');
+        },
       },
     ]);
     navigateToHome.navigate();

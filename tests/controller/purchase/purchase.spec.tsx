@@ -52,6 +52,25 @@ describe('Controller: Purchase', () => {
     expect(navigateScreen.navigateToHomeCalled).toEqual(true);
   });
 
+  test('should show log of console when press the confirm button of alert', () => {
+    const alertSpy = jest.spyOn(Alert, 'alert');
+    const logSpy = jest.spyOn(console, 'log');
+    const navigateScreen = new NavigateSpy();
+
+    const coffeeSelected = getSelectedOptionItemStub();
+    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
+    const sut = usePurchaseController({
+      coffeeSelected: coffeeSelectedOfTypeString,
+      paymentDetail: getPaymentDetailStub(),
+      navigateToHome: navigateScreen,
+    });
+
+    sut.confirmPurchase();
+
+    alertSpy.mock.calls[0][2][0].onPress();
+    expect(logSpy).toHaveBeenCalledWith('confirm purchase clicked');
+  });
+
   test('should get the same payment detail received by param', () => {
     const navigateScreen = new NavigateSpy();
 
