@@ -1,8 +1,7 @@
+import { NavigateScreen } from '~/data/navigate';
 import { NavigateScreenPurchase } from '~/data/useCases';
-import { ReactNavigationAdapter } from '~/infra';
 
-const navigateScreenPurchaseFactory = () => {
-  const navigate = new ReactNavigationAdapter();
+const navigateScreenPurchaseFactory = (navigate: NavigateScreen) => {
   return new NavigateScreenPurchase(navigate);
 };
 

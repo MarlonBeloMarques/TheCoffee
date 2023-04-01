@@ -6,6 +6,7 @@ import { LocalGetListOfOptions } from '~/data/useCases';
 import { Routes } from '~/main/navigation';
 import { Home } from '~/presentation/screens';
 import { useHomeViewModel } from '~/presentation/viewModels';
+import { ReactNavigationAdapter } from '~/infra';
 import useHomeController from '../../../presentation/screens/home/useHomeController';
 import navigateScreenPurchaseFactory from '../infra/navigateScreenPurchaseFactory';
 
@@ -18,7 +19,7 @@ const HomeFactory: React.FC<Props> = () => {
   const localGetListOfOptions = new LocalGetListOfOptions();
   const viewModel = useHomeViewModel(
     localGetListOfOptions,
-    navigateScreenPurchaseFactory(),
+    navigateScreenPurchaseFactory(new ReactNavigationAdapter()),
   );
   const homeController = useHomeController(viewModel);
 
