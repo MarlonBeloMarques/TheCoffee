@@ -71,11 +71,15 @@ export const CoffeePrice = styled.Text`
   text-align: center;
 `;
 
-export const CoffeeDetailsWrapper = styled.View`
+type CoffeeDetailsWrapper = {
+  os: 'android' | 'ios' | 'windows' | 'macos' | 'web';
+};
+
+export const CoffeeDetailsWrapper = styled.View<CoffeeDetailsWrapper>`
   position: absolute;
   z-index: 1;
   align-self: center;
-  margin-top: 100px;
+  margin-top: ${({ os }) => (os === 'ios' ? 100 : 60)}px;
 `;
 
 export const ListOfOptions = styled.ScrollView.attrs({

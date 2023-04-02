@@ -379,6 +379,50 @@ describe('UI: Home', () => {
 
     expect(coffeeImage.props.style[0].height).toEqual(533.6);
   });
+
+  test('top margin of coffee details should equal 100 if platform equals ios', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const coffeeDetailsWrapper = getByTestId('coffee_details_id');
+
+    expect(coffeeDetailsWrapper.props.style[0].marginTop).toEqual(100);
+  });
+
+  test('top margin of coffee details should equal 60 if platform equals android', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('android');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const coffeeDetailsWrapper = getByTestId('coffee_details_id');
+
+    expect(coffeeDetailsWrapper.props.style[0].marginTop).toEqual(60);
+  });
 });
 
 const makeSut = (

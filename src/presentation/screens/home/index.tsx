@@ -1,5 +1,6 @@
 import React from 'react';
 import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
+import { getOs } from '~/presentation/helpers/utils';
 import { ItemCoffeeDecorator } from '../../../presentation/decorators';
 import HomeView from './model';
 
@@ -61,7 +62,7 @@ const Home: React.FC<HomeView> = ({
   const renderCoffeeDetails = () => {
     return (
       optionList.length !== 0 && (
-        <CoffeeDetailsWrapper>
+        <CoffeeDetailsWrapper os={getOs()} testID="coffee_details_id">
           <CoffeeName testID="coffee_name_id">
             {selectedOptionItem.coffeeName}
           </CoffeeName>
