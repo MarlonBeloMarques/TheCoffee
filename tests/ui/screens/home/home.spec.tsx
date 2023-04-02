@@ -2,6 +2,7 @@ import React from 'react';
 import { ViewabilityConfigCallbackPair } from 'react-native';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { Home } from '~/presentation/screens';
+import * as Utils from '~/presentation/helpers/utils';
 import {
   Coffee,
   Option,
@@ -333,6 +334,50 @@ describe('UI: Home', () => {
 
     expect(setSelectedOption).toHaveBeenCalledTimes(1);
     expect(setSelectedOption).toHaveBeenCalledWith(getOptionListFake()[0]);
+  });
+
+  test('should the height coffee image equal to 400 if platform is equal iOS', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const coffeeImage = getByTestId('coffee_image_1_id');
+
+    expect(coffeeImage.props.style[0].height).toEqual(400);
+  });
+
+  test('should the height coffee image equal to 533.6 if platform is equal android', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('android');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const coffeeImage = getByTestId('coffee_image_1_id');
+
+    expect(coffeeImage.props.style[0].height).toEqual(533.6);
   });
 });
 

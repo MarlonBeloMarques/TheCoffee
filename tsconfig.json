@@ -43,6 +43,9 @@
       "~/presentation/helpers/animations": [
         "src/presentation/helpers/animations"
       ],
+      "~/presentation/helpers/utils": [
+        "src/presentation/helpers/utils"
+      ],
       "~/presentation/components": [
         "src/presentation/components"
       ],

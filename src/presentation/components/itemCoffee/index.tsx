@@ -6,6 +6,7 @@ import {
   opacityAnimation,
   scaleAnimation,
 } from '~/presentation/helpers/animations';
+import { getOs } from '~/presentation/helpers/utils';
 import { Coffee } from '../../viewModels/model/homeViewModel';
 import { AnimatedView, CoffeeImage } from './styles';
 
@@ -32,6 +33,7 @@ const ItemCoffee: React.FC<Props> = ({ index, item, transY, onPress }) => {
     <AnimatedView style={animatedStyle}>
       <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)}>
         <CoffeeImage
+          os={getOs()}
           testID={`coffee_image_${item.id}_id`}
           source={item.coffeeImage as ImageSourcePropType}
         />
