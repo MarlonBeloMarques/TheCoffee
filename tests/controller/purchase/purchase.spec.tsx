@@ -1,92 +1,69 @@
 import { Alert } from 'react-native';
+import { renderHook } from '@testing-library/react-native';
 import { NavigateToHome } from '~/domain/useCases';
 import getSelectedOptionItemStub from '../../ui/stubs/selectedOptionItemStub';
 import usePurchaseController from '../../../src/presentation/screens/purchase/usePurchaseController';
 
 describe('Controller: Purchase', () => {
   test('should get the same coffee received by param', () => {
-    const navigateScreen = new NavigateSpy();
+    const { sut, coffeeSelected } = makeSut();
 
-    const coffeeSelected = getSelectedOptionItemStub();
-    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
-    const sut = usePurchaseController({
-      coffeeSelected: coffeeSelectedOfTypeString,
-      paymentDetail: getPaymentDetailStub(),
-      navigateToHome: navigateScreen,
-    });
-
-    const coffee = sut.coffeeSelected;
+    const coffee = sut.result.current.coffeeSelected;
     expect(coffee).toEqual(coffeeSelected);
   });
 
   test('should show alert with success when call confirmPurchase', () => {
-    const navigateScreen = new NavigateSpy();
     jest.spyOn(Alert, 'alert');
 
-    const coffeeSelected = getSelectedOptionItemStub();
-    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
-    const sut = usePurchaseController({
-      coffeeSelected: coffeeSelectedOfTypeString,
-      paymentDetail: getPaymentDetailStub(),
-      navigateToHome: navigateScreen,
-    });
-
-    sut.confirmPurchase();
+    const { sut } = makeSut();
+    sut.result.current.confirmPurchase();
 
     expect(Alert.alert).toHaveBeenCalled();
   });
 
   test('should navigate to home when call confirmPurchase', () => {
-    const navigateScreen = new NavigateSpy();
+    const { sut, navigateScreenSpy } = makeSut();
+    sut.result.current.confirmPurchase();
 
-    const coffeeSelected = getSelectedOptionItemStub();
-    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
-    const sut = usePurchaseController({
-      coffeeSelected: coffeeSelectedOfTypeString,
-      paymentDetail: getPaymentDetailStub(),
-      navigateToHome: navigateScreen,
-    });
-
-    sut.confirmPurchase();
-
-    expect(navigateScreen.navigateToHomeCalled).toEqual(true);
+    expect(navigateScreenSpy.navigateToHomeCalled).toEqual(true);
   });
 
   test('should show log of console when press the confirm button of alert', () => {
     const alertSpy = jest.spyOn(Alert, 'alert');
     const logSpy = jest.spyOn(console, 'log');
-    const navigateScreen = new NavigateSpy();
+    const { sut } = makeSut();
 
-    const coffeeSelected = getSelectedOptionItemStub();
-    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
-    const sut = usePurchaseController({
-      coffeeSelected: coffeeSelectedOfTypeString,
-      paymentDetail: getPaymentDetailStub(),
-      navigateToHome: navigateScreen,
-    });
-
-    sut.confirmPurchase();
+    sut.result.current.confirmPurchase();
 
     alertSpy.mock.calls[0][2][0].onPress();
     expect(logSpy).toHaveBeenCalledWith('confirm purchase clicked');
   });
 
   test('should get the same payment detail received by param', () => {
-    const navigateScreen = new NavigateSpy();
+    const { sut, paymentDetailStub } = makeSut();
 
-    const coffeeSelected = getSelectedOptionItemStub();
-    const paymentDetailStub = getPaymentDetailStub();
-    const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
-    const sut = usePurchaseController({
-      coffeeSelected: coffeeSelectedOfTypeString,
-      paymentDetail: paymentDetailStub,
-      navigateToHome: navigateScreen,
-    });
-
-    const paymentDetail = sut.paymentDetail;
+    const paymentDetail = sut.result.current.paymentDetail;
     expect(paymentDetail).toEqual(paymentDetailStub);
   });
 });
+
+const makeSut = () => {
+  const navigateScreenSpy = new NavigateSpy();
+
+  const paymentDetailStub = getPaymentDetailStub();
+  const coffeeSelected = getSelectedOptionItemStub();
+  const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
+
+  const sut = renderHook(() =>
+    usePurchaseController({
+      coffeeSelected: coffeeSelectedOfTypeString,
+      paymentDetail: paymentDetailStub,
+      navigateToHome: navigateScreenSpy,
+    }),
+  );
+
+  return { sut, paymentDetailStub, navigateScreenSpy, coffeeSelected };
+};
 
 const getPaymentDetailStub = () => {
   return {
