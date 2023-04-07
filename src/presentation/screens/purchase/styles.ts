@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Dimensions } from 'react-native';
 import { colors } from '~/presentation/themes';
+export const screenHeight = Dimensions.get('screen').height;
 
 export const Wrapper = styled.View``;
 
@@ -24,7 +26,7 @@ export const CoffeeImage = styled.Image.attrs({
   resizeMode: 'contain',
 })`
   width: 340px;
-  height: 460px;
+  height: ${screenHeight / 2.6}px;
 `;
 
 export const PaymentWrapper = styled.View`

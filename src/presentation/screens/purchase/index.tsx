@@ -31,7 +31,7 @@ const Purchase: React.FC<PurchaseView> = ({
           2,
         )}`}</CoffeePrice>
       </Wrapper>
-      <Wrapper style={{ flex: 0.8 }}>
+      <Wrapper style={{ flex: 0.8, justifyContent: 'center' }}>
         <CoffeeImage
           testID="coffee_image_id"
           source={coffeeSelected.coffeeImage as ImageSourcePropType}
