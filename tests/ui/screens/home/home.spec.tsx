@@ -423,6 +423,30 @@ describe('UI: Home', () => {
 
     expect(coffeeDetailsWrapper.props.style[0].marginTop).toEqual(60);
   });
+
+  test('bottom margin of coffee image wrapper should equal 26 if platform equals ios', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const coffeeImageWrapper = getByTestId(
+      `coffee_image_wrapper_${getOptionListFake().length - 1}_id`,
+    );
+
+    expect(coffeeImageWrapper.props.style.marginBottom).toEqual(26);
+  });
 });
 
 const makeSut = (

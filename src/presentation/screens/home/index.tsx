@@ -122,7 +122,7 @@ const Home: React.FC<HomeView> = ({
   return (
     <Wrapper style={{ marginHorizontal: 12, flex: 1 }}>
       {renderListOfOptions()}
-      <Wrapper style={{ flex: 0.9 }}>
+      <Wrapper style={{ flex: 1 }}>
         {renderCoffeeDetails()}
         {renderCoffeesImages()}
         {renderMessageIfCoffeesImagesIsEmpty()}
