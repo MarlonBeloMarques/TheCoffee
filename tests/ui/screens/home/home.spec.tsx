@@ -447,6 +447,30 @@ describe('UI: Home', () => {
 
     expect(coffeeImageWrapper.props.style.marginBottom).toEqual(26);
   });
+
+  test('bottom margin of coffee image wrapper should equal 40 if platform equals android', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('android');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const coffeeImageWrapper = getByTestId(
+      `coffee_image_wrapper_${getOptionListFake().length - 1}_id`,
+    );
+
+    expect(coffeeImageWrapper.props.style.marginBottom).toEqual(40);
+  });
 });
 
 const makeSut = (

@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 import { ItemCoffee } from '~/presentation/components';
+import { getOs } from '~/presentation/helpers/utils';
 import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
 
 type Props = {
@@ -24,7 +25,8 @@ const ItemCoffeeDecorator: React.FC<Props> = ({
     <View
       testID={`coffee_image_wrapper_${index}_id`}
       style={{
-        marginBottom: lastPosition === index ? 26 : 0,
+        marginBottom:
+          lastPosition === index ? (getOs() === 'ios' ? 26 : 40) : 0,
         marginTop: index === 0 ? 26 : 0,
       }}
     >
