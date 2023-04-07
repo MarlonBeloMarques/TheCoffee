@@ -471,6 +471,28 @@ describe('UI: Home', () => {
 
     expect(coffeeImageWrapper.props.style.marginBottom).toEqual(40);
   });
+
+  test('snapToInterval of coffees images list should equal 635 if platform equals ios', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const optionList = getByTestId('option_list_id');
+
+    expect(optionList.props.snapToInterval).toEqual(635.2380952380952);
+  });
 });
 
 const makeSut = (
