@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITEM_HEIGHT } from '~/presentation/helpers/animations';
+import { getItemHeight } from '~/presentation/helpers/animations';
 import { getOs } from '~/presentation/helpers/utils';
 import { ItemCoffeeDecorator } from '../../../presentation/decorators';
 import HomeView from './model';
@@ -111,7 +111,7 @@ const Home: React.FC<HomeView> = ({
             onScroll={scrollHandler}
             testID="option_list_id"
             data={optionList}
-            snapToInterval={ITEM_HEIGHT}
+            snapToInterval={getItemHeight(getOs())}
             keyExtractor={(item, index) => String(index)}
             renderItem={renderItemCoffee}
           />

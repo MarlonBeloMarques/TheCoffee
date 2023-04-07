@@ -1,9 +1,18 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, PlatformOSType } from 'react-native';
 import { Extrapolate, SharedValue, interpolate } from 'react-native-reanimated';
+import { getOs } from '../utils';
+
+export const getItemHeight = (OS: PlatformOSType) => {
+  if (OS === 'ios') {
+    return screenHeight / 2.1;
+  }
+
+  return screenHeight / 2.4;
+};
 
 export const screenHeight = Dimensions.get('screen').height;
 export const screenWidth = Dimensions.get('screen').width;
-export const ITEM_HEIGHT = screenHeight / 2.1;
+export const ITEM_HEIGHT = getItemHeight(getOs());
 
 export const opacityAnimation = (
   transY: SharedValue<number>,

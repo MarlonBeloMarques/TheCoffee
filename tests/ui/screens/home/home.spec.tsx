@@ -493,6 +493,28 @@ describe('UI: Home', () => {
 
     expect(optionList.props.snapToInterval).toEqual(635.2380952380952);
   });
+
+  test('snapToInterval of coffees images list should equal 555 if platform equals android', async () => {
+    jest.spyOn(Utils, 'getOs').mockReturnValue('android');
+    const setSelectedOption = jest.fn();
+    const viewabilityConfigCallbackPairsStub =
+      getViewabilityConfigCallbackPairsStub();
+    const {
+      sut: { getByTestId },
+    } = makeSut(
+      getOptionListFake(),
+      getSelectedOptionItemStub(),
+      [],
+      getOptionSelectedFake(),
+      () => {},
+      viewabilityConfigCallbackPairsStub,
+      setSelectedOption,
+    );
+
+    const optionList = getByTestId('option_list_id');
+
+    expect(optionList.props.snapToInterval).toEqual(555.8333333333334);
+  });
 });
 
 const makeSut = (
