@@ -15,14 +15,14 @@ export const OptionWrapper = styled.View`
   align-items: center;
 `;
 
-export const CoffeesImagesEmptyWrapper = styled.View`
+export const ProductsImagesEmptyWrapper = styled.View`
   height: 100%;
   justify-content: center;
   align-items: center;
   margin: 0 60px 0 60px;
 `;
 
-export const EmptyMessageCoffeesImages = styled.Text`
+export const EmptyMessageProductsImages = styled.Text`
   font-size: 20px;
   font-weight: bold;
   line-height: 23px;
@@ -34,7 +34,7 @@ export const TryAgainMessage = styled.Text`
   line-height: 18px;
 `;
 
-export const CoffeesImagesWrapper = styled.View`
+export const ProductsImagesWrapper = styled.View`
   height: 70%;
   justify-content: center;
   position: absolute;
@@ -57,7 +57,7 @@ export const UnderlineOfOption = styled.View`
   background-color: ${colors.text};
 `;
 
-export const CoffeeName = styled.Text`
+export const ProductName = styled.Text`
   font-size: 24px;
   font-weight: bold;
   line-height: 27px;
@@ -65,17 +65,17 @@ export const CoffeeName = styled.Text`
   text-align: center;
 `;
 
-export const CoffeePrice = styled.Text`
+export const ProductPrice = styled.Text`
   font-size: 20px;
   line-height: 23px;
   text-align: center;
 `;
 
-type CoffeeDetailsWrapper = {
+type ProductDetailsWrapper = {
   os: 'android' | 'ios' | 'windows' | 'macos' | 'web';
 };
 
-export const CoffeeDetailsWrapper = styled.View<CoffeeDetailsWrapper>`
+export const ProductDetailsWrapper = styled.View<ProductDetailsWrapper>`
   position: absolute;
   z-index: 1;
   align-self: center;
@@ -92,14 +92,14 @@ export const ListOfOptions = styled.ScrollView.attrs({
 
 export const OptionButton = styled.TouchableOpacity``;
 
-export const IconCoffeeEmpty = styled(Icon).attrs({
+export const IconProductEmpty = styled(Icon).attrs({
   name: 'coffee',
   size: 96,
 })`
   margin-bottom: 24px;
 `;
 
-export const CoffeesImagesList = styled(AnimatedFlatList).attrs({
+export const ProductsImagesList = styled(AnimatedFlatList).attrs({
   showsVerticalScrollIndicator: false,
   decelerationRate: 'fast',
   snapToAlignment: 'center',

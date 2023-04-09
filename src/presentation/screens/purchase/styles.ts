@@ -12,17 +12,17 @@ export const WrapperScreen = styled.View`
   margin-top: 16px;
 `;
 
-export const CoffeeName = styled.Text`
+export const ProductName = styled.Text`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 9px;
 `;
 
-export const CoffeePrice = styled.Text`
+export const ProductPrice = styled.Text`
   font-size: 20px;
 `;
 
-export const CoffeeImage = styled.Image.attrs({
+export const ProductImage = styled.Image.attrs({
   resizeMode: 'contain',
 })`
   width: 340px;

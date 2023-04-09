@@ -5,18 +5,18 @@ import { ItemCoffeeDecorator } from '../../../presentation/decorators';
 import HomeView from './model';
 
 import {
-  CoffeeDetailsWrapper,
-  CoffeeName,
-  CoffeePrice,
-  CoffeesImagesEmptyWrapper,
-  CoffeesImagesList,
-  CoffeesImagesWrapper,
-  EmptyMessageCoffeesImages,
-  IconCoffeeEmpty,
+  EmptyMessageProductsImages,
+  IconProductEmpty,
   ListOfOptions,
   Option,
   OptionButton,
   OptionWrapper,
+  ProductDetailsWrapper,
+  ProductName,
+  ProductPrice,
+  ProductsImagesEmptyWrapper,
+  ProductsImagesList,
+  ProductsImagesWrapper,
   TryAgainMessage,
   UnderlineOfOption,
   Wrapper,
@@ -59,22 +59,22 @@ const Home: React.FC<HomeView> = ({
     );
   };
 
-  const renderCoffeeDetails = () => {
+  const renderProductDetails = () => {
     return (
       optionList.length !== 0 && (
-        <CoffeeDetailsWrapper os={getOs()} testID="coffee_details_id">
-          <CoffeeName testID="coffee_name_id">
+        <ProductDetailsWrapper os={getOs()} testID="coffee_details_id">
+          <ProductName testID="coffee_name_id">
             {selectedOptionItem.productName}
-          </CoffeeName>
-          <CoffeePrice testID="coffee_price_id">{`R$ ${selectedOptionItem.productPrice.toFixed(
+          </ProductName>
+          <ProductPrice testID="coffee_price_id">{`R$ ${selectedOptionItem.productPrice.toFixed(
             2,
-          )}`}</CoffeePrice>
-        </CoffeeDetailsWrapper>
+          )}`}</ProductPrice>
+        </ProductDetailsWrapper>
       )
     );
   };
 
-  const renderItemCoffee = ({ item, index }: { item: any; index: any }) => {
+  const renderItemProduct = ({ item, index }: { item: any; index: any }) => {
     return (
       <ItemCoffeeDecorator
         index={index}
@@ -86,25 +86,25 @@ const Home: React.FC<HomeView> = ({
     );
   };
 
-  const renderMessageIfCoffeesImagesIsEmpty = () => {
+  const renderMessageIfProductsImagesIsEmpty = () => {
     if (optionList.length === 0) {
       return (
-        <CoffeesImagesEmptyWrapper>
-          <IconCoffeeEmpty testID="icon_option_list_empty_id" />
-          <EmptyMessageCoffeesImages testID="message_option_list_empty_id">
+        <ProductsImagesEmptyWrapper>
+          <IconProductEmpty testID="icon_option_list_empty_id" />
+          <EmptyMessageProductsImages testID="message_option_list_empty_id">
             {optionSelected.emptyMessage}
-          </EmptyMessageCoffeesImages>
+          </EmptyMessageProductsImages>
           <TryAgainMessage>{'try again another time'}</TryAgainMessage>
-        </CoffeesImagesEmptyWrapper>
+        </ProductsImagesEmptyWrapper>
       );
     }
   };
 
-  const renderCoffeesImages = () => {
+  const renderProductsImages = () => {
     return (
-      <CoffeesImagesWrapper>
+      <ProductsImagesWrapper>
         {optionList.length !== 0 && (
-          <CoffeesImagesList
+          <ProductsImagesList
             viewabilityConfigCallbackPairs={
               viewabilityConfigCallbackPairs.current
             }
@@ -113,19 +113,19 @@ const Home: React.FC<HomeView> = ({
             data={optionList}
             snapToInterval={getItemHeight(getOs())}
             keyExtractor={(item, index) => String(index)}
-            renderItem={renderItemCoffee}
+            renderItem={renderItemProduct}
           />
         )}
-      </CoffeesImagesWrapper>
+      </ProductsImagesWrapper>
     );
   };
   return (
     <Wrapper style={{ marginHorizontal: 12, flex: 1 }}>
       {renderListOfOptions()}
       <Wrapper style={{ flex: 1 }}>
-        {renderCoffeeDetails()}
-        {renderCoffeesImages()}
-        {renderMessageIfCoffeesImagesIsEmpty()}
+        {renderProductDetails()}
+        {renderProductsImages()}
+        {renderMessageIfProductsImagesIsEmpty()}
       </Wrapper>
     </Wrapper>
   );

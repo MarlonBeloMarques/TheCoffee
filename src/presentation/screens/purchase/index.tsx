@@ -2,9 +2,6 @@ import React from 'react';
 import { ImageSourcePropType } from 'react-native';
 import PurchaseView from './model';
 import {
-  CoffeeImage,
-  CoffeeName,
-  CoffeePrice,
   ConfirmPurchaseButton,
   ConfirmPurchaseButtonDescription,
   CreditCardIcon,
@@ -12,6 +9,9 @@ import {
   CreditCardWrapper,
   PaymentDescription,
   PaymentWrapper,
+  ProductImage,
+  ProductName,
+  ProductPrice,
   Wrapper,
   WrapperScreen,
 } from './styles';
@@ -24,15 +24,15 @@ const Purchase: React.FC<PurchaseView> = ({
   return (
     <WrapperScreen>
       <Wrapper>
-        <CoffeeName testID="coffee_name_id">
+        <ProductName testID="coffee_name_id">
           {productSelected.productName}
-        </CoffeeName>
-        <CoffeePrice testID="coffee_price_id">{`R$ ${productSelected.productPrice.toFixed(
+        </ProductName>
+        <ProductPrice testID="coffee_price_id">{`R$ ${productSelected.productPrice.toFixed(
           2,
-        )}`}</CoffeePrice>
+        )}`}</ProductPrice>
       </Wrapper>
       <Wrapper style={{ flex: 0.8, justifyContent: 'center' }}>
-        <CoffeeImage
+        <ProductImage
           testID="coffee_image_id"
           source={productSelected.productImage as ImageSourcePropType}
         />
