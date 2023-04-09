@@ -4,9 +4,9 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { Home } from '~/presentation/screens';
 import * as Utils from '~/presentation/helpers/utils';
 import {
-  Coffee,
   Option,
   OptionOfList,
+  Product,
 } from '../../../../src/presentation/viewModels/model/homeViewModel';
 import getListOfOptionsFake from '../../fakers/listOfOptionsFake';
 import getOptionSelectedFake from '../../fakers/optionSelectedFake';
@@ -30,7 +30,7 @@ describe('UI: Home', () => {
     const listOfOptions = getListOfOptionsFake();
     const {
       sut: { getByTestId },
-    } = makeSut([], {} as Coffee, listOfOptions);
+    } = makeSut([], {} as Product, listOfOptions);
 
     listOfOptions.forEach((optionByList) => {
       const option = getByTestId(`option_${optionByList.id}_id`);
@@ -43,7 +43,7 @@ describe('UI: Home', () => {
     const {
       sut: { getByTestId },
       selectOption,
-    } = makeSut([], {} as Coffee, listOfOptions);
+    } = makeSut([], {} as Product, listOfOptions);
 
     const optionSelected = getByTestId(`option_2_id`);
 
@@ -59,7 +59,7 @@ describe('UI: Home', () => {
 
     const {
       sut: { getByTestId, queryByTestId },
-    } = makeSut([], {} as Coffee, listOfOptions, optionSelected);
+    } = makeSut([], {} as Product, listOfOptions, optionSelected);
     const underlineOptionSelected = getByTestId(`underline_option_2_id`);
     const underlineOptionOther = queryByTestId(`underline_option_1_id`);
 
@@ -84,10 +84,10 @@ describe('UI: Home', () => {
       sut: { getByTestId },
     } = makeSut(optionList);
 
-    optionList.forEach(({ coffeeImage, id }) => {
+    optionList.forEach(({ productImage, id }) => {
       const coffee = getByTestId(`coffee_image_${id}_id`);
       expect(coffee.type).toEqual('Image');
-      expect(coffee.props.source).toEqual(coffeeImage);
+      expect(coffee.props.source).toEqual(productImage);
     });
   });
 
@@ -97,10 +97,10 @@ describe('UI: Home', () => {
       sut: { getByTestId },
     } = makeSut(optionList, optionList[0]);
 
-    const coffeePrice = getByTestId('coffee_price_id');
+    const productPrice = getByTestId('coffee_price_id');
 
-    expect(coffeePrice.props.children).toEqual(
-      `R$ ${optionList[0].coffeePrice.toFixed(2)}`,
+    expect(productPrice.props.children).toEqual(
+      `R$ ${optionList[0].productPrice.toFixed(2)}`,
     );
   });
 
@@ -202,7 +202,7 @@ describe('UI: Home', () => {
     expect(scrollHandler).not.toHaveBeenCalled();
   });
 
-  test('should set viewabilityConfigCallbackPairs of CoffeesImagesList with the same value received by param', async () => {
+  test('should set viewabilityConfigCallbackPairs of ProductsImagesList with the same value received by param', async () => {
     const viewabilityConfigCallbackPairsStub =
       getViewabilityConfigCallbackPairsStub();
     const {
@@ -251,7 +251,7 @@ describe('UI: Home', () => {
     expect(setSelectedOption).toHaveBeenCalledTimes(1);
   });
 
-  test('should update marginBottom style of ItemCoffee if is last list position', async () => {
+  test('should update marginBottom style of ItemProduct if is last list position', async () => {
     const optionList = getOptionListFake();
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -268,22 +268,22 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const anyCoffeeImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
-    const lastCoffeeImageWrapper = getByTestId(
+    const anyProductImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
+    const lastProductImageWrapper = getByTestId(
       `coffee_image_wrapper_${optionList.length - 1}_id`,
     );
 
-    expect(anyCoffeeImageWrapper.props.style).toEqual({
+    expect(anyProductImageWrapper.props.style).toEqual({
       marginBottom: 0,
       marginTop: 0,
     });
-    expect(lastCoffeeImageWrapper.props.style).toEqual({
+    expect(lastProductImageWrapper.props.style).toEqual({
       marginBottom: 26,
       marginTop: 0,
     });
   });
 
-  test('should update marginTop style of ItemCoffee if is first list position', async () => {
+  test('should update marginTop style of ItemProduct if is first list position', async () => {
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
       getViewabilityConfigCallbackPairsStub();
@@ -299,14 +299,16 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const anyCoffeeImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
-    const firstCoffeeImageWrapper = getByTestId(`coffee_image_wrapper_${0}_id`);
+    const anyProductImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
+    const firstProductImageWrapper = getByTestId(
+      `coffee_image_wrapper_${0}_id`,
+    );
 
-    expect(anyCoffeeImageWrapper.props.style).toEqual({
+    expect(anyProductImageWrapper.props.style).toEqual({
       marginBottom: 0,
       marginTop: 0,
     });
-    expect(firstCoffeeImageWrapper.props.style).toEqual({
+    expect(firstProductImageWrapper.props.style).toEqual({
       marginBottom: 0,
       marginTop: 26,
     });
@@ -518,8 +520,8 @@ describe('UI: Home', () => {
 });
 
 const makeSut = (
-  optionList: Array<Coffee> = [],
-  selectedOptionItem: Coffee = getSelectedOptionItemStub(),
+  optionList: Array<Product> = [],
+  selectedOptionItem: Product = getSelectedOptionItemStub(),
   listOfOptions: Array<OptionOfList> = [],
   optionSelected: Option = getOptionSelectedFake(),
   scrollHandler = () => {},

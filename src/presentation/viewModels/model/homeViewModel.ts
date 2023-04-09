@@ -1,10 +1,10 @@
 import { ImageSourcePropType } from 'react-native';
 
-export type Coffee = {
+export type Product = {
   id: string;
-  coffeeName: string;
-  coffeePrice: number;
-  coffeeImage: ImageSourcePropType | string;
+  productName: string;
+  productPrice: number;
+  productImage: ImageSourcePropType | string;
   optionId: string;
 };
 
@@ -15,7 +15,7 @@ export interface Option {
 }
 
 interface ListOfOption {
-  list: Array<Coffee>;
+  list: Array<Product>;
 }
 
 export type OptionOfList = Option & ListOfOption;
@@ -24,10 +24,10 @@ type HomeViewModel = {
   listOfOptions: Array<OptionOfList>;
   selectOption: (option: OptionOfList) => void;
   optionSelected: Option;
-  selectedOptionItem: Coffee;
-  optionList: Array<Coffee>;
-  setSelectedOption: (option: Coffee) => void;
-  updateSelectedOptionItem: (coffeeImageViewed: Coffee) => void;
+  selectedOptionItem: Product;
+  optionList: Array<Product>;
+  setSelectedOption: (option: Product) => void;
+  updateSelectedOptionItem: (productImageViewed: Product) => void;
 };
 
 export default HomeViewModel;

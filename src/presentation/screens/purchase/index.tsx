@@ -17,7 +17,7 @@ import {
 } from './styles';
 
 const Purchase: React.FC<PurchaseView> = ({
-  coffeeSelected,
+  productSelected,
   paymentDetail,
   confirmPurchase,
 }) => {
@@ -25,16 +25,16 @@ const Purchase: React.FC<PurchaseView> = ({
     <WrapperScreen>
       <Wrapper>
         <CoffeeName testID="coffee_name_id">
-          {coffeeSelected.coffeeName}
+          {productSelected.productName}
         </CoffeeName>
-        <CoffeePrice testID="coffee_price_id">{`R$ ${coffeeSelected.coffeePrice.toFixed(
+        <CoffeePrice testID="coffee_price_id">{`R$ ${productSelected.productPrice.toFixed(
           2,
         )}`}</CoffeePrice>
       </Wrapper>
       <Wrapper style={{ flex: 0.8, justifyContent: 'center' }}>
         <CoffeeImage
           testID="coffee_image_id"
-          source={coffeeSelected.coffeeImage as ImageSourcePropType}
+          source={productSelected.productImage as ImageSourcePropType}
         />
       </Wrapper>
       <PaymentWrapper>

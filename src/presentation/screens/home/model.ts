@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 
-type Coffee = {
+type Product = {
   id: string;
-  coffeeName: string;
-  coffeePrice: number;
-  coffeeImage: ImageSourcePropType | string;
+  productName: string;
+  productPrice: number;
+  productImage: ImageSourcePropType | string;
   optionId: string;
 };
 
@@ -21,7 +21,7 @@ interface Option {
 }
 
 interface ListOfOption {
-  list: Array<Coffee>;
+  list: Array<Product>;
 }
 
 type OptionOfList = Option & ListOfOption;
@@ -31,10 +31,10 @@ type HomeView = {
   listOfOptions: Array<OptionOfList>;
   selectOption: (option: OptionOfList) => void;
   optionSelected: Option;
-  selectedOptionItem: Coffee;
-  optionList: Array<Coffee>;
+  selectedOptionItem: Product;
+  optionList: Array<Product>;
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  setSelectedOption: (option: Coffee) => void;
+  setSelectedOption: (option: Product) => void;
   viewabilityConfigCallbackPairs: React.MutableRefObject<ViewabilityConfigCallbackPairs>;
 };
 

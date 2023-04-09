@@ -30,9 +30,9 @@ const useHomeController = ({
     (info: { changed: ViewToken[] }): void => {
       const changed = info.changed;
       updateSelectedOptionItem({
-        coffeeImage: changed[0].item.coffeeImage,
-        coffeeName: changed[0].item.coffeeName,
-        coffeePrice: changed[0].item.coffeePrice,
+        productImage: changed[0].item.productImage,
+        productName: changed[0].item.productName,
+        productPrice: changed[0].item.productPrice,
         id: changed[0].item.id,
         optionId: changed[0].item.optionId,
       });

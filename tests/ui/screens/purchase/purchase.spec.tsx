@@ -11,7 +11,7 @@ describe('UI: Purchase', () => {
     } = makeSut();
     const coffeeName = getByTestId('coffee_name_id');
 
-    expect(coffeeName.props.children).toEqual(coffee.coffeeName);
+    expect(coffeeName.props.children).toEqual(coffee.productName);
   });
 
   test('should show price of coffee in correct pattern', () => {
@@ -22,7 +22,7 @@ describe('UI: Purchase', () => {
     const coffeePrice = getByTestId('coffee_price_id');
 
     expect(coffeePrice.props.children).toEqual(
-      `R$ ${coffee.coffeePrice.toFixed(2)}`,
+      `R$ ${coffee.productPrice.toFixed(2)}`,
     );
   });
 
@@ -33,7 +33,7 @@ describe('UI: Purchase', () => {
     } = makeSut();
     const coffeeImage = getByTestId('coffee_image_id');
     expect(coffeeImage.type).toEqual('Image');
-    expect(coffeeImage.props.source).toEqual(coffee.coffeeImage);
+    expect(coffeeImage.props.source).toEqual(coffee.productImage);
   });
 
   test('should show payment description with success', () => {
@@ -96,7 +96,7 @@ const makeSut = (confirmPurchase = () => {}) => {
 
   const sut = render(
     <Purchase
-      coffeeSelected={coffee}
+      productSelected={coffee}
       paymentDetail={paymentDetail}
       confirmPurchase={confirmPurchase}
     />,

@@ -1,23 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
 import { GetListOfOptions, NavigateToPurchase } from '~/domain/useCases';
 import { HomeViewModel } from './model';
-import { Coffee, Option, OptionOfList } from './model/homeViewModel';
+import { Option, OptionOfList, Product } from './model/homeViewModel';
 
 const useHomeViewModel = (
   getListOfOptions: GetListOfOptions,
   navigateToPurchase: NavigateToPurchase,
 ): HomeViewModel => {
   const [listOfOptions, setListOfOptions] = useState<Array<OptionOfList>>([]);
-  const [optionList, setOptionList] = useState<Array<Coffee>>([]);
+  const [optionList, setOptionList] = useState<Array<Product>>([]);
   const [optionSelected, setOptionSelected] = useState<Option>({
     id: '',
     option: '',
     emptyMessage: '',
   });
-  const [selectedOptionItem, setSelectedOptionItem] = useState<Coffee>({
-    coffeeImage: '',
-    coffeeName: '',
-    coffeePrice: 0,
+  const [selectedOptionItem, setSelectedOptionItem] = useState<Product>({
+    productImage: '',
+    productName: '',
+    productPrice: 0,
     id: '',
     optionId: '',
   });
@@ -55,14 +55,14 @@ const useHomeViewModel = (
     [selectOption],
   );
 
-  const setSelectedOption = (option: Coffee) => {
+  const setSelectedOption = (option: Product) => {
     setSelectedOptionItem(option);
-    navigateToPurchase.navigate({ coffeeSelected: JSON.stringify(option) });
+    navigateToPurchase.navigate({ productSelected: JSON.stringify(option) });
   };
 
   const updateSelectedOptionItem = useCallback(
-    (coffeeImageViewed: Coffee) => {
-      setSelectedOptionItem(coffeeImageViewed);
+    (productImageViewed: Product) => {
+      setSelectedOptionItem(productImageViewed);
     },
     [setSelectedOptionItem],
   );

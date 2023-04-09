@@ -1,7 +1,7 @@
 const { Routes } = Modules;
 
 declare type StackParams = {
-  [Routes.PURCHASE]: { coffeeSelected: string };
+  [Routes.PURCHASE]: { productSelected: string };
   [Routes.HOME]: undefined;
   [Routes.WELCOME]: undefined;
 };

@@ -64,9 +64,9 @@ const Home: React.FC<HomeView> = ({
       optionList.length !== 0 && (
         <CoffeeDetailsWrapper os={getOs()} testID="coffee_details_id">
           <CoffeeName testID="coffee_name_id">
-            {selectedOptionItem.coffeeName}
+            {selectedOptionItem.productName}
           </CoffeeName>
-          <CoffeePrice testID="coffee_price_id">{`R$ ${selectedOptionItem.coffeePrice.toFixed(
+          <CoffeePrice testID="coffee_price_id">{`R$ ${selectedOptionItem.productPrice.toFixed(
             2,
           )}`}</CoffeePrice>
         </CoffeeDetailsWrapper>

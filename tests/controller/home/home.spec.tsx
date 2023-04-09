@@ -14,8 +14,8 @@ import getOptionListFake from '../../ui/fakers/optionListFake';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
 import useHomeController from '../../../src/presentation/screens/home/usehomeController';
 import {
-  Coffee,
   OptionOfList,
+  Product,
 } from '../../../src/presentation/viewModels/model/homeViewModel';
 import HomeView from '../../../src/presentation/screens/home/model';
 
@@ -36,8 +36,8 @@ describe('Controller: Home', () => {
 
   test('should update selectedOptionItem when called onViewableItemsChanged of viewabilityConfigCallbackPairs', async () => {
     let selectedOptionItem = getSelectedOptionItemStub();
-    const updateSelectedOptionItem = (coffeeImageViewed: Coffee) => {
-      selectedOptionItem = coffeeImageViewed;
+    const updateSelectedOptionItem = (productImageViewed: Product) => {
+      selectedOptionItem = productImageViewed;
     };
     const listOptions = getListOfOptionsFake();
     const { sut } = makeSut(
@@ -64,7 +64,7 @@ describe('Controller: Home', () => {
 const makeSut = (
   listOfOptions = getListOfOptionsFake(),
   selectedOptionItem = getSelectedOptionItemStub(),
-  updateSelectedOptionItem: (coffeeImageViewed: Coffee) => void = () => {},
+  updateSelectedOptionItem: (productImageViewed: Product) => void = () => {},
 ) => {
   const selectOption = jest.fn();
 
@@ -96,9 +96,9 @@ const onViewableItemsChanged = (
         changed: [
           {
             item: {
-              coffeeImage: listOptions[0].list[0].coffeeImage,
-              coffeeName: listOptions[0].list[0].coffeeName,
-              coffeePrice: listOptions[0].list[0].coffeePrice,
+              productImage: listOptions[0].list[0].productImage,
+              productName: listOptions[0].list[0].productName,
+              productPrice: listOptions[0].list[0].productPrice,
               id: listOptions[0].list[0].id,
               optionId: listOptions[0].list[0].optionId,
             },

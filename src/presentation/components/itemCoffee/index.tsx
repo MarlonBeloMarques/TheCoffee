@@ -7,14 +7,14 @@ import {
   scaleAnimation,
 } from '~/presentation/helpers/animations';
 import { getOs } from '~/presentation/helpers/utils';
-import { Coffee } from '../../viewModels/model/homeViewModel';
+import { Product } from '../../viewModels/model/homeViewModel';
 import { AnimatedView, CoffeeImage } from './styles';
 
 type Props = {
   index: number;
-  item: Coffee;
+  item: Product;
   transY: SharedValue<number>;
-  onPress: (option: Coffee) => void;
+  onPress: (option: Product) => void;
 };
 
 const ItemCoffee: React.FC<Props> = ({ index, item, transY, onPress }) => {
@@ -35,7 +35,7 @@ const ItemCoffee: React.FC<Props> = ({ index, item, transY, onPress }) => {
         <CoffeeImage
           os={getOs()}
           testID={`coffee_image_${item.id}_id`}
-          source={item.coffeeImage as ImageSourcePropType}
+          source={item.productImage as ImageSourcePropType}
         />
       </TouchableOpacity>
     </AnimatedView>

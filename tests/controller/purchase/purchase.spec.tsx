@@ -6,10 +6,10 @@ import usePurchaseController from '../../../src/presentation/screens/purchase/us
 
 describe('Controller: Purchase', () => {
   test('should get the same coffee received by param', () => {
-    const { sut, coffeeSelected } = makeSut();
+    const { sut, productSelected } = makeSut();
 
-    const coffee = sut.result.current.coffeeSelected;
-    expect(coffee).toEqual(coffeeSelected);
+    const coffee = sut.result.current.productSelected;
+    expect(coffee).toEqual(productSelected);
   });
 
   test('should show alert with success when call confirmPurchase', () => {
@@ -51,18 +51,18 @@ const makeSut = () => {
   const navigateScreenSpy = new NavigateSpy();
 
   const paymentDetailStub = getPaymentDetailStub();
-  const coffeeSelected = getSelectedOptionItemStub();
-  const coffeeSelectedOfTypeString = JSON.stringify(coffeeSelected);
+  const productSelected = getSelectedOptionItemStub();
+  const productSelectedOfTypeString = JSON.stringify(productSelected);
 
   const sut = renderHook(() =>
     usePurchaseController({
-      coffeeSelected: coffeeSelectedOfTypeString,
+      productSelected: productSelectedOfTypeString,
       paymentDetail: paymentDetailStub,
       navigateToHome: navigateScreenSpy,
     }),
   );
 
-  return { sut, paymentDetailStub, navigateScreenSpy, coffeeSelected };
+  return { sut, paymentDetailStub, navigateScreenSpy, productSelected };
 };
 
 const getPaymentDetailStub = () => {

@@ -1,11 +1,11 @@
-import { Coffee } from '../../../src/presentation/viewModels/model/homeViewModel';
+import { Product } from '../../../src/presentation/viewModels/model/homeViewModel';
 
-const getSelectedOptionItemStub = (): Coffee => {
+const getSelectedOptionItemStub = (): Product => {
   return {
     id: '',
-    coffeeName: '',
-    coffeePrice: 0,
-    coffeeImage: 'any_coffee_image.png',
+    productName: '',
+    productPrice: 0,
+    productImage: 'any_coffee_image.png',
     optionId: '',
   };
 };

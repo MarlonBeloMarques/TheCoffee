@@ -1,4 +1,4 @@
-import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
+import { Product } from '../../../presentation/viewModels/model/homeViewModel';
 
 export type PaymentDetail = {
   creditCard: {
@@ -7,7 +7,7 @@ export type PaymentDetail = {
 };
 
 type PurchaseView = {
-  coffeeSelected: Coffee;
+  productSelected: Product;
   paymentDetail: PaymentDetail;
   confirmPurchase: () => void;
 };

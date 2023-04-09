@@ -1,4 +1,6 @@
-const getListOfOptionsFake = () => {
+import { Option } from '~/domain/models';
+
+const getListOfOptionsFake = (): Option[] => {
   return [
     {
       id: '1',
@@ -6,16 +8,16 @@ const getListOfOptionsFake = () => {
       list: [
         {
           id: '1',
-          coffeeName: 'Iced Latte',
-          coffeeImage: 'any_coffee_image.png',
-          coffeePrice: 0,
+          productName: 'Iced Latte',
+          productImage: 'any_coffee_image.png',
+          productPrice: 0,
           optionId: '1',
         },
         {
           id: '2',
-          coffeeName: 'Mocha',
-          coffeeImage: 'any_coffee_image.png',
-          coffeePrice: 0,
+          productName: 'Mocha',
+          productImage: 'any_coffee_image.png',
+          productPrice: 0,
           optionId: '1',
         },
       ],

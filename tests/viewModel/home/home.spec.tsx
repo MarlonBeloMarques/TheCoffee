@@ -175,7 +175,7 @@ describe('ViewModel: Home', () => {
 
     expect(navigate.navigateToPurchaseCalled).toEqual(true);
     expect(navigate.navigateToPurchaseParams).toEqual({
-      coffeeSelected: JSON.stringify(listOptions[0].list[1]),
+      productSelected: JSON.stringify(listOptions[0].list[1]),
     });
   });
 });

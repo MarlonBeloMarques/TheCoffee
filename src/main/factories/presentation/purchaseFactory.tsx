@@ -13,7 +13,7 @@ type Props = {
 
 const PurchaseFactory: React.FC<Props> = ({ route }) => {
   const purchaseController = usePurchaseController({
-    coffeeSelected: route.params!.coffeeSelected,
+    productSelected: route.params!.productSelected,
     paymentDetail: { creditCard: { number: '**5012' } },
     navigateToHome: navigateScreenHomeFactory(new ReactNavigationAdapter()),
   });

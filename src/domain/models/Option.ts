@@ -1,15 +1,15 @@
 type Option = {
   id: string;
   option: string;
-  list: Array<Coffee>;
+  list: Array<Product>;
   emptyMessage: string;
 };
 
-type Coffee = {
+type Product = {
   id: string;
-  coffeeName: string;
-  coffeeImage: string;
-  coffeePrice: number;
+  productName: string;
+  productImage: string;
+  productPrice: number;
   optionId: string;
 };
 
