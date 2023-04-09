@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
-import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainerRef } from '@react-navigation/native';
 import { Navigation, setTopLevelNavigator } from './navigation';
 
@@ -11,10 +10,6 @@ type Props = {
 };
 
 const Main: React.FC<Props> = ({ initialRouteName, screensStack }) => {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
-
   return (
     <WrapperScreen>
       <StatusBar barStyle={'dark-content'} />
