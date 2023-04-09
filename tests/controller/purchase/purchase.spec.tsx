@@ -5,11 +5,11 @@ import getSelectedOptionItemStub from '../../ui/stubs/selectedOptionItemStub';
 import usePurchaseController from '../../../src/presentation/screens/purchase/usePurchaseController';
 
 describe('Controller: Purchase', () => {
-  test('should get the same coffee received by param', () => {
+  test('should get the same product received by param', () => {
     const { sut, productSelected } = makeSut();
 
-    const coffee = sut.result.current.productSelected;
-    expect(coffee).toEqual(productSelected);
+    const product = sut.result.current.productSelected;
+    expect(product).toEqual(productSelected);
   });
 
   test('should show alert with success when call confirmPurchase', () => {

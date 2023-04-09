@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import { SharedValue } from 'react-native-reanimated';
 import { ItemCoffee } from '~/presentation/components';
 import { getOs } from '~/presentation/helpers/utils';
-import { Coffee } from '../../../presentation/viewModels/model/homeViewModel';
+import { Product } from '../../../presentation/viewModels/model/homeViewModel';
 
 type Props = {
-  item: Coffee;
+  item: Product;
   index: number;
-  optionList: Array<Coffee>;
+  optionList: Array<Product>;
   transY: SharedValue<number>;
-  setSelectedOption: (option: Coffee) => void;
+  setSelectedOption: (option: Product) => void;
 };
 
 const ItemCoffeeDecorator: React.FC<Props> = ({
@@ -23,7 +23,7 @@ const ItemCoffeeDecorator: React.FC<Props> = ({
   const lastPosition = optionList.length - 1;
   return (
     <View
-      testID={`coffee_image_wrapper_${index}_id`}
+      testID={`product_image_wrapper_${index}_id`}
       style={{
         marginBottom:
           lastPosition === index ? (getOs() === 'ios' ? 26 : 40) : 0,

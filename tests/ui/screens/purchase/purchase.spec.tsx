@@ -4,36 +4,36 @@ import getSelectedOptionItemStub from '../../../ui/stubs/selectedOptionItemStub'
 import Purchase from '../../../../src/presentation/screens/purchase';
 
 describe('UI: Purchase', () => {
-  test('should show coffee name with success', () => {
+  test('should show product name with success', () => {
     const {
-      coffee,
+      product,
       sut: { getByTestId },
     } = makeSut();
-    const coffeeName = getByTestId('coffee_name_id');
+    const productName = getByTestId('product_name_id');
 
-    expect(coffeeName.props.children).toEqual(coffee.productName);
+    expect(productName.props.children).toEqual(product.productName);
   });
 
-  test('should show price of coffee in correct pattern', () => {
+  test('should show price of product in correct pattern', () => {
     const {
-      coffee,
+      product,
       sut: { getByTestId },
     } = makeSut();
-    const coffeePrice = getByTestId('coffee_price_id');
+    const productPrice = getByTestId('product_price_id');
 
-    expect(coffeePrice.props.children).toEqual(
-      `R$ ${coffee.productPrice.toFixed(2)}`,
+    expect(productPrice.props.children).toEqual(
+      `R$ ${product.productPrice.toFixed(2)}`,
     );
   });
 
-  test('should show image of coffee with success', () => {
+  test('should show image of product with success', () => {
     const {
-      coffee,
+      product,
       sut: { getByTestId },
     } = makeSut();
-    const coffeeImage = getByTestId('coffee_image_id');
-    expect(coffeeImage.type).toEqual('Image');
-    expect(coffeeImage.props.source).toEqual(coffee.productImage);
+    const productImage = getByTestId('product_image_id');
+    expect(productImage.type).toEqual('Image');
+    expect(productImage.props.source).toEqual(product.productImage);
   });
 
   test('should show payment description with success', () => {
@@ -91,18 +91,18 @@ describe('UI: Purchase', () => {
 });
 
 const makeSut = (confirmPurchase = () => {}) => {
-  const coffee = getSelectedOptionItemStub();
+  const product = getSelectedOptionItemStub();
   const paymentDetail = getPaymentDetailStub();
 
   const sut = render(
     <Purchase
-      productSelected={coffee}
+      productSelected={product}
       paymentDetail={paymentDetail}
       confirmPurchase={confirmPurchase}
     />,
   );
 
-  return { sut, paymentDetail, coffee };
+  return { sut, paymentDetail, product };
 };
 
 const getPaymentDetailStub = () => {

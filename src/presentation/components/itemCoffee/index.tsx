@@ -34,7 +34,7 @@ const ItemCoffee: React.FC<Props> = ({ index, item, transY, onPress }) => {
       <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)}>
         <CoffeeImage
           os={getOs()}
-          testID={`coffee_image_${item.id}_id`}
+          testID={`product_image_${item.id}_id`}
           source={item.productImage as ImageSourcePropType}
         />
       </TouchableOpacity>

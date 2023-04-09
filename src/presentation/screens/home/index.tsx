@@ -62,11 +62,11 @@ const Home: React.FC<HomeView> = ({
   const renderProductDetails = () => {
     return (
       optionList.length !== 0 && (
-        <ProductDetailsWrapper os={getOs()} testID="coffee_details_id">
-          <ProductName testID="coffee_name_id">
+        <ProductDetailsWrapper os={getOs()} testID="product_details_id">
+          <ProductName testID="product_name_id">
             {selectedOptionItem.productName}
           </ProductName>
-          <ProductPrice testID="coffee_price_id">{`R$ ${selectedOptionItem.productPrice.toFixed(
+          <ProductPrice testID="product_price_id">{`R$ ${selectedOptionItem.productPrice.toFixed(
             2,
           )}`}</ProductPrice>
         </ProductDetailsWrapper>

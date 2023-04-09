@@ -67,50 +67,50 @@ describe('UI: Home', () => {
     expect(underlineOptionOther).not.toBeTruthy();
   });
 
-  test('should show coffees list component with success', async () => {
+  test('should show products list component with success', async () => {
     const optionList = getOptionListFake();
     const {
       sut: { getByTestId },
     } = makeSut(optionList);
 
-    const coffeesList = getByTestId('option_list_id');
+    const productsList = getByTestId('option_list_id');
 
-    expect(coffeesList).toBeTruthy();
+    expect(productsList).toBeTruthy();
   });
 
-  test('should show images coffee with success', async () => {
+  test('should show images product with success', async () => {
     const optionList = getOptionListFake();
     const {
       sut: { getByTestId },
     } = makeSut(optionList);
 
     optionList.forEach(({ productImage, id }) => {
-      const coffee = getByTestId(`coffee_image_${id}_id`);
-      expect(coffee.type).toEqual('Image');
-      expect(coffee.props.source).toEqual(productImage);
+      const product = getByTestId(`product_image_${id}_id`);
+      expect(product.type).toEqual('Image');
+      expect(product.props.source).toEqual(productImage);
     });
   });
 
-  test('should show price of coffee in correct pattern', () => {
+  test('should show price of product in correct pattern', () => {
     const optionList = getOptionListFake();
     const {
       sut: { getByTestId },
     } = makeSut(optionList, optionList[0]);
 
-    const productPrice = getByTestId('coffee_price_id');
+    const productPrice = getByTestId('product_price_id');
 
     expect(productPrice.props.children).toEqual(
       `R$ ${optionList[0].productPrice.toFixed(2)}`,
     );
   });
 
-  test('should not show coffees list if optionList is empty', () => {
+  test('should not show products list if optionList is empty', () => {
     const {
       sut: { queryByTestId },
     } = makeSut();
-    const coffeesList = queryByTestId('option_list_id');
+    const productsList = queryByTestId('option_list_id');
 
-    expect(coffeesList).not.toBeTruthy();
+    expect(productsList).not.toBeTruthy();
   });
 
   test('should show message of option list empty', () => {
@@ -146,31 +146,31 @@ describe('UI: Home', () => {
     expect(messageOptionListEmpty).toBeTruthy();
   });
 
-  test('should not show name coffee and price if optionList is empty', () => {
+  test('should not show name product and price if optionList is empty', () => {
     const {
       sut: { queryByTestId },
     } = makeSut();
 
-    const coffeeName = queryByTestId('coffee_name_id');
-    const coffeePrice = queryByTestId('coffee_price_id');
+    const productName = queryByTestId('product_name_id');
+    const productPrice = queryByTestId('product_price_id');
 
-    expect(coffeeName).not.toBeTruthy();
-    expect(coffeePrice).not.toBeTruthy();
+    expect(productName).not.toBeTruthy();
+    expect(productPrice).not.toBeTruthy();
   });
 
-  test('should not show name coffee and price if optionList is empty', () => {
+  test('should not show name product and price if optionList is empty', () => {
     const {
       sut: { queryByTestId },
     } = makeSut();
 
-    const coffeeName = queryByTestId('coffee_name_id');
-    const coffeePrice = queryByTestId('coffee_price_id');
+    const productName = queryByTestId('product_name_id');
+    const productPrice = queryByTestId('product_price_id');
 
-    expect(coffeeName).not.toBeTruthy();
-    expect(coffeePrice).not.toBeTruthy();
+    expect(productName).not.toBeTruthy();
+    expect(productPrice).not.toBeTruthy();
   });
 
-  test('should call scrollHandler when scrolled coffees images list', () => {
+  test('should call scrollHandler when scrolled products images list', () => {
     const scrollHandler = jest.fn();
     const {
       sut: { getByTestId },
@@ -189,7 +189,7 @@ describe('UI: Home', () => {
     expect(scrollHandler).toHaveBeenCalled();
   });
 
-  test('should not call scrollHandler if not scrolled coffees images list', () => {
+  test('should not call scrollHandler if not scrolled products images list', () => {
     const scrollHandler = jest.fn();
     makeSut(
       getOptionListFake(),
@@ -216,11 +216,11 @@ describe('UI: Home', () => {
       viewabilityConfigCallbackPairsStub,
     );
 
-    const coffeesImagesList = getByTestId('option_list_id');
+    const productsImagesList = getByTestId('option_list_id');
 
     await waitFor(() => {
       expect(
-        coffeesImagesList.props.viewabilityConfigCallbackPairs[0]
+        productsImagesList.props.viewabilityConfigCallbackPairs[0]
           .viewabilityConfig,
       ).toEqual(
         viewabilityConfigCallbackPairsStub.current[0].viewabilityConfig,
@@ -228,7 +228,7 @@ describe('UI: Home', () => {
     });
   });
 
-  test('should call setSelectedOption when press the coffee image', async () => {
+  test('should call setSelectedOption when press the product image', async () => {
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
       getViewabilityConfigCallbackPairsStub();
@@ -244,9 +244,9 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeImage = getByTestId('coffee_image_1_id');
+    const productImage = getByTestId('product_image_1_id');
 
-    fireEvent.press(coffeeImage);
+    fireEvent.press(productImage);
 
     expect(setSelectedOption).toHaveBeenCalledTimes(1);
   });
@@ -268,9 +268,9 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const anyProductImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
+    const anyProductImageWrapper = getByTestId(`product_image_wrapper_1_id`);
     const lastProductImageWrapper = getByTestId(
-      `coffee_image_wrapper_${optionList.length - 1}_id`,
+      `product_image_wrapper_${optionList.length - 1}_id`,
     );
 
     expect(anyProductImageWrapper.props.style).toEqual({
@@ -299,9 +299,9 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const anyProductImageWrapper = getByTestId(`coffee_image_wrapper_1_id`);
+    const anyProductImageWrapper = getByTestId(`product_image_wrapper_1_id`);
     const firstProductImageWrapper = getByTestId(
-      `coffee_image_wrapper_${0}_id`,
+      `product_image_wrapper_${0}_id`,
     );
 
     expect(anyProductImageWrapper.props.style).toEqual({
@@ -314,7 +314,7 @@ describe('UI: Home', () => {
     });
   });
 
-  test('should call setSelectedOption with correct param when press the coffee image', async () => {
+  test('should call setSelectedOption with correct param when press the product image', async () => {
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
       getViewabilityConfigCallbackPairsStub();
@@ -330,15 +330,15 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeImage = getByTestId('coffee_image_1_id');
+    const productImage = getByTestId('product_image_1_id');
 
-    fireEvent.press(coffeeImage);
+    fireEvent.press(productImage);
 
     expect(setSelectedOption).toHaveBeenCalledTimes(1);
     expect(setSelectedOption).toHaveBeenCalledWith(getOptionListFake()[0]);
   });
 
-  test('should the height coffee image equal to 400 if platform is equal iOS', async () => {
+  test('should the height product image equal to 400 if platform is equal iOS', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -355,12 +355,12 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeImage = getByTestId('coffee_image_1_id');
+    const productImage = getByTestId('product_image_1_id');
 
-    expect(coffeeImage.props.style[0].height).toEqual(400);
+    expect(productImage.props.style[0].height).toEqual(400);
   });
 
-  test('should the height coffee image equal to 533.6 if platform is equal android', async () => {
+  test('should the height product image equal to 533.6 if platform is equal android', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('android');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -377,12 +377,12 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeImage = getByTestId('coffee_image_1_id');
+    const productImage = getByTestId('product_image_1_id');
 
-    expect(coffeeImage.props.style[0].height).toEqual(533.6);
+    expect(productImage.props.style[0].height).toEqual(533.6);
   });
 
-  test('top margin of coffee details should equal 100 if platform equals ios', async () => {
+  test('top margin of product details should equal 100 if platform equals ios', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -399,12 +399,12 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeDetailsWrapper = getByTestId('coffee_details_id');
+    const productDetailsWrapper = getByTestId('product_details_id');
 
-    expect(coffeeDetailsWrapper.props.style[0].marginTop).toEqual(100);
+    expect(productDetailsWrapper.props.style[0].marginTop).toEqual(100);
   });
 
-  test('top margin of coffee details should equal 60 if platform equals android', async () => {
+  test('top margin of product details should equal 60 if platform equals android', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('android');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -421,12 +421,12 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeDetailsWrapper = getByTestId('coffee_details_id');
+    const productDetailsWrapper = getByTestId('product_details_id');
 
-    expect(coffeeDetailsWrapper.props.style[0].marginTop).toEqual(60);
+    expect(productDetailsWrapper.props.style[0].marginTop).toEqual(60);
   });
 
-  test('bottom margin of coffee image wrapper should equal 26 if platform equals ios', async () => {
+  test('bottom margin of product image wrapper should equal 26 if platform equals ios', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -443,14 +443,14 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeImageWrapper = getByTestId(
-      `coffee_image_wrapper_${getOptionListFake().length - 1}_id`,
+    const productImageWrapper = getByTestId(
+      `product_image_wrapper_${getOptionListFake().length - 1}_id`,
     );
 
-    expect(coffeeImageWrapper.props.style.marginBottom).toEqual(26);
+    expect(productImageWrapper.props.style.marginBottom).toEqual(26);
   });
 
-  test('bottom margin of coffee image wrapper should equal 40 if platform equals android', async () => {
+  test('bottom margin of product image wrapper should equal 40 if platform equals android', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('android');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -467,14 +467,14 @@ describe('UI: Home', () => {
       setSelectedOption,
     );
 
-    const coffeeImageWrapper = getByTestId(
-      `coffee_image_wrapper_${getOptionListFake().length - 1}_id`,
+    const productImageWrapper = getByTestId(
+      `product_image_wrapper_${getOptionListFake().length - 1}_id`,
     );
 
-    expect(coffeeImageWrapper.props.style.marginBottom).toEqual(40);
+    expect(productImageWrapper.props.style.marginBottom).toEqual(40);
   });
 
-  test('snapToInterval of coffees images list should equal 635 if platform equals ios', async () => {
+  test('snapToInterval of products images list should equal 635 if platform equals ios', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('ios');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =
@@ -496,7 +496,7 @@ describe('UI: Home', () => {
     expect(optionList.props.snapToInterval).toEqual(635.2380952380952);
   });
 
-  test('snapToInterval of coffees images list should equal 555 if platform equals android', async () => {
+  test('snapToInterval of products images list should equal 555 if platform equals android', async () => {
     jest.spyOn(Utils, 'getOs').mockReturnValue('android');
     const setSelectedOption = jest.fn();
     const viewabilityConfigCallbackPairsStub =

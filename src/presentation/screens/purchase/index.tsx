@@ -24,16 +24,16 @@ const Purchase: React.FC<PurchaseView> = ({
   return (
     <WrapperScreen>
       <Wrapper>
-        <ProductName testID="coffee_name_id">
+        <ProductName testID="product_name_id">
           {productSelected.productName}
         </ProductName>
-        <ProductPrice testID="coffee_price_id">{`R$ ${productSelected.productPrice.toFixed(
+        <ProductPrice testID="product_price_id">{`R$ ${productSelected.productPrice.toFixed(
           2,
         )}`}</ProductPrice>
       </Wrapper>
       <Wrapper style={{ flex: 0.8, justifyContent: 'center' }}>
         <ProductImage
-          testID="coffee_image_id"
+          testID="product_image_id"
           source={productSelected.productImage as ImageSourcePropType}
         />
       </Wrapper>
