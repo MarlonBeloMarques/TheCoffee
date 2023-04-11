@@ -13,3 +13,32 @@ Algo que me incomodava durante as escritas de testes automatizados no React Nati
 Testes automatizados e Arquitetura estão quase que diretamente relacionados, para se ter bons testes, é preciso uma arquitetura desacoplada. Pensando nisso, criei esse projeto com o foco principal em escrever testes sem alertas de errors etc. Para isso, devemos seguir um principio basico do desenvolvimento. Separar responsabilidades.
 
 Segue diagrama arquitetural:
+
+![PlanSelf-Arch.png](./readme/arch.png)
+
+### Build
+
+Agora o grand finale, na raiz do projeto, rode o seguinte comando:
+
+```bash
+yarn
+```
+
+Após isso, dependendo da plataforma que você deseja rodar a aplicação, execute:
+
+```bash
+yarn android
+```
+
+ou
+
+```bash
+yarn ios
+```
+
+### Contact
+
+Para entrar em contato comigo:
+- Instagram: [@marlonbelomarques](https://www.instagram.com/marlonbelomarques)
+- Linkedin: [Marlon Marques](https://www.linkedin.com/in/marlon-marques-0b509813b/)
+- Twitter: [@marlo_marq](https://twitter.com/marlo_marq)
