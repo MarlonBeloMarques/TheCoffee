@@ -12,9 +12,13 @@ Algo que me incomodava durante as escritas de testes automatizados no React Nati
 
 Testes automatizados e Arquitetura estão quase que diretamente relacionados, para se ter bons testes, é preciso uma arquitetura desacoplada. Pensando nisso, criei esse projeto com o foco principal em escrever testes sem alertas de errors etc. Para isso, devemos seguir um principio basico do desenvolvimento. Separar responsabilidades.
 
-Segue diagrama arquitetural:
+Segue diagramas arquiteturais:
 
-<img src="./readme/arch.png" width="780" height="978" />
+<p align="flex-start">
+   <img src="./readme/arch_layer.png"  width="359" />
+  <img src="./readme/layers_detail.png" width="478" />
+  <img src="./readme/arch.png" width="780" height="978" />
+</p>
 
 ### Sobre o Projeto
 
