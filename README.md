@@ -14,7 +14,17 @@ Testes automatizados e Arquitetura estão quase que diretamente relacionados, pa
 
 Segue diagrama arquitetural:
 
-![PlanSelf-Arch.png](./readme/arch.png)
+<img src="./readme/arch.png" width="780" height="978" />
+
+### Sobre o Projeto
+
+The Coffee Animation é uma aplicação inspirada no aplicativo do The Coffee, só que, com uma pitada de animação.
+
+<p align="flex-start">
+  <img src="./readme/welcome.png" width="225" height="487" />
+  <img src="./readme/home.png" width="225" height="487" />
+   <img src="./readme/purchase.png" width="225" height="487" />
+</p>
 
 ### Build
 
