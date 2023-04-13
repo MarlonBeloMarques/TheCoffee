@@ -1,8 +1,8 @@
 import { Product } from '../../../src/presentation/viewModels/model/homeViewModel';
 
-const getSelectedOptionItemStub = (): Product => {
+const getSelectedOptionItemStub = (id = ''): Product => {
   return {
-    id: '',
+    id,
     productName: '',
     productPrice: 0,
     productImage: 'any_coffee_image.png',

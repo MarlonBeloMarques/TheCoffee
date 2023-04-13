@@ -1,23 +1,23 @@
 {
-  "images" : [
+  "images": [
     {
-      "filename" : "the_coffee_icon.png",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename": "the_coffee_icon.png",
+      "idiom": "universal",
+      "scale": "1x"
     },
     {
-      "filename" : "the_coffee_icon@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
+      "filename": "the_coffee_icon@2x.png",
+      "idiom": "universal",
+      "scale": "2x"
     },
     {
-      "filename" : "the_coffee_icon@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename": "the_coffee_icon@3x.png",
+      "idiom": "universal",
+      "scale": "3x"
     }
   ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
+  "info": {
+    "author": "xcode",
+    "version": 1
   }
 }

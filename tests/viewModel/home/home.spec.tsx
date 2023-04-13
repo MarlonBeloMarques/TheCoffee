@@ -21,7 +21,7 @@ describe('ViewModel: Home', () => {
     });
   });
 
-  test('should update optionList with the same value as the listOfOptions list', async () => {
+  test('should update firstOptionList with the same value as the listOfOptions list', async () => {
     const listOfOptions = getListOfOptionsFake();
     const {
       sut: { result },
@@ -32,113 +32,11 @@ describe('ViewModel: Home', () => {
     });
 
     await waitFor(() => {
-      result.current.selectOption(listOfOptions[0]);
-      expect(result.current.optionList).toEqual(listOfOptions[0].list);
+      expect(result.current.firstOptionList).toEqual(listOfOptions[0].list);
     });
   });
 
-  test('should update optionSelected when call selectOption', async () => {
-    const listOfOptions = getListOfOptionsFake();
-    const {
-      sut: { result },
-    } = makeSut(listOfOptions);
-
-    await waitFor(() => {
-      result.current.selectOption(listOfOptions[0]);
-      expect(result.current.optionSelected).toEqual({
-        id: listOfOptions[0].id,
-        option: listOfOptions[0].option,
-        emptyMessage: listOfOptions[0].emptyMessage,
-      });
-    });
-  });
-
-  test('should to equal optionSelected and first option of listOfOptions', async () => {
-    const listOfOptions = getListOfOptionsFake();
-    const {
-      sut: { result },
-    } = makeSut(listOfOptions);
-
-    await waitFor(() => {
-      expect(result.current.optionSelected).toEqual({
-        id: listOfOptions[0].id,
-        option: listOfOptions[0].option,
-        emptyMessage: listOfOptions[0].emptyMessage,
-      });
-    });
-  });
-
-  test('should update optionList when initialize', async () => {
-    const listOptions = getListOfOptionsFake();
-    const { sut } = makeSut(getListOfOptionsFake());
-
-    await waitFor(() => {
-      expect(sut.result.current.optionList).toEqual(listOptions[0].list);
-    });
-  });
-
-  test('should update selectedOptionItem when initialize', async () => {
-    const listOptions = getListOfOptionsFake();
-    const {
-      sut: { result },
-    } = makeSut(listOptions);
-
-    await waitFor(() => {
-      expect(result.current.listOfOptions).toEqual(listOptions);
-    });
-
-    await waitFor(() => {
-      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
-    });
-  });
-
-  test('should update selectedOptionItem when call setSelectedOption', async () => {
-    const listOptions = getListOfOptionsFake();
-    const { sut } = makeSut(getListOfOptionsFake());
-
-    await waitFor(() => {
-      sut.result.current.setSelectedOption(listOptions[0].list[1]);
-      expect(sut.result.current.selectedOptionItem).toEqual(
-        listOptions[0].list[1],
-      );
-    });
-  });
-
-  test('should not update optionSelected if firstOption is undefined', async () => {
-    const {
-      sut: { result },
-    } = makeSut([]);
-
-    await waitFor(() => {
-      expect(result.current.listOfOptions).toEqual([]);
-    });
-
-    await waitFor(() => {
-      expect(result.current.optionSelected).toEqual({
-        id: '',
-        option: '',
-        emptyMessage: '',
-      });
-    });
-  });
-
-  test('should update selectedOptionItem when call updateSelectedOptionItem ', async () => {
-    const listOptions = getListOfOptionsFake();
-    const {
-      sut: { result },
-    } = makeSut(listOptions);
-
-    await waitFor(() => {
-      expect(result.current.listOfOptions).toEqual(listOptions);
-    });
-
-    await waitFor(() => {
-      result.current.updateSelectedOptionItem(listOptions[0].list[0]);
-      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
-    });
-  });
-
-  test('should navigate to purchase when call setSelectedOption', async () => {
+  test('should navigate to purchase when call navigate', async () => {
     const listOptions = getListOfOptionsFake();
     const {
       sut: { result },
@@ -149,15 +47,12 @@ describe('ViewModel: Home', () => {
       expect(result.current.listOfOptions).toEqual(listOptions);
     });
 
-    await waitFor(() => {
-      result.current.setSelectedOption(listOptions[0].list[1]);
-      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[1]);
-    });
+    result.current.navigate(listOptions[0].list[1]);
 
     expect(navigate.navigateToPurchaseCalled).toEqual(true);
   });
 
-  test('should navigate to purchase with correct param when call setSelectedOption', async () => {
+  test('should navigate to purchase with correct param when call navigate', async () => {
     const listOptions = getListOfOptionsFake();
     const {
       sut: { result },
@@ -168,10 +63,7 @@ describe('ViewModel: Home', () => {
       expect(result.current.listOfOptions).toEqual(listOptions);
     });
 
-    await waitFor(() => {
-      result.current.setSelectedOption(listOptions[0].list[1]);
-      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[1]);
-    });
+    result.current.navigate(listOptions[0].list[1]);
 
     expect(navigate.navigateToPurchaseCalled).toEqual(true);
     expect(navigate.navigateToPurchaseParams).toEqual({

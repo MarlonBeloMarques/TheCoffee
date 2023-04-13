@@ -8,15 +8,10 @@ import {
   renderHook,
   waitFor,
 } from '@testing-library/react-native';
-import getSelectedOptionItemStub from '../../ui/stubs/selectedOptionItemStub';
-import getOptionSelectedFake from '../../ui/fakers/optionSelectedFake';
+import useHomeController from '../../../src/presentation/screens/home/useHomeController';
 import getOptionListFake from '../../ui/fakers/optionListFake';
 import getListOfOptionsFake from '../../ui/fakers/listOfOptionsFake';
-import useHomeController from '../../../src/presentation/screens/home/usehomeController';
-import {
-  OptionOfList,
-  Product,
-} from '../../../src/presentation/viewModels/model/homeViewModel';
+import { OptionOfList } from '../../../src/presentation/viewModels/model/homeViewModel';
 import HomeView from '../../../src/presentation/screens/home/model';
 
 describe('Controller: Home', () => {
@@ -35,48 +30,180 @@ describe('Controller: Home', () => {
   });
 
   test('should update selectedOptionItem when called onViewableItemsChanged of viewabilityConfigCallbackPairs', async () => {
-    let selectedOptionItem = getSelectedOptionItemStub();
-    const updateSelectedOptionItem = (productImageViewed: Product) => {
-      selectedOptionItem = productImageViewed;
-    };
     const listOptions = getListOfOptionsFake();
-    const { sut } = makeSut(
-      listOptions,
-      selectedOptionItem,
-      updateSelectedOptionItem,
-    );
+    const firstOptionList = getOptionListFake();
+    const { sut } = makeSut(listOptions, firstOptionList);
 
-    onViewableItemsChanged(sut, listOptions);
-
-    expect(selectedOptionItem).toEqual(listOptions[0].list[0]);
+    await waitFor(() => {
+      onViewableItemsChanged(sut, listOptions);
+      expect(sut.result.current.selectedOptionItem).toEqual(
+        listOptions[0].list[0],
+      );
+    });
   });
 
   test('should update selectedOptionItem when initialize', async () => {
-    const selectedOptionItem = getSelectedOptionItemStub();
-
     const listOptions = getListOfOptionsFake();
-    const { sut } = makeSut(listOptions, selectedOptionItem);
+    const firstOptionList = getOptionListFake();
 
-    expect(sut.result.current.selectedOptionItem).toEqual(selectedOptionItem);
+    const { sut } = makeSut(listOptions, firstOptionList);
+
+    await waitFor(() => {
+      expect(sut.result.current.selectedOptionItem).toEqual(firstOptionList[0]);
+    });
+  });
+
+  test('should update optionList with the same value as the listOfOptions list', async () => {
+    const listOfOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOfOptions);
+    });
+
+    await waitFor(() => {
+      result.current.selectOption(listOfOptions[0]);
+      expect(result.current.optionList).toEqual(listOfOptions[0].list);
+    });
+  });
+
+  test('should update optionSelected when call selectOption', async () => {
+    const listOfOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
+
+    await waitFor(() => {
+      result.current.selectOption(listOfOptions[0]);
+      expect(result.current.optionSelected).toEqual({
+        id: listOfOptions[0].id,
+        option: listOfOptions[0].option,
+        emptyMessage: listOfOptions[0].emptyMessage,
+      });
+    });
+  });
+
+  test('should to equal optionSelected and first option of listOfOptions', async () => {
+    const listOfOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+    } = makeSut(listOfOptions);
+
+    await waitFor(() => {
+      expect(result.current.optionSelected).toEqual({
+        id: listOfOptions[0].id,
+        option: listOfOptions[0].option,
+        emptyMessage: listOfOptions[0].emptyMessage,
+      });
+    });
+  });
+
+  test('should update optionList when initialize', async () => {
+    const listOptions = getListOfOptionsFake();
+    const { sut } = makeSut(getListOfOptionsFake());
+
+    await waitFor(() => {
+      expect(sut.result.current.optionList).toEqual(listOptions[0].list);
+    });
+  });
+
+  test('should update selectedOptionItem when initialize', async () => {
+    const listOptions = getListOfOptionsFake();
+    const {
+      sut: { result },
+    } = makeSut(listOptions);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[0]);
+    });
+  });
+
+  test('should update selectedOptionItem when call setSelectedOption', async () => {
+    const listOptions = getListOfOptionsFake();
+    const { sut } = makeSut(getListOfOptionsFake());
+
+    await waitFor(() => {
+      sut.result.current.setSelectedOption(listOptions[0].list[1]);
+      expect(sut.result.current.selectedOptionItem).toEqual(
+        listOptions[0].list[1],
+      );
+    });
+  });
+
+  test('should not update optionSelected if firstOption is undefined', async () => {
+    const {
+      sut: { result },
+    } = makeSut([]);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual([]);
+    });
+
+    await waitFor(() => {
+      expect(result.current.optionSelected).toEqual({
+        id: '',
+        option: '',
+        emptyMessage: '',
+      });
+    });
+  });
+
+  test('should navigate to purchase with correct param when call setSelectedOption', async () => {
+    const listOptions = getListOfOptionsFake();
+    const navigateSpy = jest.fn();
+    const {
+      sut: { result },
+    } = makeSut(listOptions, getOptionListFake(), navigateSpy);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      result.current.setSelectedOption(listOptions[0].list[1]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[1]);
+    });
+
+    expect(navigateSpy).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(listOptions[0].list[1]);
+  });
+
+  test('should navigate to purchase when call setSelectedOption', async () => {
+    const listOptions = getListOfOptionsFake();
+    const navigateSpy = jest.fn();
+    const {
+      sut: { result },
+    } = makeSut(listOptions, getOptionListFake(), navigateSpy);
+
+    await waitFor(() => {
+      expect(result.current.listOfOptions).toEqual(listOptions);
+    });
+
+    await waitFor(() => {
+      result.current.setSelectedOption(listOptions[0].list[1]);
+      expect(result.current.selectedOptionItem).toEqual(listOptions[0].list[1]);
+    });
+
+    expect(navigateSpy).toHaveBeenCalled();
   });
 });
 
 const makeSut = (
   listOfOptions = getListOfOptionsFake(),
-  selectedOptionItem = getSelectedOptionItemStub(),
-  updateSelectedOptionItem: (productImageViewed: Product) => void = () => {},
+  firstOptionList = getOptionListFake(),
+  navigate = () => {},
 ) => {
-  const selectOption = jest.fn();
-
   const sut = renderHook(() =>
     useHomeController({
+      firstOptionList,
       listOfOptions,
-      optionList: getOptionListFake(),
-      optionSelected: getOptionSelectedFake(),
-      selectedOptionItem,
-      selectOption,
-      setSelectedOption: () => {},
-      updateSelectedOptionItem,
+      navigate,
     }),
   );
 

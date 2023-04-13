@@ -146,7 +146,7 @@ describe('UI: Home', () => {
     expect(messageOptionListEmpty).toBeTruthy();
   });
 
-  test('should not show name product and price if optionList is empty', () => {
+  test('should not show name product and price if selectedOptionItem is empty', () => {
     const {
       sut: { queryByTestId },
     } = makeSut();
@@ -158,7 +158,7 @@ describe('UI: Home', () => {
     expect(productPrice).not.toBeTruthy();
   });
 
-  test('should not show name product and price if optionList is empty', () => {
+  test('should not show name product and price if selectedOptionItem is empty', () => {
     const {
       sut: { queryByTestId },
     } = makeSut();
@@ -391,7 +391,7 @@ describe('UI: Home', () => {
       sut: { getByTestId },
     } = makeSut(
       getOptionListFake(),
-      getSelectedOptionItemStub(),
+      getSelectedOptionItemStub('any_id'),
       [],
       getOptionSelectedFake(),
       () => {},
@@ -413,7 +413,7 @@ describe('UI: Home', () => {
       sut: { getByTestId },
     } = makeSut(
       getOptionListFake(),
-      getSelectedOptionItemStub(),
+      getSelectedOptionItemStub('any_id'),
       [],
       getOptionSelectedFake(),
       () => {},
