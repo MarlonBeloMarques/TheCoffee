@@ -61,7 +61,8 @@ const Home: React.FC<HomeView> = ({
 
   const renderProductDetails = () => {
     return (
-      selectedOptionItem?.id && (
+      selectedOptionItem?.id &&
+      optionList.length !== 0 && (
         <ProductDetailsWrapper os={getOs()} testID="product_details_id">
           <ProductName testID="product_name_id">
             {selectedOptionItem.productName}

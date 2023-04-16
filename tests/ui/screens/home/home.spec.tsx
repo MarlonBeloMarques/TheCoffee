@@ -146,19 +146,7 @@ describe('UI: Home', () => {
     expect(messageOptionListEmpty).toBeTruthy();
   });
 
-  test('should not show name product and price if selectedOptionItem is empty', () => {
-    const {
-      sut: { queryByTestId },
-    } = makeSut();
-
-    const productName = queryByTestId('product_name_id');
-    const productPrice = queryByTestId('product_price_id');
-
-    expect(productName).not.toBeTruthy();
-    expect(productPrice).not.toBeTruthy();
-  });
-
-  test('should not show name product and price if selectedOptionItem is empty', () => {
+  test('should not show name product and price if selectedOptionItem and optionList are empty', () => {
     const {
       sut: { queryByTestId },
     } = makeSut();
